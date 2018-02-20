@@ -1,0 +1,12 @@
+<div class="container__standings">
+    <div class="entry" *ngFor="let entry of standings">
+        <div class="entry__position">
+            {{ entry.position }}
+        </div>
+        <div class="entry__colour"></div>
+        <div class="entry__driver">
+            {{ entry.driverName | lastName }}
+        </div>
+    </div>
+</div>
+

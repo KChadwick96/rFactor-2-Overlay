@@ -1,1 +1,3 @@
-# rFactor-2-Overlay
+# rFactor 2 Overlay
+
+TODO: README

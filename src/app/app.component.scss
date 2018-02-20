@@ -1,0 +1,36 @@
+.container__standings {
+    width: 270px;
+    left: 10px;
+    top: 30px;
+    position: absolute;
+
+    .entry {
+        background-color: rgba(0, 0, 0, 0.7);
+        margin: 3px 0;
+        border-radius: 5px;
+        width: 100%;
+
+        &__position {
+            padding: 1px 0;
+            display: inline-block;
+            width: 20px;
+            color: #FFF;
+            text-align: right;
+        }
+
+        &__colour {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: rgb(255, 84, 5);
+            margin: 0 10px;
+        }
+
+        &__driver {
+            display: inline-block;
+            width: auto;
+            text-transform: uppercase;
+        }
+    }
+}

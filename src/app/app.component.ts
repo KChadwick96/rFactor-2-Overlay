@@ -11,22 +11,20 @@ export class AppComponent {
 
   session: any;
   standings: any = [];
+  focusedEntry: any;
 
   constructor(
     private watchService: WatchService
   ) {}
 
   ngOnInit(): void {
-    this.getSession();
-    setInterval(() => this.getStandings(), 2000);
+    setInterval(() => this.getSession(), 500);
+    setInterval(() => this.getStandings(), 500);
   }
 
   getSession(): void {
     this.watchService.getSession().subscribe(
-      session => {
-        console.log(session);
-        this.session = session;
-      },
+      session => this.session = session,
       error => console.log(error)
     );
   }
@@ -37,7 +35,17 @@ export class AppComponent {
         this.standings = standings.sort((a, b) => {
           return a.position - b.position;
         });
-        console.log(this.standings);
+
+        // limit 20
+        this.standings.splice(20);
+
+        // calculate gap + set focused driver
+        let focusedEntry;
+        this.standings.forEach(entry => {
+          entry.gapToLeader = (entry.bestLapTime - this.standings[0].bestLapTime).toFixed(3);
+          if (entry.focus) focusedEntry = entry;  
+        });
+        this.focusedEntry = focusedEntry;
       },
       error => console.log(error)
     );

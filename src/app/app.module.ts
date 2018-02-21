@@ -3,12 +3,16 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule, Http } from '@angular/http';
 
 import { AppComponent } from './app.component';
-import { LastNamePipe } from './pipes/last-name.pipe';
+import { DriverNamePipe } from './pipes/driver-name.pipe';
+import { SessionNamePipe } from './pipes/session-name.pipe';
+import { ToMinutesPipe } from './pipes/to-minutes.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LastNamePipe
+    DriverNamePipe,
+    SessionNamePipe,
+    ToMinutesPipe
   ],
   imports: [
     BrowserModule,

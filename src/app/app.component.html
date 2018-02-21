@@ -1,3 +1,9 @@
+<div class="container__session-banner">
+    {{ session?.session | sessionName:'abbreviated'}}
+    /
+    {{ (session?.endEventTime - session?.currentEventTime) | toMinutes }}
+</div>
+
 <div class="container__standings">
     <div class="entry" *ngFor="let entry of standings">
         <div class="entry__position">
@@ -5,8 +11,33 @@
         </div>
         <div class="entry__colour"></div>
         <div class="entry__driver">
-            {{ entry.driverName | lastName }}
+            {{ entry.driverName | driverName:'abbreviated' }}
+        </div>
+        <div class="entry__gap" *ngIf="entry.bestLapTime !== -1">
+            <span *ngIf="entry.position === 1">
+                {{ entry.bestLapTime | toMinutes:true }}
+            </span>
+            <span *ngIf="entry.position > 1">
+                +{{ entry.gapToLeader }}
+            </span>
+        </div>
+        <div class="entry__pit" *ngIf="entry.pitting">
+            PIT
         </div>
     </div>
 </div>
 
+<div class="container__driver" *ngIf="focusedEntry != null">
+    <div class="driver__position">
+        {{ focusedEntry.position }}
+    </div>
+
+    <div class="driver__details">
+        <p class="details__name">{{ focusedEntry.driverName | driverName:'full'}}</p>
+        <p class="details__team">{{ focusedEntry.carClass }}</p>
+    </div>
+
+    <div class="driver__times">
+
+    </div>
+</div>

@@ -20,7 +20,7 @@ export class WatchService {
 
     // dev mode
     if (!environment.production) {
-      return this.getFakeSession();
+      return this._getFakeSession();
     }
 
     return this.http
@@ -33,7 +33,7 @@ export class WatchService {
 
     // dev mode
     if (!environment.production) {
-      return this.getFakeStandings();
+      return this._getFakeStandings();
     }
 
     return this.http
@@ -42,13 +42,13 @@ export class WatchService {
       .catch(this._handleError);
   }
 
-  getFakeSession(): Observable<any> {
+  _getFakeSession(): Observable<any> {
     return Observable.create((observer: Observer<any>) => {
       observer.next(sampleSessionData);
     });
   }
 
-  getFakeStandings(): Observable<any> {
+  _getFakeStandings(): Observable<any> {
     return Observable.create((observer: Observer<any>) => {
       observer.next(sampleStandingsData);
     });

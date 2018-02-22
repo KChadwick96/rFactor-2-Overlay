@@ -9,7 +9,7 @@
         <div class="entry__position">
             {{ entry.position }}
         </div>
-        <div class="entry__colour"></div>
+        <div class="entry__colour" [ngStyle]="{'background-color': entry.colour}"></div>
         <div class="entry__driver">
             {{ entry.driverName | driverName:'abbreviated' }}
         </div>
@@ -54,7 +54,7 @@
                     </div>
                     <div class="sector sector--third">
                         <span class="sector__number">S3</span>
-                        <span class="sector__time">-</span>
+                        <span class="sector__time">NA</span>
                     </div>
                 </div>
             </div>
@@ -65,8 +65,8 @@
         <div class="data-key">Best</div>
         <div class="data-value">{{ focusedEntry.bestLapTime | toMinutes:true }}</div>
         <div class="data-key">Gap</div>
-        <div class="data-value">{{ (focusedEntry.position > 1) ? (focusedEntry.gapToLeader | toMinutes:true) : '-' }}</div>
+        <div class="data-value">{{ (focusedEntry.position > 1) ? '+' + focusedEntry.gapToLeader : '-' }}</div>
         <div class="data-key">Time</div>
-        <div class="data-value">0:31.422</div>
+        <div class="data-value">NA</div>
     </div>
 </div>

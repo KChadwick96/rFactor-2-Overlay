@@ -1,32 +1,32 @@
 .container__session-banner {
-    width: 180px;
+    width: 190px;
     left: 100px;
     top: 50px;
     position: absolute;
-    background-color: rgba(214, 45, 24, 0.9);
+    background-color: rgba(240, 39, 13, 0.9);
     color: #FFF;
     font-size: 24px;
     text-align: center;
-    padding: 7px 0;
-    border-radius: 4px;
-    border: 1px solid rgb(204, 204, 204);
+    padding: 5px 0;
+    border-radius: 10px;
+    border: 2px solid rgb(204, 204, 204);
 }
 
 .container__standings {
     width: 250px;
     left: 100px;
-    top: 110px;
+    top: 105px;
     position: absolute;
 
     .entry {
-        background-color: rgba(226, 224, 222, 0.9);
+        background-color: rgba(230, 230, 230, 0.9);
         border-radius: 4px;
         width: 100%;
-        border: 1px solid rgb(204, 204, 204);
+        border: 2px solid rgb(204, 204, 204);
         position: relative;
 
         &:nth-child(odd) {
-            background: rgba(235,235,235, 0.9);
+            background: rgba(251, 251, 251, 0.9);
         }
 
         &__position {
@@ -35,17 +35,18 @@
             border-radius: 4px;
             width: 33px;
             text-align: center;
-            background-color: #d62d18;
+            background-color: rgba(240, 39, 13, 0.9);;
             color: rgb(240, 240, 240);
         }
 
         &__colour {
             display: inline-block;
-            width: 11px;
-            height: 11px;
+            width: 13px;
+            height: 13px;
             border-radius: 50%;
-            background-color: rgb(255, 84, 5);
+            //background-color: rgb(255, 84, 5);
             margin: 0 5px;
+            border: 1px solid rgb(124, 124, 124);
         }
 
         &__driver {
@@ -65,7 +66,7 @@
             left: 100%;
             top: 5%;
             padding: 1px 4px;
-            height: 85%;
+            height: 90%;
             background-color: rgba(212, 212, 212, 0.6);
             color: rgb(49, 49, 49);
         }
@@ -75,18 +76,18 @@
 .container__driver {
     position: absolute;
     left: 100px;
-    bottom: 100px;
+    bottom: 50px;
 
     .main {
         margin-bottom: 4px;
 
         .driver__position {
             width: 120px;
-            background-color: rgb(214, 45, 24);
+            background-color: rgba(240, 39, 13, 0.9);;
             color: #FFF;
             font-size: 75px;
             text-align: center;
-            border-radius: 6px;
+            border-radius: 10px;
             border: 3px solid #FFF;
             padding: 8px 0;
             float: left;
@@ -98,12 +99,12 @@
             width: 400px;
 
             .info__details {
-                border-top-left-radius: 6px;
-                border-top-right-radius: 6px;
+                border-top-left-radius: 10px;
+                border-top-right-radius: 10px;
                 background-color: rgba(226, 224, 222, 0.9);
                 display: inline-block;
                 width: 100%;
-                margin-bottom: 1px;
+                margin-bottom: 2px;
                 position: relative;
 
                 .details__name {
@@ -124,19 +125,19 @@
                     right: 0;
 
                     img {
-                        border-top-right-radius: 6px;
+                        border-top-right-radius: 10px;
                         height: 76px;
                     }
                 }
             }
 
             .info__sectors {
-                border-bottom-left-radius: 6px;
-                border-bottom-right-radius: 6px;
+                border-bottom-left-radius: 10px;
+                border-bottom-right-radius: 10px;
                 background-color: rgba(226, 224, 222, 0.952);
                 display: inline-block;
                 width: 100%;
-                height: 37px;
+                height: 39px;
 
                 .sectors__row {
                     margin: 6px 22px;
@@ -148,7 +149,7 @@
                         font-size: 18px;
                         //font-weight: normal;
                         flex-basis: 26%;
-                        border-radius: 3px;
+                        border-radius: 5px;
                         padding-left: 5px;
                         line-height: 24px;
 

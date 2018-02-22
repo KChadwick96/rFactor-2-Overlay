@@ -13,7 +13,7 @@
 }
 
 .container__standings {
-    width: 180px;
+    width: 200px;
     left: 100px;
     top: 100px;
     position: absolute;
@@ -62,12 +62,12 @@
 
         &__pit {
             position: absolute;
-            left: 180px;
+            left: 100%;
             top: 5%;
             padding: 1px 4px;
-            height: 90%;
+            height: 85%;
             background-color: rgba(212, 212, 212, 0.6);
-            color: rgb(65, 65, 65);
+            color: rgb(49, 49, 49);
         }
     }
 }
@@ -75,39 +75,134 @@
 .container__driver {
     position: absolute;
     left: 100px;
-    bottom: 120px;
+    bottom: 100px;
 
-    .driver__position {
-        width: 100px;
-        background-color: rgb(214, 45, 24);
-        color: #FFF;
-        font-size: 65px;
-        text-align: center;
-        border-radius: 6px;
-        border: 3px solid #FFF;
-        padding: 8px 0;
-        float: left;
-        margin-right: 3px;
+    .main {
+        margin-bottom: 4px;
+
+        .driver__position {
+            width: 100px;
+            background-color: rgb(214, 45, 24);
+            color: #FFF;
+            font-size: 65px;
+            text-align: center;
+            border-radius: 6px;
+            border: 3px solid #FFF;
+            padding: 8px 0;
+            float: left;
+            margin-right: 3px;
+        }
+
+        .driver__info {
+            display: inline-block;
+            width: 340px;
+
+            .info__details {
+                border-top-left-radius: 6px;
+                border-top-right-radius: 6px;
+                background-color: rgba(226, 224, 222, 0.9);
+                display: inline-block;
+                width: 100%;
+                margin-bottom: 1px;
+                position: relative;
+
+                .details__name {
+                    margin: 8px 0 0 18px;
+                    font-weight: bold;
+                    font-size: 22px;
+                }
+        
+                .details__team {
+                    margin: 0 0 8px 18px;
+                    font-weight: normal;
+                    font-size: 17px;
+                }
+
+                .details__flag {
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+
+                    img {
+                        border-top-right-radius: 6px;
+                        height: 66px;
+                    }
+                }
+            }
+
+            .info__sectors {
+                border-bottom-left-radius: 6px;
+                border-bottom-right-radius: 6px;
+                background-color: rgba(226, 224, 222, 0.952);
+                display: inline-block;
+                width: 100%;
+                height: 37px;
+
+                .sectors__row {
+                    margin: 6px 22px;
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: space-between;
+
+                    .sector {
+                        font-size: 15px;
+                        //font-weight: normal;
+                        flex-basis: 26%;
+                        border-radius: 3px;
+                        padding-left: 5px;
+                        line-height: 24px;
+
+                        &--first {
+                            background: linear-gradient(to right, #4fa218 0%, transparent 60%);
+                        }
+
+                        &--second {
+                            background: linear-gradient(to right, red 0%, transparent 60%);
+                        }
+
+                        &--third {
+                            background: linear-gradient(to right, fuchsia 0%, transparent 60%);
+                        }
+
+                        &__time {
+                            float: right;
+                        }
+                    }
+                }
+            }
+        }
     }
 
-    .driver__details {
-        display: inline-block;
-        border-top-left-radius: 6px;
-        border-top-right-radius: 6px;
-        background-color: rgba(226, 224, 222, 0.9);
-        padding: 6px 15px;
-        width: 330px;
+    .secondary {
+        display: flex;
+        flex-direction: row;
+        font-size: 14px;
+        line-height: 23px;
+        width: 100%;
+        
+        > div {
+            flex-basis: 16.6%;
+            text-align: center;
 
-        .details__name {
-            font-weight: bold;
-            margin: 0;
-            font-size: 22px;
+            &:first-child {
+                border-top-left-radius: 5px;
+                border-bottom-left-radius: 5px;
+            }
+
+            &:last-child {
+                border-top-right-radius: 5px;
+                border-bottom-right-radius: 5px;
+            }
+
+            &.data-key {
+                background-color: rgba(226, 224, 222, 0.952);;
+            }
+
+            &.data-value {
+                background-color: rgba(226, 224, 222, 0.712);
+            }
         }
 
-        .details__team {
-            margin: 0;
-            font-weight: normal;
-            font-size: 19px;
-        }
+
     }
 }

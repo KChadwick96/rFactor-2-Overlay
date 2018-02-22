@@ -12,7 +12,6 @@ export class ToMinutesPipe implements PipeTransform {
         secondsStr = (seconds < 10) ? `0${secondsStr}` : `${secondsStr}`;
         if (secondsStr === '60') secondsStr = '00';
 
-
-        return `${minutes}:${secondsStr}`;
+        return (minutes > 0) ? `${minutes}:${secondsStr}` : secondsStr;
     }
 }

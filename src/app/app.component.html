@@ -39,22 +39,22 @@
                 <p class="details__team">{{ focusedEntry.carClass }}</p>
     
                 <div class="details__flag">
-                    <img src="assets/flag_uk.png">
+                    <img src="https://i.imgur.com/E9TT8to.png">
                 </div>
             </div>
             <div class="info__sectors">
                 <div class="sectors__row">
                     <div class="sector sector--first">
                         <span class="sector__number">S1</span>
-                        <span class="sector__time">24.508</span>
+                        <span class="sector__time">{{ focusedEntry.currentSectorTime1 | toMinutes:true }}</span>
                     </div>
                     <div class="sector sector--second">
                         <span class="sector__number">S2</span>
-                        <span class="sector__time">24.508</span>
+                        <span class="sector__time">{{ focusedEntry.currentSectorTime2 | toMinutes:true }}</span>
                     </div>
                     <div class="sector sector--third">
                         <span class="sector__number">S3</span>
-                        <span class="sector__time">24.508</span>
+                        <span class="sector__time">-</span>
                     </div>
                 </div>
             </div>
@@ -63,9 +63,9 @@
 
     <div class="secondary">
         <div class="data-key">Best</div>
-        <div class="data-value">1:29.074</div>
+        <div class="data-value">{{ focusedEntry.bestLapTime | toMinutes:true }}</div>
         <div class="data-key">Gap</div>
-        <div class="data-value">-0.000</div>
+        <div class="data-value">{{ (focusedEntry.position > 1) ? (focusedEntry.gapToLeader | toMinutes:true) : '-' }}</div>
         <div class="data-key">Time</div>
         <div class="data-value">0:31.422</div>
     </div>

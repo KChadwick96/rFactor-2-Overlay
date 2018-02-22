@@ -77,7 +77,29 @@ const sampleSessionData = {
 }
 
 const sampleStandingsData = [
-  {"position":9,"driverName":"Kieran Chadwick ","bestLapTime":-1.0,"pitstops":0,"pitting":true,"lastLapTime":0.0,"vehicleName":"Cian White #48","timeBehindNext":0.0,"timeBehindLeader":0.0,"lapsBehindLeader":2,"lapsBehindNext":1,"currentSectorTime1":-1.0,"currentSectorTime2":-1.0,"lastSectorTime1":0.0,"lastSectorTime2":0.0,"focus":false,"carClass":"Sabre Racing","slotID":0,"carStatus":"PITTING","lapsCompleted":0,"hasFocus":false},
+  {
+    "position":9,
+    "driverName":"Kieran Chadwick ",
+    "bestLapTime":-1.0,
+    "pitstops":0,
+    "pitting":true,
+    "lastLapTime":0.0,
+    "vehicleName":"Cian White #48",
+    "timeBehindNext":0.0,
+    "timeBehindLeader":0.0,
+    "lapsBehindLeader":2,
+    "lapsBehindNext":1,
+    "currentSectorTime1":-1.0,
+    "currentSectorTime2":-1.0,
+    "lastSectorTime1":0.0,
+    "lastSectorTime2":0.0,
+    "focus":false,
+    "carClass":"Sabre Racing",
+    "slotID":0,
+    "carStatus":"PITTING",
+    "lapsCompleted":0,
+    "hasFocus":false
+  },
   {"position":5,"driverName":"Mattia Silva","bestLapTime":-1.0,"pitstops":0,"pitting":false,"lastLapTime":-1.0,"vehicleName":"Mattia Silva #47","timeBehindNext":0.0,"timeBehindLeader":0.0,"lapsBehindLeader":1,"lapsBehindNext":1,"currentSectorTime1":-1.0,"currentSectorTime2":-1.0,"lastSectorTime1":-1.0,"lastSectorTime2":-1.0,"focus":true,"carClass":"Disruptive Tech Racing","slotID":1,"carStatus":"FINISHED","lapsCompleted":1,"hasFocus":true},
   {"position":6,"driverName":"AOR Test Driver - Red","bestLapTime":-1.0,"pitstops":0,"pitting":true,"lastLapTime":0.0,"vehicleName":"AOR Test Driver - Red","timeBehindNext":0.0,"timeBehindLeader":0.0,"lapsBehindLeader":2,"lapsBehindNext":1,"currentSectorTime1":-1.0,"currentSectorTime2":-1.0,"lastSectorTime1":0.0,"lastSectorTime2":0.0,"focus":false,"carClass":"AOR Test Team","slotID":2,"carStatus":"PITTING","lapsCompleted":0,"hasFocus":false},
   {"position":10,"driverName":"AOR Test Driver - Silver","bestLapTime":-1.0,"pitstops":0,"pitting":false,"lastLapTime":-1.0,"vehicleName":"AOR Test Driver - Silver","timeBehindNext":0.0,"timeBehindLeader":0.0,"lapsBehindLeader":1,"lapsBehindNext":0,"currentSectorTime1":33.345458984375,"currentSectorTime2":-1.0,"lastSectorTime1":-1.0,"lastSectorTime2":-1.0,"focus":false,"carClass":"AOR Test Team","slotID":3,"carStatus":"DNF","lapsCompleted":1,"hasFocus":false},

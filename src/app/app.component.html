@@ -66,7 +66,13 @@
         <div class="data-value">{{ focusedEntry.bestLapTime | toMinutes:true }}</div>
         <div class="data-key">Gap</div>
         <div class="data-value">{{ (focusedEntry.position > 1) ? '+' + focusedEntry.gapToLeader : '-' }}</div>
-        <div class="data-key">Time</div>
+        <div class="data-key">Current</div>
         <div class="data-value">NA</div>
     </div>
+</div>
+
+<!-- Testing -->
+<div style="position: absolute; right: 40px; top: 40px; background-color: white; font-size: 14px;">
+    {{ overallBestLap | json }}
+    <br>
 </div>

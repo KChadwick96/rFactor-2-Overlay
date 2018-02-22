@@ -15,6 +15,8 @@ export class AppComponent {
   session: any;
   standings: any = [];
   focusedEntry: any;
+  driverLaps: any = {};
+  overallBestLap: any = {};
 
   constructor(
     private configService: ConfigService,
@@ -38,16 +40,49 @@ export class AppComponent {
   getStandings(): void {
     this.watchService.getStandings().subscribe(
       standings => {
+
+        // sort by position
         this.standings = standings.sort((a, b) => {
           return a.position - b.position;
         });
 
-        // limit 20
-        this.standings.splice(20);
-
         // calculate gap + colour + set focused driver
         let focusedEntry;
         this.standings.forEach(entry => {
+
+          // does the driver exist in the driverlaps object
+          if (this.driverLaps[entry.driverName] === undefined) {
+            this.driverLaps[entry.driverName] = {
+              best_lap: null,
+              laps: []
+            }
+          }
+
+          // do we need to save the drivers lap
+          if (this.driverLaps[entry.driverName].laps.length < entry.lapsCompleted) {
+            const lap = {
+              sector_1: entry.lastSectorTime1,
+              sector_2: entry.lastSectorTime2,
+              sector_3: entry.lastLapTime - (entry.lastSectorTime1 - entry.lastSectorTime2),
+              total: entry.lastLapTime
+            }
+
+            this.driverLaps[entry.driverName].laps.push(lap);
+
+            // is this their fastest?
+            if (this.driverLaps[entry.driverName].best_lap === null || this.driverLaps[entry.driverName].total > lap.total) {
+              this.driverLaps[entry.driverName].best_lap = lap;
+            }
+
+            // is this the overall fastest?
+            if (this.overallBestLap.total === undefined || this.overallBestLap.total > lap.total) {
+              this.overallBestLap = lap;
+            }
+          }
+
+          console.log(this.driverLaps);
+          console.log(this.overallBestLap);
+
           // calculate gap to leader
           entry.gapToLeader = (entry.bestLapTime - this.standings[0].bestLapTime).toFixed(3);
 

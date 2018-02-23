@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { isEmpty, sortBy } from 'lodash';
+
 
 import { ConfigService } from './services/config.service';
 import { WatchService } from './services/watch.service';
@@ -41,52 +43,134 @@ export class AppComponent {
     this.watchService.getStandings().subscribe(
       standings => {
 
+        // ignore if not in session
+        if (this.session.session === 'INVALID') {
+          return this.standings = [];
+        }
+
         // sort by position
-        this.standings = standings.sort((a, b) => {
-          return a.position - b.position;
-        });
+        this.standings = sortBy(standings, 'position');
 
         // calculate gap + colour + set focused driver
         let focusedEntry;
         this.standings.forEach(entry => {
+          const driverName = entry.driverName;
 
           // does the driver exist in the driverlaps object
-          if (this.driverLaps[entry.driverName] === undefined) {
-            this.driverLaps[entry.driverName] = {
+          if (this.driverLaps[driverName] === undefined) {
+            this.driverLaps[driverName] = {
               best_lap: null,
-              laps: []
+              laps_checked: 0,
+              events: {
+                sector_1: {
+                  state: null, // 'SESSION_BEST, 'PERSONAL_BEST', 'DOWN'
+                  value: 0,    // gap in seconds whether up or down
+                  counter: 0,  // How long has the event been shown for
+                  show: false  // Should it be show?
+                },
+                sector_2: {
+                  state: null,
+                  value: 0,
+                  counter: 0,
+                  show: false
+                },
+                sector_3: {
+                  state: null,
+                  value: 0,
+                  counter: 0,
+                  show: false
+                }
+              }
             }
           }
 
           // do we need to save the drivers lap
-          if (this.driverLaps[entry.driverName].laps.length < entry.lapsCompleted) {
-            const lap = {
-              sector_1: entry.lastSectorTime1,
-              sector_2: entry.lastSectorTime2,
-              sector_3: entry.lastLapTime - (entry.lastSectorTime1 - entry.lastSectorTime2),
-              total: entry.lastLapTime
-            }
+          const lapsCheckedDifference = entry.lapsCompleted - this.driverLaps[driverName].laps_checked;
+          if (lapsCheckedDifference === 1) {
 
-            this.driverLaps[entry.driverName].laps.push(lap);
-
-            // is this their fastest?
-            if (this.driverLaps[entry.driverName].best_lap === null || this.driverLaps[entry.driverName].total > lap.total) {
-              this.driverLaps[entry.driverName].best_lap = lap;
+            if (entry.lastLapTime === -1) {
+              this.driverLaps[driverName].laps_checked++;
+            } else {
+              const lap = {
+                sector_1: entry.lastSectorTime1,
+                sector_2: entry.lastSectorTime2 - entry.lastSectorTime1,
+                sector_3: entry.lastLapTime - entry.lastSectorTime2,
+                total: entry.lastLapTime
+              }
+  
+              // is this their fastest?
+              if (this.driverLaps[driverName].best_lap === null || this.driverLaps[driverName].total > lap.total) {
+                this.driverLaps[driverName].best_lap = lap;
+              }
+  
+              // is this the overall fastest?
+              if (this.overallBestLap.total === undefined || this.overallBestLap.total > lap.total) {
+                this.overallBestLap = lap;
+              }
             }
-
-            // is this the overall fastest?
-            if (this.overallBestLap.total === undefined || this.overallBestLap.total > lap.total) {
-              this.overallBestLap = lap;
-            }
+          } else if (lapsCheckedDifference > 1) {
+            
+            // overlay was started late and does not have access to historic laps
+            this.driverLaps[driverName].laps_checked = entry.lapsCompleted;
           }
 
-          console.log(this.driverLaps);
-          console.log(this.overallBestLap);
+          // have they just completed the 1st or 2nd sector
+          if (entry.currentSectorTime1 !== -1) {
+
+            const driverLap = this.driverLaps[driverName];
+            const sector1Event = driverLap.events.sector_1;
+            const sector2Event = driverLap.events.sector_2;
+            entry.sectorEvent = null;
+
+            if (entry.currentSectorTime2 !== -1) {
+
+              // sector 2 completed
+              const gap = isEmpty(this.overallBestLap) ? 0 : entry.currentSectorTime2 - this.overallBestLap.sector_2;
+              sector2Event.gap = gap.toFixed(3);
+
+              // SB, PB or slower?
+              const sector2Time = entry.currentSectorTime2 - entry.currentSectorTime1;
+              if (isEmpty(this.overallBestLap) || sector2Time < this.overallBestLap.sector_2) {
+                sector2Event.state = 'SESSION_BEST';
+              } else if (isEmpty(driverLap.best_lap) || sector2Time < driverLap.best_lap.sector_2) {
+                sector2Event.state = 'PERSONAL_BEST';
+              } else {
+                sector2Event.state = 'DOWN';
+              }
+
+              entry.sectorEvent = sector2Event;
+
+              // reset other sectors
+              sector1Event.state = null;
+              sector1Event.show = false;
+
+            } else {
+
+              // sector 1 completed
+              const gap = isEmpty(this.overallBestLap) ? 0 : entry.currentSectorTime1 - this.overallBestLap.sector_1;
+              sector1Event.gap = gap.toFixed(3);
+
+              // SB, PB or slower?
+              if (isEmpty(this.overallBestLap) || entry.currentSectorTime1 < this.overallBestLap.sector_1) {
+                sector1Event.state = 'SESSION_BEST';
+              } else if (isEmpty(driverLap.best_lap) || entry.currentSectorTime1 < driverLap.best_lap.sector_1) {
+                sector1Event.state = 'PERSONAL_BEST';
+              } else {
+                sector1Event.state = 'DOWN';
+              }
+
+              entry.sectorEvent = sector1Event;
+
+              // reset other sectors
+              sector2Event.state = null;
+              sector2Event.show = false;
+            }
+          }
 
           // calculate gap to leader
           entry.gapToLeader = (entry.bestLapTime - this.standings[0].bestLapTime).toFixed(3);
 
-          // colour
+          // team colour
           entry.colour = '#FFF';
           const carClass = entry.carClass.toLowerCase();
           if (this.teamsConfig[carClass]) {

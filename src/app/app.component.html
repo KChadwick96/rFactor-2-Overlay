@@ -65,7 +65,12 @@
         <div class="data-key">Best</div>
         <div class="data-value">{{ focusedEntry.bestLapTime | toMinutes:true }}</div>
         <div class="data-key">Gap</div>
-        <div class="data-value">{{ (focusedEntry.position > 1) ? '+' + focusedEntry.gapToLeader : '-' }}</div>
+        <div class="data-value" [ngSwitch]="focusedEntry.sectorEvent">
+            <span *ngSwitchCase="null">-</span>
+            <span *ngSwitchDefault>
+                {{ sectorEvent.gap > 0 ? '+' : '' }}{{ sectorEvent.gap }}
+            </span>
+        </div>
         <div class="data-key">Current</div>
         <div class="data-value">NA</div>
     </div>

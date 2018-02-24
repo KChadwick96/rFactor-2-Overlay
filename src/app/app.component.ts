@@ -44,7 +44,7 @@ export class AppComponent {
       standings => {
 
         // ignore if not in session
-        if (this.session.session === 'INVALID') {
+        if (this.session === undefined || this.session.session === 'INVALID') {
           return this.standings = [];
         }
 
@@ -123,13 +123,16 @@ export class AppComponent {
             entry.sectorEvent = null;
 
             if (entry.currentSectorTime2 !== -1) {
-              const sector2Time = entry.currentSectorTime2 - entry.currentSectorTime1;
 
               // sector 2 completed
-              const gap = isEmpty(this.overallBestLap) ? 0 : sector2Time - this.overallBestLap.sector_2;
-              sector2Event.gap = gap.toFixed(3);
+              let gap = 0;
+              if (!isEmpty(this.overallBestLap)) {
+                gap = entry.currentSectorTime2 - (this.overallBestLap.sector_1 + this.overallBestLap.sector_2);
+              }
+              sector2Event.gap = (gap > 0 ? '+' : '') + gap.toFixed(3);
 
               // SB, PB or slower?
+              const sector2Time = entry.currentSectorTime2 - entry.currentSectorTime1;
               if (isEmpty(this.overallBestLap) || sector2Time < this.overallBestLap.sector_2) {
                 sector2Event.state = 'SESSION_BEST';
               } else if (isEmpty(driverLap.best_lap) || sector2Time < driverLap.best_lap.sector_2) {
@@ -148,7 +151,7 @@ export class AppComponent {
 
               // sector 1 completed
               const gap = isEmpty(this.overallBestLap) ? 0 : entry.currentSectorTime1 - this.overallBestLap.sector_1;
-              sector1Event.gap = gap.toFixed(3);
+              sector1Event.gap = (gap > 0 ? '+' : '') + gap.toFixed(3);
 
               // SB, PB or slower?
               if (isEmpty(this.overallBestLap) || entry.currentSectorTime1 < this.overallBestLap.sector_1) {

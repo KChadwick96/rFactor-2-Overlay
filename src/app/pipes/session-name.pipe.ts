@@ -6,7 +6,6 @@ export class SessionNamePipe implements PipeTransform {
         type = type.toLowerCase();
 
         let session = '';
-        console.log(name);
         switch (name) {
             case 'PRACTICE1':
                 if (type === 'full') session = 'Practice 1';

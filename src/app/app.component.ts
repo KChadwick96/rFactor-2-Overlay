@@ -60,27 +60,7 @@ export class AppComponent {
           if (this.driverLaps[driverName] === undefined) {
             this.driverLaps[driverName] = {
               best_lap: null,
-              laps_checked: 0,
-              events: {
-                sector_1: {
-                  state: null, // 'SESSION_BEST, 'PERSONAL_BEST', 'DOWN'
-                  value: 0,    // gap in seconds whether up or down
-                  counter: 0,  // How long has the event been shown for
-                  show: false  // Should it be show?
-                },
-                sector_2: {
-                  state: null,
-                  value: 0,
-                  counter: 0,
-                  show: false
-                },
-                sector_3: {
-                  state: null,
-                  value: 0,
-                  counter: 0,
-                  show: false
-                }
-              }
+              laps_checked: 0
             }
           }
 

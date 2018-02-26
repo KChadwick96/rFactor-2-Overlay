@@ -37,5 +37,17 @@ const fakeTeamConfig = {
     },
     "acr zakspeed": {
         "colour": "#e8e8e8"
+    },
+    "zesty racing": {
+        "colour": "#e28c28"
+    },
+    "idos motorsport": {
+        "colour": "#000000"
+    },
+    "vi race team": {
+        "colour": "#e5e5e5"
+    },
+    "s2 racing": {
+        "colour": "#002b91"
     }
 }

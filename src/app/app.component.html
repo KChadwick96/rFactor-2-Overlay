@@ -71,7 +71,7 @@
         <div class="data-key">Gap</div>
         <div class="data-value" [ngSwitch]="focusedEntry.gapEvent">
             <span *ngSwitchCase="null">-</span>
-            <span *ngSwitchDefault [style.color]="getSectorColour(focusedEntry.gapEvent.state)">
+            <span *ngSwitchDefault [style.color]="_getSectorColour(focusedEntry.gapEvent.state)">
                 {{ focusedEntry.gapEvent.gap }}
             </span>
         </div>

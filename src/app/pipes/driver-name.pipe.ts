@@ -2,7 +2,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({ name: 'driverName' })
 export class DriverNamePipe implements PipeTransform {
-    transform(name: String, type: String): String {
+    transform(name: string, type: string): string {
 
         // get last part
         const parts = name.trim().split(' ');

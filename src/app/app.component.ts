@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
 import { isEmpty, sortBy } from 'lodash';
 
-
 import { ConfigService } from './services/config.service';
 import { WatchService } from './services/watch.service';
+
+const SESSION_REFRESH_RATE = 750;
+const STANDINGS_REFRESH_RATE = 500;
 
 @Component({
   selector: 'app-root',
@@ -12,7 +14,7 @@ import { WatchService } from './services/watch.service';
   providers: [ConfigService, WatchService]
 })
 export class AppComponent {
-
+  
   teamsConfig: any;
   session: any;
   standings: any = [];
@@ -28,8 +30,8 @@ export class AppComponent {
   ngOnInit(): void {
     this.teamsConfig = this.configService.getTeamsConfig();
 
-    setInterval(() => this.getSession(), 500);
-    setInterval(() => this.getStandings(), 500);
+    setInterval(() => this.getSession(), SESSION_REFRESH_RATE);
+    setInterval(() => this.getStandings(), STANDINGS_REFRESH_RATE);
   }
 
   getSession(): void {
@@ -89,10 +91,9 @@ export class AppComponent {
               }
               const gap = (gapValue > 0 ? '+' : '') + gapValue.toFixed(3);
 
-              // gap state
+              // gap state + and assign to entry
               const personalBest = (isEmpty(driverLap.best_lap)) ? null : driverLap.best_lap.total;
               const state = this._getLapState('sector_2', lap.total, personalBest);
-
               entry.gapEvent = {state, gap};
   
               // is this their fastest?
@@ -123,10 +124,9 @@ export class AppComponent {
               }
               const gap = (gapValue > 0 ? '+' : '') + gapValue.toFixed(3);
 
-              // SB, PB or slower?
+              // gap state + and assign to entry
               const personalBest = (isEmpty(driverLap.best_lap)) ? null : driverLap.best_lap.sector_1 + driverLap.best_lap.sector_2;
               const state = this._getLapState('sector_2', entry.currentSector2Time, personalBest);
-
               entry.gapEvent = {state, gap};
             } else {
 
@@ -134,10 +134,9 @@ export class AppComponent {
               const gapValue = isEmpty(this.overallBestLap) ? 0 : entry.currentSectorTime1 - this.overallBestLap.sector_1;
               const gap = (gapValue > 0 ? '+' : '') + gapValue.toFixed(3);
 
-              // SB, PB or slower?
+              // gap state + and assign to entry
               const personalBest = (isEmpty(driverLap.best_lap)) ? null : driverLap.best_lap.sector_1;
               const state = this._getLapState('sector_1', entry.currentSectorTime1, personalBest);
-              
               entry.gapEvent = {state, gap};
             }
           }
@@ -161,7 +160,7 @@ export class AppComponent {
     );
   }
   
-  getSectorColour(state: String): String {
+  _getSectorColour(state: string): string {
     if (state === 'SESSION_BEST') return 'purple';
     if (state === 'PERSONAL_BEST') return 'green';
     if (state === 'DOWN') return 'red';

@@ -2,7 +2,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({ name: 'sessionName' })
 export class SessionNamePipe implements PipeTransform {
-    transform(name: String, type: String): String {
+    transform(name: string, type: string): string {
         type = type.toLowerCase();
 
         let session = '';

@@ -2,7 +2,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({ name: 'toMinutes' })
 export class ToMinutesPipe implements PipeTransform {
-    transform(seconds: number, showMilliseconds: boolean = false): String {
+    transform(seconds: number, showMilliseconds: boolean = false): string {
         if (seconds == -1) return '-';
 
         const minutes = Math.floor(seconds / 60);

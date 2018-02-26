@@ -10,7 +10,7 @@ import { environment } from '../../environments/environment';
 @Injectable()
 export class WatchService {
 
-  private baseUrl: String = 'http://localhost:5397/rest/watch';
+  private baseUrl: string = 'http://localhost:5397/rest/watch';
 
   constructor(
     private http: Http

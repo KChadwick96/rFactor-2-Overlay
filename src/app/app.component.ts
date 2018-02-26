@@ -84,12 +84,16 @@ export class AppComponent {
             }
           }
 
+          // sector events
+          const driverLap = this.driverLaps[driverName];
+          entry.gapEvent = null;
+
           // do we need to save the drivers lap
-          const lapsCheckedDifference = entry.lapsCompleted - this.driverLaps[driverName].laps_checked;
+          const lapsCheckedDifference = entry.lapsCompleted - driverLap.laps_checked;
           if (lapsCheckedDifference === 1) {
 
             if (entry.lastLapTime === -1) {
-              this.driverLaps[driverName].laps_checked++;
+              driverLap.laps_checked++;
             } else {
               const lap = {
                 sector_1: entry.lastSectorTime1,
@@ -97,10 +101,23 @@ export class AppComponent {
                 sector_3: entry.lastLapTime - entry.lastSectorTime2,
                 total: entry.lastLapTime
               }
+
+              // gap
+              let gapValue = 0;
+              if (!isEmpty(this.overallBestLap)) {
+                gapValue = entry.lastLapTime - this.overallBestLap.total;
+              }
+              const gap = (gapValue > 0 ? '+' : '') + gapValue.toFixed(3);
+
+              // gap state
+              const personalBest = (isEmpty(driverLap.best_lap)) ? null : driverLap.best_lap.total;
+              const state = this._getLapState('sector_2', lap.total, personalBest);
+
+              entry.gapEvent = {state, gap};
   
               // is this their fastest?
-              if (this.driverLaps[driverName].best_lap === null || this.driverLaps[driverName].total > lap.total) {
-                this.driverLaps[driverName].best_lap = lap;
+              if (driverLap.best_lap === null || driverLap.total > lap.total) {
+                driverLap.best_lap = lap;
               }
   
               // is this the overall fastest?
@@ -111,62 +128,37 @@ export class AppComponent {
           } else if (lapsCheckedDifference > 1) {
             
             // overlay was started late and does not have access to historic laps
-            this.driverLaps[driverName].laps_checked = entry.lapsCompleted;
+            driverLap.laps_checked = entry.lapsCompleted;
           }
 
           // have they just completed the 1st or 2nd sector
           if (entry.currentSectorTime1 !== -1) {
 
-            const driverLap = this.driverLaps[driverName];
-            const sector1Event = driverLap.events.sector_1;
-            const sector2Event = driverLap.events.sector_2;
-            entry.sectorEvent = null;
-
             if (entry.currentSectorTime2 !== -1) {
 
               // sector 2 completed
-              let gap = 0;
+              let gapValue = 0;
               if (!isEmpty(this.overallBestLap)) {
-                gap = entry.currentSectorTime2 - (this.overallBestLap.sector_1 + this.overallBestLap.sector_2);
+                gapValue = entry.currentSectorTime2 - (this.overallBestLap.sector_1 + this.overallBestLap.sector_2);
               }
-              sector2Event.gap = (gap > 0 ? '+' : '') + gap.toFixed(3);
+              const gap = (gapValue > 0 ? '+' : '') + gapValue.toFixed(3);
 
               // SB, PB or slower?
-              const sector2Time = entry.currentSectorTime2 - entry.currentSectorTime1;
-              if (isEmpty(this.overallBestLap) || sector2Time < this.overallBestLap.sector_2) {
-                sector2Event.state = 'SESSION_BEST';
-              } else if (isEmpty(driverLap.best_lap) || sector2Time < driverLap.best_lap.sector_2) {
-                sector2Event.state = 'PERSONAL_BEST';
-              } else {
-                sector2Event.state = 'DOWN';
-              }
+              const personalBest = (isEmpty(driverLap.best_lap)) ? null : driverLap.best_lap.sector_1 + driverLap.best_lap.sector_2;
+              const state = this._getLapState('sector_2', entry.currentSector2Time, personalBest);
 
-              entry.sectorEvent = sector2Event;
-
-              // reset other sectors
-              sector1Event.state = null;
-              sector1Event.show = false;
-
+              entry.gapEvent = {state, gap};
             } else {
 
               // sector 1 completed
-              const gap = isEmpty(this.overallBestLap) ? 0 : entry.currentSectorTime1 - this.overallBestLap.sector_1;
-              sector1Event.gap = (gap > 0 ? '+' : '') + gap.toFixed(3);
+              const gapValue = isEmpty(this.overallBestLap) ? 0 : entry.currentSectorTime1 - this.overallBestLap.sector_1;
+              const gap = (gapValue > 0 ? '+' : '') + gapValue.toFixed(3);
 
               // SB, PB or slower?
-              if (isEmpty(this.overallBestLap) || entry.currentSectorTime1 < this.overallBestLap.sector_1) {
-                sector1Event.state = 'SESSION_BEST';
-              } else if (isEmpty(driverLap.best_lap) || entry.currentSectorTime1 < driverLap.best_lap.sector_1) {
-                sector1Event.state = 'PERSONAL_BEST';
-              } else {
-                sector1Event.state = 'DOWN';
-              }
-
-              entry.sectorEvent = sector1Event;
-
-              // reset other sectors
-              sector2Event.state = null;
-              sector2Event.show = false;
+              const personalBest = (isEmpty(driverLap.best_lap)) ? null : driverLap.best_lap.sector_1;
+              const state = this._getLapState('sector_1', entry.currentSectorTime1, personalBest);
+              
+              entry.gapEvent = {state, gap};
             }
           }
 
@@ -193,5 +185,15 @@ export class AppComponent {
     if (state === 'SESSION_BEST') return 'purple';
     if (state === 'PERSONAL_BEST') return 'green';
     if (state === 'DOWN') return 'red';
+  }
+
+  _getLapState(sector: string, current: number, driverBest: number): string {
+    if (isEmpty(this.overallBestLap) || current < this.overallBestLap[sector]) {
+      return 'SESSION_BEST';
+    } else if (driverBest === null || current < driverBest) {
+      return 'PERSONAL_BEST';
+    } else {
+      return 'DOWN';
+    }
   }
 }

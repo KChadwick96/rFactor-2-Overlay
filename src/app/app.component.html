@@ -69,14 +69,16 @@
         <div class="data-key">Best</div>
         <div class="data-value">{{ focusedEntry.bestLapTime | toMinutes:true }}</div>
         <div class="data-key">Gap</div>
-        <div class="data-value" [ngSwitch]="focusedEntry.sectorEvent">
+        <div class="data-value" [ngSwitch]="focusedEntry.gapEvent">
             <span *ngSwitchCase="null">-</span>
-            <span *ngSwitchDefault [style.color]="getSectorColour(focusedEntry.sectorEvent.state)">
-                {{ focusedEntry.sectorEvent.gap }}
+            <span *ngSwitchDefault [style.color]="getSectorColour(focusedEntry.gapEvent.state)">
+                {{ focusedEntry.gapEvent.gap }}
             </span>
         </div>
-        <div class="data-key">Current</div>
-        <div class="data-value">NA</div>
+        <div class="data-key">Last Lap</div>
+        <div class="data-value">
+            {{ (focusedEntry.lastLapTime !== -1) ? (focusedEntry.lastLapTime | toMinutes:true) : 'NA' }}
+        </div>
     </div>
 </div>
 
@@ -85,6 +87,6 @@
     {{ overallBestLap | json }}
     <br><br>
     <span *ngIf="focusedEntry != null">
-        {{ focusedEntry.sectorEvent | json }}
+        {{ focusedEntry.gapEvent | json }}
     </span>
 </div>

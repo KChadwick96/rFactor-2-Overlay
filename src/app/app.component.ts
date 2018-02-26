@@ -73,10 +73,7 @@ export class AppComponent {
           // do we need to save the drivers lap
           const lapsCheckedDifference = entry.lapsCompleted - driverLap.laps_checked;
           if (lapsCheckedDifference === 1) {
-
-            if (entry.lastLapTime === -1) {
-              driverLap.laps_checked++;
-            } else {
+            if (entry.lastLapTime > -1) {
               const lap = {
                 sector_1: entry.lastSectorTime1,
                 sector_2: entry.lastSectorTime2 - entry.lastSectorTime1,
@@ -100,17 +97,31 @@ export class AppComponent {
               if (driverLap.best_lap === null || driverLap.total > lap.total) {
                 driverLap.best_lap = lap;
               }
+
+              // keep the last lap info on screen
+              driverLap.lastLapHold = {counter: 0, lap, gap};
   
               // is this the overall fastest?
-              if (this.overallBestLap.total === undefined || this.overallBestLap.total > lap.total) {
+              if (isEmpty(this.overallBestLap.total) || this.overallBestLap.total > lap.total) {
                 this.overallBestLap = lap;
               }
             }
+            driverLap.laps_checked++;
           } else if (lapsCheckedDifference > 1) {
             
             // overlay was started late and does not have access to historic laps
             driverLap.laps_checked = entry.lapsCompleted;
           }
+
+          // are we still showing last lap info
+          if (driverLap.lastLapHold) {
+            if (driverLap.lastLapHold.counter > 10000) {
+              driverLap.lastLapHold = null;
+            } else {
+              driverLap.lastLapHold.counter += STANDINGS_REFRESH_RATE;
+            }
+          }
+          entry.lastLapHold = driverLap.lastLapHold;
 
           // have they just completed the 1st or 2nd sector
           if (entry.currentSectorTime1 !== -1) {

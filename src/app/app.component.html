@@ -46,19 +46,31 @@
                 <div class="sectors__row">
                     <div class="sector sector--first">
                         <span class="sector__number">S1</span>
-                        <span class="sector__time" *ngIf="focusedEntry.currentSectorTime1 !== -1">
-                            {{ focusedEntry.currentSectorTime1 | toMinutes:true }}
+                        <span class="sector__time">
+                            <span *ngIf="focusedEntry.lastLapHold; else currentS1">
+                                {{ focusedEntry.lastLapHold.lap.sector_1 | toMinutes:true }}
+                            </span>
+                            <ng-template #currentS1>
+                                {{ (focusedEntry.currentSectorTime1 !== -1) ? (focusedEntry.currentSectorTime1 | toMinutes:true) : '' }}
+                            </ng-template>
                         </span>
                     </div>
                     <div class="sector sector--second">
                         <span class="sector__number">S2</span>
-                        <span class="sector__time" *ngIf="focusedEntry.currentSectorTime2 !== -1">
-                            {{ (focusedEntry.currentSectorTime2 - focusedEntry.currentSectorTime1) | toMinutes:true }}
+                        <span class="sector__time" [ngSwitch]="focusedEntry.lastLapHold">
+                            <span *ngIf="focusedEntry.lastLapHold; else currentS2">
+                                {{ focusedEntry.lastLapHold.lap.sector_2 | toMinutes:true }}
+                            </span>
+                            <ng-template #currentS2>
+                                {{ (focusedEntry.currentSectorTime2 !== -1) ? (focusedEntry.currentSectorTime2 - focusedEntry.currentSectorTime1 | toMinutes:true) : '' }}
+                            </ng-template>
                         </span>
                     </div>
                     <div class="sector sector--third">
                         <span class="sector__number">S3</span>
-                        <span class="sector__time">NA</span>
+                        <span class="sector__time" *ngIf="focusedEntry.lastLapHold">
+                            {{ focusedEntry.lastLapHold.lap.sector_3 | toMinutes:true }}
+                        </span>
                     </div>
                 </div>
             </div>
@@ -70,9 +82,15 @@
         <div class="data-value">{{ focusedEntry.bestLapTime | toMinutes:true }}</div>
         <div class="data-key">Gap</div>
         <div class="data-value" [ngSwitch]="focusedEntry.gapEvent">
-            <span *ngSwitchCase="null">-</span>
-            <span *ngSwitchDefault [style.color]="_getSectorColour(focusedEntry.gapEvent.state)">
-                {{ focusedEntry.gapEvent.gap }}
+            <span *ngIf="focusedEntry.lastLapHold; else currentGap">
+                {{ focusedEntry.lastLapHold.gap }}
+            </span>
+
+            <span #currentGap [ngSwitch]="focusedEntry.gapEvent">
+                <span *ngSwitchCase="null">-</span>
+                <span *ngSwitchDefault [style.color]="_getSectorColour(focusedEntry.gapEvent.state)">
+                    {{ focusedEntry.gapEvent.gap }}
+                </span>
             </span>
         </div>
         <div class="data-key">Last Lap</div>
@@ -87,6 +105,6 @@
     {{ overallBestLap | json }}
     <br><br>
     <span *ngIf="focusedEntry != null">
-        {{ focusedEntry.gapEvent | json }}
+        {{ focusedEntry | json }}
     </span>
 </div>

@@ -86,12 +86,12 @@
                 {{ focusedEntry.lastLapHold.gap }}
             </span>
 
-            <span #currentGap [ngSwitch]="focusedEntry.gapEvent">
+            <ng-template #currentGap [ngSwitch]="focusedEntry.gapEvent">
                 <span *ngSwitchCase="null">-</span>
                 <span *ngSwitchDefault [style.color]="_getSectorColour(focusedEntry.gapEvent.state)">
                     {{ focusedEntry.gapEvent.gap }}
                 </span>
-            </span>
+            </ng-template>
         </div>
         <div class="data-key">Last Lap</div>
         <div class="data-value">

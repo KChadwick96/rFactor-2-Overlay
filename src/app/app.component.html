@@ -1,0 +1,110 @@
+<div class="container__session-banner">
+    {{ data?.session_info.session | sessionName:'abbreviated'}}
+    /
+    {{ (data?.session_info.endEventTime - data?.session_info.currentEventTime) | toMinutes }}
+</div>
+
+<div class="container__standings">
+    <div class="entry" *ngFor="let entry of data?.standings">
+        <div class="entry__position">
+            {{ entry.position }}
+        </div>
+        <div class="entry__colour" [ngStyle]="{'background-color': entry.colour}"></div>
+        <div class="entry__driver">
+            {{ entry.driverName | driverName:'abbreviated' }}
+        </div>
+        <div class="entry__gap" *ngIf="entry.bestLapTime !== -1">
+            <span *ngIf="entry.position === 1">
+                {{ entry.bestLapTime | toMinutes:true }}
+            </span>
+            <span *ngIf="entry.position > 1">
+                +{{ entry.gapToLeader }}
+            </span>
+        </div>
+        <div class="entry__pit" *ngIf="entry.pitting">
+            PIT
+        </div>
+    </div>
+</div>
+
+<div class="container__driver" *ngIf="data?.focused_driver != null">
+    <div class="main">
+        <div class="driver__position">
+            {{ data.focused_driver.position }}
+        </div>
+    
+        <div class="driver__info">
+            <div class="info__details">
+                <p class="details__name">{{ data.focused_driver.driverName | driverName:'full'}}</p>
+                <p class="details__team">{{ data.focused_driver.carClass }}</p>
+    
+                <div class="details__flag">
+                    <img src="https://i.imgur.com/E9TT8to.png">
+                </div>
+            </div>
+            <div class="info__sectors">
+                <div class="sectors__row">
+                    <div class="sector sector--first">
+                        <span class="sector__number">S1</span>
+                        <span class="sector__time">
+                            <span *ngIf="data.focused_driver.last_lap_hold; else currentS1">
+                                {{ data.focused_driver.last_lap_hold.lap.sector_1 | toMinutes:true }}
+                            </span>
+                            <ng-template #currentS1>
+                                {{ (data.focused_driver.currentSectorTime1 !== -1) ? (data.focused_driver.currentSectorTime1 | toMinutes:true) : '' }}
+                            </ng-template>
+                        </span>
+                    </div>
+                    <div class="sector sector--second">
+                        <span class="sector__number">S2</span>
+                        <span class="sector__time">
+                            <span *ngIf="data.focused_driver.last_lap_hold; else currentS2">
+                                {{ data.focused_driver.lastLapHold.lap.sector_2 | toMinutes:true }}
+                            </span>
+                            <ng-template #currentS2>
+                                {{ (data.focused_driver.currentSectorTime2 !== -1) ? (data.focused_driver.currentSectorTime2 - data.focused_driver.currentSectorTime1 | toMinutes:true) : '' }}
+                            </ng-template>
+                        </span>
+                    </div>
+                    <div class="sector sector--third">
+                        <span class="sector__number">S3</span>
+                        <span class="sector__time" *ngIf="data.focused_driver.last_lap_hold">
+                            {{ data.focused_driver.lastLapHold.lap.sector_3 | toMinutes:true }}
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="secondary">
+        <div class="data-key">Best</div>
+        <div class="data-value">{{ data.focused_driver.bestLapTime | toMinutes:true }}</div>
+        <div class="data-key">Gap</div>
+        <div class="data-value" [ngSwitch]="data.focused_driver.gapEvent">
+            <span *ngIf="data.focused_driver.last_lap_hold; else currentGap">
+                {{ data.focused_driver.last_lap_hold.gap }}
+            </span>
+
+            <ng-template #currentGap [ngSwitch]="data.focused_driver.gapEvent">
+                <span *ngSwitchCase="null">-</span>
+                <span *ngSwitchDefault [style.color]="_getSectorColour(data.focused_driver.gapEvent.state)">
+                    {{ data.focused_driver.gapEvent.gap }}
+                </span>
+            </ng-template>
+        </div>
+        <div class="data-key">Last Lap</div>
+        <div class="data-value">
+            {{ (data.focused_driver.lastLapTime !== -1) ? (data.focused_driver.lastLapTime | toMinutes:true) : 'NA' }}
+        </div>
+    </div>
+</div>
+
+<!-- Testing -->
+<div style="position: absolute; right: 40px; top: 40px; background-color: white; font-size: 16px; max-width: 600px;">
+    {{ data?.overall_best_lap | json }}
+    <br><br>
+    <span *ngIf="data?.focused_driver != null">
+        {{ data?.focused_driver | json }}
+    </span>
+</div>

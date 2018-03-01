@@ -122,22 +122,11 @@ export class WatchService {
         // keep the last lap info on screen
         driverLap.last_lap_hold = {counter: 0, lap, gap};
 
-        // is this the overall fastest?
-        if (isEmpty(this._overallBestLap.total) || this._overallBestLap.total > lap.total) {
-          this._overallBestLap = lap;
-        }
-      }
+        this._sessionFastestLapCheck(lap);
+      } 
       driverLap.laps_checked = entry.lapsCompleted;
 
-      // are we still showing last lap info
-      if (driverLap.last_lap_hold) {
-        if (driverLap.last_lap_hold.counter > this.HOLD_LAP_INFO_DELAY) {
-          driverLap.last_lap_hold = null;
-        } else {
-          driverLap.last_lap_hold.counter += this.DATA_REFRESH_RATE;
-        }
-      }
-      entry.lastLapHold = driverLap.lastLapHold;
+      this._handleLapHold(entry, driverLap);
 
       // have they just completed the 1st or 2nd sector
       if (entry.currentSectorTime1 !== -1) {
@@ -198,6 +187,24 @@ export class WatchService {
     } else {
       return 'DOWN';
     }
+  }
+
+  _sessionFastestLapCheck(lap: any) {
+    if (isEmpty(this._overallBestLap.total) || this._overallBestLap.total > lap.total) {
+      this._overallBestLap = lap;
+    }
+  }
+
+  _handleLapHold(entry: any, driverLap: any): void {
+    // are we still showing last lap info
+    if (driverLap.last_lap_hold) {
+      if (driverLap.last_lap_hold.counter > this.HOLD_LAP_INFO_DELAY) {
+        driverLap.last_lap_hold = null;
+      } else {
+        driverLap.last_lap_hold.counter += this.DATA_REFRESH_RATE;
+      }
+    }
+    entry.lastLapHold = driverLap.lastLapHold;
   }
 
   _getTeamColour(carClass: string): string {

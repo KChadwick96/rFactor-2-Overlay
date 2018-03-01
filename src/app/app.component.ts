@@ -26,6 +26,7 @@ export class AppComponent {
   _startDataCycle(): void {
     this.watchService.session().subscribe(data => {
       this.data = data;
+      console.log(this.data);
       this.cdRef.markForCheck();
     });
   }

@@ -1,20 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
-import { Observable } from 'rxjs/Observable';
-import { Observer } from 'rxjs/Observer';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
-
-import { environment } from '../../environments/environment';
 
 @Injectable()
 export class ConfigService {
 
-    private baseUrl: string = 'http://localhost:5397/rest/watch';
-
-    constructor(
-        private http: Http
-    ) {}
+    constructor() {}
 
     getTeamsConfig(): Object {
         return fakeTeamConfig;

@@ -1,11 +1,11 @@
 <div class="container__session-banner">
-    {{ session?.session | sessionName:'abbreviated'}}
+    {{ data?.session_info.session | sessionName:'abbreviated'}}
     /
-    {{ (session?.endEventTime - session?.currentEventTime) | toMinutes }}
+    {{ (data?.session_info.endEventTime - data?.session_info.currentEventTime) | toMinutes }}
 </div>
 
 <div class="container__standings">
-    <div class="entry" *ngFor="let entry of standings">
+    <div class="entry" *ngFor="let entry of data?.standings">
         <div class="entry__position">
             {{ entry.position }}
         </div>
@@ -27,16 +27,16 @@
     </div>
 </div>
 
-<div class="container__driver" *ngIf="focusedEntry != null">
+<div class="container__driver" *ngIf="data?.focused_driver != null">
     <div class="main">
         <div class="driver__position">
-            {{ focusedEntry.position }}
+            {{ data.focused_driver.position }}
         </div>
     
         <div class="driver__info">
             <div class="info__details">
-                <p class="details__name">{{ focusedEntry.driverName | driverName:'full'}}</p>
-                <p class="details__team">{{ focusedEntry.carClass }}</p>
+                <p class="details__name">{{ data.focused_driver.driverName | driverName:'full'}}</p>
+                <p class="details__team">{{ data.focused_driver.carClass }}</p>
     
                 <div class="details__flag">
                     <img src="https://i.imgur.com/E9TT8to.png">
@@ -47,29 +47,29 @@
                     <div class="sector sector--first">
                         <span class="sector__number">S1</span>
                         <span class="sector__time">
-                            <span *ngIf="focusedEntry.lastLapHold; else currentS1">
-                                {{ focusedEntry.lastLapHold.lap.sector_1 | toMinutes:true }}
+                            <span *ngIf="data.focused_driver.last_lap_hold; else currentS1">
+                                {{ data.focused_driver.last_lap_hold.lap.sector_1 | toMinutes:true }}
                             </span>
                             <ng-template #currentS1>
-                                {{ (focusedEntry.currentSectorTime1 !== -1) ? (focusedEntry.currentSectorTime1 | toMinutes:true) : '' }}
+                                {{ (data.focused_driver.currentSectorTime1 !== -1) ? (data.focused_driver.currentSectorTime1 | toMinutes:true) : '' }}
                             </ng-template>
                         </span>
                     </div>
                     <div class="sector sector--second">
                         <span class="sector__number">S2</span>
                         <span class="sector__time">
-                            <span *ngIf="focusedEntry.lastLapHold; else currentS2">
-                                {{ focusedEntry.lastLapHold.lap.sector_2 | toMinutes:true }}
+                            <span *ngIf="data.focused_driver.last_lap_hold; else currentS2">
+                                {{ data.focused_driver.lastLapHold.lap.sector_2 | toMinutes:true }}
                             </span>
                             <ng-template #currentS2>
-                                {{ (focusedEntry.currentSectorTime2 !== -1) ? (focusedEntry.currentSectorTime2 - focusedEntry.currentSectorTime1 | toMinutes:true) : '' }}
+                                {{ (data.focused_driver.currentSectorTime2 !== -1) ? (data.focused_driver.currentSectorTime2 - data.focused_driver.currentSectorTime1 | toMinutes:true) : '' }}
                             </ng-template>
                         </span>
                     </div>
                     <div class="sector sector--third">
                         <span class="sector__number">S3</span>
-                        <span class="sector__time" *ngIf="focusedEntry.lastLapHold">
-                            {{ focusedEntry.lastLapHold.lap.sector_3 | toMinutes:true }}
+                        <span class="sector__time" *ngIf="data.focused_driver.last_lap_hold">
+                            {{ data.focused_driver.lastLapHold.lap.sector_3 | toMinutes:true }}
                         </span>
                     </div>
                 </div>
@@ -79,32 +79,32 @@
 
     <div class="secondary">
         <div class="data-key">Best</div>
-        <div class="data-value">{{ focusedEntry.bestLapTime | toMinutes:true }}</div>
+        <div class="data-value">{{ data.focused_driver.bestLapTime | toMinutes:true }}</div>
         <div class="data-key">Gap</div>
-        <div class="data-value" [ngSwitch]="focusedEntry.gapEvent">
-            <span *ngIf="focusedEntry.lastLapHold; else currentGap">
-                {{ focusedEntry.lastLapHold.gap }}
+        <div class="data-value" [ngSwitch]="data.focused_driver.gapEvent">
+            <span *ngIf="data.focused_driver.last_lap_hold; else currentGap">
+                {{ data.focused_driver.last_lap_hold.gap }}
             </span>
 
-            <ng-template #currentGap [ngSwitch]="focusedEntry.gapEvent">
+            <ng-template #currentGap [ngSwitch]="data.focused_driver.gapEvent">
                 <span *ngSwitchCase="null">-</span>
-                <span *ngSwitchDefault [style.color]="_getSectorColour(focusedEntry.gapEvent.state)">
-                    {{ focusedEntry.gapEvent.gap }}
+                <span *ngSwitchDefault [style.color]="_getSectorColour(data.focused_driver.gapEvent.state)">
+                    {{ data.focused_driver.gapEvent.gap }}
                 </span>
             </ng-template>
         </div>
         <div class="data-key">Last Lap</div>
         <div class="data-value">
-            {{ (focusedEntry.lastLapTime !== -1) ? (focusedEntry.lastLapTime | toMinutes:true) : 'NA' }}
+            {{ (data.focused_driver.lastLapTime !== -1) ? (data.focused_driver.lastLapTime | toMinutes:true) : 'NA' }}
         </div>
     </div>
 </div>
 
 <!-- Testing -->
 <div style="position: absolute; right: 40px; top: 40px; background-color: white; font-size: 16px; max-width: 600px;">
-    {{ overallBestLap | json }}
+    {{ data?.overall_best_lap | json }}
     <br><br>
-    <span *ngIf="focusedEntry != null">
-        {{ focusedEntry | json }}
+    <span *ngIf="data?.focused_driver != null">
+        {{ data?.focused_driver | json }}
     </span>
 </div>

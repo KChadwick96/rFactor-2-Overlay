@@ -4,7 +4,7 @@ import { isEmpty, sortBy } from 'lodash';
 import { ConfigService } from './services/config.service';
 import { WatchService } from './services/watch.service';
 
-const SESSION_REFRESH_RATE = 750;
+const SESSION_REFRESH_RATE = 1000;
 const STANDINGS_REFRESH_RATE = 500;
 
 @Component({
@@ -107,6 +107,7 @@ export class AppComponent {
               }
             }
             driverLap.laps_checked++;
+            
           } else if (lapsCheckedDifference > 1) {
             
             // overlay was started late and does not have access to historic laps

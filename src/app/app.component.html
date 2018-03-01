@@ -57,7 +57,7 @@
                     </div>
                     <div class="sector sector--second">
                         <span class="sector__number">S2</span>
-                        <span class="sector__time" [ngSwitch]="focusedEntry.lastLapHold">
+                        <span class="sector__time">
                             <span *ngIf="focusedEntry.lastLapHold; else currentS2">
                                 {{ focusedEntry.lastLapHold.lap.sector_2 | toMinutes:true }}
                             </span>

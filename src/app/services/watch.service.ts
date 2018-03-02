@@ -12,7 +12,7 @@ import { environment } from '../../environments/environment';
 @Injectable()
 export class WatchService {
 
-  private DATA_REFRESH_RATE = 2000;
+  private DATA_REFRESH_RATE = 500;
   private HOLD_LAP_INFO_DELAY = 10000;
 
   private _baseUrl: string = 'http://localhost:5397/rest/watch';
@@ -101,7 +101,7 @@ export class WatchService {
       const lapsCheckedDifference = entry.lapsCompleted - driverLap.laps_checked;
       if (lapsCheckedDifference === 1 && entry.lastLapTime > -1) {
 
-        const lap = {
+        const lastLap = {
           sector_1: entry.lastSectorTime1,
           sector_2: entry.lastSectorTime2 - entry.lastSectorTime1,
           sector_3: entry.lastLapTime - entry.lastSectorTime2,
@@ -110,19 +110,19 @@ export class WatchService {
 
         // gap state + and assign to entry
         const personalBest = (isEmpty(driverLap.best_lap)) ? null : driverLap.best_lap.total;
-        const state = this._getLapState('sector_2', lap.total, personalBest);
+        const state = this._getLapState('sector_2', lastLap.total, personalBest);
         const gap = this._gapToBest(entry.lastLapTime);
         entry.gapEvent = {state, gap};
 
         // is this their fastest?
-        if (driverLap.best_lap === null || driverLap.total > lap.total) {
-          driverLap.best_lap = lap;
+        if (driverLap.best_lap === null || driverLap.total > lastLap.total) {
+          driverLap.best_lap = lastLap;
         }
 
         // keep the last lap info on screen
-        driverLap.last_lap_hold = {counter: 0, lap, gap};
+        driverLap.last_lap_hold = {counter: 0, lastLap, gap};
 
-        this._sessionFastestLapCheck(lap);
+        this._sessionFastestLapCheck(lastLap);
       } 
       driverLap.laps_checked = entry.lapsCompleted;
 
@@ -190,7 +190,9 @@ export class WatchService {
   }
 
   _sessionFastestLapCheck(lap: any) {
-    if (isEmpty(this._overallBestLap.total) || this._overallBestLap.total > lap.total) {
+    console.log(this._overallBestLap);
+    console.log(lap);
+    if (isEmpty(this._overallBestLap) || this._overallBestLap.total > lap.total) {
       this._overallBestLap = lap;
     }
   }

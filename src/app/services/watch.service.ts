@@ -12,7 +12,7 @@ import { environment } from '../../environments/environment';
 @Injectable()
 export class WatchService {
 
-  private DATA_REFRESH_RATE = 500;
+  private DATA_REFRESH_RATE = 1000;
   private HOLD_LAP_INFO_DELAY = 10000;
 
   private _baseUrl: string = 'http://localhost:5397/rest/watch';
@@ -126,7 +126,7 @@ export class WatchService {
       } 
       driverLap.laps_checked = entry.lapsCompleted;
 
-      this._handleLapHold(entry, driverLap);
+      entry.lastLapHold = this._updateLastLapHold(driverLap);
 
       // have they just completed the 1st or 2nd sector
       if (entry.currentSectorTime1 !== -1) {
@@ -190,23 +190,24 @@ export class WatchService {
   }
 
   _sessionFastestLapCheck(lap: any) {
-    console.log(this._overallBestLap);
-    console.log(lap);
     if (isEmpty(this._overallBestLap) || this._overallBestLap.total > lap.total) {
       this._overallBestLap = lap;
     }
   }
 
-  _handleLapHold(entry: any, driverLap: any): void {
+  _updateLastLapHold(driverLap: any): void {
+    let hold = driverLap.last_lap_hold;
+
     // are we still showing last lap info
-    if (driverLap.last_lap_hold) {
-      if (driverLap.last_lap_hold.counter > this.HOLD_LAP_INFO_DELAY) {
-        driverLap.last_lap_hold = null;
+    if (hold) {
+      if (hold.counter > this.HOLD_LAP_INFO_DELAY) {
+        hold = null;
       } else {
-        driverLap.last_lap_hold.counter += this.DATA_REFRESH_RATE;
+        hold.counter += this.DATA_REFRESH_RATE;
       }
     }
-    entry.lastLapHold = driverLap.lastLapHold;
+
+    return hold;
   }
 
   _getTeamColour(carClass: string): string {

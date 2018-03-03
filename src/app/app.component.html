@@ -47,8 +47,8 @@
                     <div class="sector sector--first">
                         <span class="sector__number">S1</span>
                         <span class="sector__time">
-                            <span *ngIf="data.focused_driver.last_lap_hold; else currentS1">
-                                {{ data.focused_driver.last_lap_hold.lap.sector_1 | toMinutes:true }}
+                            <span *ngIf="data.focused_driver.lastLapHold; else currentS1">
+                                {{ data.focused_driver.lastLapHold.lastLap.sector_1 | toMinutes:true }}
                             </span>
                             <ng-template #currentS1>
                                 {{ (data.focused_driver.currentSectorTime1 !== -1) ? (data.focused_driver.currentSectorTime1 | toMinutes:true) : '' }}
@@ -58,8 +58,8 @@
                     <div class="sector sector--second">
                         <span class="sector__number">S2</span>
                         <span class="sector__time">
-                            <span *ngIf="data.focused_driver.last_lap_hold; else currentS2">
-                                {{ data.focused_driver.lastLapHold.lap.sector_2 | toMinutes:true }}
+                            <span *ngIf="data.focused_driver.lastLapHold; else currentS2">
+                                {{ data.focused_driver.lastLapHold.lastLap.sector_2 | toMinutes:true }}
                             </span>
                             <ng-template #currentS2>
                                 {{ (data.focused_driver.currentSectorTime2 !== -1) ? (data.focused_driver.currentSectorTime2 - data.focused_driver.currentSectorTime1 | toMinutes:true) : '' }}
@@ -68,8 +68,8 @@
                     </div>
                     <div class="sector sector--third">
                         <span class="sector__number">S3</span>
-                        <span class="sector__time" *ngIf="data.focused_driver.last_lap_hold">
-                            {{ data.focused_driver.lastLapHold.lap.sector_3 | toMinutes:true }}
+                        <span class="sector__time" *ngIf="data.focused_driver.lastLapHold">
+                            {{ data.focused_driver.lastLapHold.lastLap.sector_3 | toMinutes:true }}
                         </span>
                     </div>
                 </div>
@@ -82,8 +82,8 @@
         <div class="data-value">{{ data.focused_driver.bestLapTime | toMinutes:true }}</div>
         <div class="data-key">Gap</div>
         <div class="data-value" [ngSwitch]="data.focused_driver.gapEvent">
-            <span *ngIf="data.focused_driver.last_lap_hold; else currentGap">
-                {{ data.focused_driver.last_lap_hold.gap }}
+            <span *ngIf="data.focused_driver.lastLapHold; else currentGap">
+                {{ data.focused_driver.lastLapHold.gap }}
             </span>
 
             <ng-template #currentGap [ngSwitch]="data.focused_driver.gapEvent">

@@ -38,7 +38,7 @@ export class WatchService {
     if (environment.production) {
       setInterval(() => {
         this._sessionObservable().subscribe(session => this._sessionData = session);
-      });
+      }, this.DATA_REFRESH_RATE);
     }
 
     return Observable.create(observer => {

@@ -28,7 +28,7 @@ export class WatchService {
   ) {}
 
   session(): Observable<any> {
-    
+
     if (this._driverLaps === undefined) this._driverLaps = {};
     if (this._focusedDriver === undefined) this._focusedDriver = null;
     if (this._overallBestLap === undefined) this._overallBestLap = null;
@@ -55,12 +55,12 @@ export class WatchService {
           });
         }
 
-        // empty or invalid session, return null data 
+        // empty or invalid session, return null data
         if (this._sessionData === undefined || this._sessionData.session === 'INVALID') {
           return observer.next({
             session_info: null,
             standings: [],
-            focused_driver: this._focusedDriver,
+            focused_driver: null,
             overall_best_lap: null
           });
         }
@@ -99,35 +99,40 @@ export class WatchService {
 
       // has the driver just finished a lap
       const lapsCheckedDifference = entry.lapsCompleted - driverLap.laps_checked;
-      if (lapsCheckedDifference === 1 && entry.lastLapTime > -1) {
+      if (lapsCheckedDifference === 1) {
 
-        const lastLap = {
-          sector_1: entry.lastSectorTime1,
-          sector_2: entry.lastSectorTime2 - entry.lastSectorTime1,
-          sector_3: entry.lastLapTime - entry.lastSectorTime2,
-          total: entry.lastLapTime
+        // update laps checked and clear sector states
+        driverLap.laps_checked = entry.lapsCompleted;
+        driverLap.sector_1_state = driverLap.sector_2_state = null;
+
+        if (entry.lastLapTime > -1) {
+
+          driverLap.sector_1_state = driverLap.sector_2_state = null;
+
+          const lastLap = this._getLastLap(entry, driverLap);
+
+          // gap state + and assign to entry
+          const personalBest = (isEmpty(driverLap.best_lap)) ? null : driverLap.best_lap.total;
+          const state = this._getLapState('sector_2', lastLap.total, personalBest);
+          const gap = this._gapToBest(entry.lastLapTime);
+          entry.gapEvent = {state, gap};
+
+          // is this their pb?
+          if (driverLap.best_lap === null || driverLap.total > lastLap.total) {
+            driverLap.best_lap = lastLap;
+          }
+
+          // keep the last lap info on screen
+          driverLap.last_lap_hold = {counter: 0, lastLap, gap};
+
+          this._sessionFastestLapCheck(lastLap);
         }
-
-        // gap state + and assign to entry
-        const personalBest = (isEmpty(driverLap.best_lap)) ? null : driverLap.best_lap.total;
-        const state = this._getLapState('sector_2', lastLap.total, personalBest);
-        const gap = this._gapToBest(entry.lastLapTime);
-        entry.gapEvent = {state, gap};
-
-        // is this their fastest?
-        if (driverLap.best_lap === null || driverLap.total > lastLap.total) {
-          driverLap.best_lap = lastLap;
-        }
-
-        // keep the last lap info on screen
-        driverLap.last_lap_hold = {counter: 0, lastLap, gap};
-
-        this._sessionFastestLapCheck(lastLap);
-      } 
-      driverLap.laps_checked = entry.lapsCompleted;
+      }
 
       entry.lastLapHold = this._updateLastLapHold(driverLap);
-
+      entry.sector1State = driverLap.sector_1_state;
+      entry.sector2State = driverLap.sector_2_state;
+      
       // have they just completed the 1st or 2nd sector
       if (entry.currentSectorTime1 !== -1) {
 
@@ -144,6 +149,7 @@ export class WatchService {
           const personalBest = (isEmpty(driverLap.best_lap)) ? null : driverLap.best_lap.sector_1 + driverLap.best_lap.sector_2;
           const state = this._getLapState('sector_2', entry.currentSector2Time, personalBest);
           entry.gapEvent = {state, gap};
+          driverLap.sector_2_state = state;
         } else {
 
           // sector 1 completed
@@ -154,11 +160,12 @@ export class WatchService {
           const personalBest = (isEmpty(driverLap.best_lap)) ? null : driverLap.best_lap.sector_1;
           const state = this._getLapState('sector_1', entry.currentSectorTime1, personalBest);
           entry.gapEvent = {state, gap};
+          driverLap.sector_1_state = state;
         }
       }
 
       entry.colour = this._getTeamColour(entry.carClass.toLowerCase());
-      if (entry.focus) this._focusedDriver = entry; 
+      if (entry.focus) this._focusedDriver = entry;
     });
 
     return processed;
@@ -167,7 +174,9 @@ export class WatchService {
   _initialiseDriverLap(driverName: string): void {
     this._driverLaps[driverName] = {
       best_lap: null,
-      laps_checked: 0
+      laps_checked: 0,
+      sector_1_state: null,
+      sector_2_state: null
     }
   }
 
@@ -187,6 +196,34 @@ export class WatchService {
     } else {
       return 'DOWN';
     }
+  }
+
+  _getLastLap(entry: any, driverLap: any): any {
+
+    // pb data
+    let sector1PB, sector2PB, sector3PB = null;
+    if (!isEmpty(driverLap.best_lap)) {
+      sector1PB = driverLap.best_lap.sector_1;
+      sector2PB = driverLap.best_lap.sector_2;
+      sector3PB = driverLap.best_lap.sector_3;
+    }
+
+    // last sector data
+    const sector1Last = entry.lastSectorTime1;
+    const sector2Last = entry.lastSectorTime2 - sector1Last;
+    const sector3Last = entry.lastLapTime - entry.lastSectorTime2;
+
+    const lastLap = {
+      sector_1: sector1Last,
+      sector_1_state: this._getLapState('sector_1', sector1Last, sector1PB),
+      sector_2: sector2Last,
+      sector_2_state: this._getLapState('sector_2', sector2Last, sector2PB),
+      sector_3: sector3Last,
+      sector_3_state: this._getLapState('sector_3', sector3Last, sector3PB),
+      total: entry.lastLapTime
+    }
+
+    return lastLap;
   }
 
   _sessionFastestLapCheck(lap: any) {

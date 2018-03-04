@@ -1,7 +1,7 @@
 <div class="container__session-banner">
-    {{ data?.session_info.session | sessionName:'abbreviated'}}
+    {{ data?.session_info?.session | sessionName:'abbreviated'}}
     /
-    {{ (data?.session_info.endEventTime - data?.session_info.currentEventTime) | toMinutes }}
+    {{ (data?.session_info?.endEventTime - data?.session_info?.currentEventTime) | toMinutes }}
 </div>
 
 <div class="container__standings">
@@ -44,7 +44,7 @@
             </div>
             <div class="info__sectors">
                 <div class="sectors__row">
-                    <div class="sector sector--first">
+                    <div class="sector" [ngClass]="_getSectorClass(data.focused_driver, 1)">
                         <span class="sector__number">S1</span>
                         <span class="sector__time">
                             <span *ngIf="data.focused_driver.lastLapHold; else currentS1">
@@ -55,7 +55,7 @@
                             </ng-template>
                         </span>
                     </div>
-                    <div class="sector sector--second">
+                    <div class="sector" [ngClass]="_getSectorClass(data.focused_driver, 2)">
                         <span class="sector__number">S2</span>
                         <span class="sector__time">
                             <span *ngIf="data.focused_driver.lastLapHold; else currentS2">
@@ -66,7 +66,7 @@
                             </ng-template>
                         </span>
                     </div>
-                    <div class="sector sector--third">
+                    <div class="sector" [ngClass]="_getSectorClass(data.focused_driver, 3)">
                         <span class="sector__number">S3</span>
                         <span class="sector__time" *ngIf="data.focused_driver.lastLapHold">
                             {{ data.focused_driver.lastLapHold.lastLap.sector_3 | toMinutes:true }}

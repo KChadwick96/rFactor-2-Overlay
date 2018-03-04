@@ -112,7 +112,7 @@
                     font-weight: bold;
                     font-size: 26px;
                 }
-        
+
                 .details__team {
                     margin: 0 0 8px 18px;
                     font-weight: normal;
@@ -153,16 +153,16 @@
                         padding-left: 5px;
                         line-height: 24px;
 
-                        &--first {
+                        &--down {
+                            background: linear-gradient(to right, #ff0000 0%, transparent 60%);
+                        }
+
+                        &--pb {
                             background: linear-gradient(to right, #4fa218 0%, transparent 60%);
                         }
 
-                        &--second {
-                            background: linear-gradient(to right, red 0%, transparent 60%);
-                        }
-
-                        &--third {
-                            background: linear-gradient(to right, fuchsia 0%, transparent 60%);
+                        &--sb {
+                            background: linear-gradient(to right, #ff00ff 0%, transparent 60%);
                         }
 
                         &__time {
@@ -180,7 +180,7 @@
         font-size: 18px;
         line-height: 26px;
         width: 100%;
-        
+
         > div {
             flex-basis: 16.6%;
             text-align: center;

@@ -12,7 +12,7 @@ import { environment } from '../../environments/environment';
 @Injectable()
 export class WatchService {
 
-  private DATA_REFRESH_RATE = 1000;
+  private DATA_REFRESH_RATE = 500;
   private HOLD_LAP_INFO_DELAY = 10000;
 
   private _baseUrl: string = 'http://localhost:5397/rest/watch';
@@ -101,21 +101,21 @@ export class WatchService {
       const lapsCheckedDifference = entry.lapsCompleted - driverLap.laps_checked;
       if (lapsCheckedDifference === 1) {
 
-        // update laps checked and clear sector states
         driverLap.laps_checked = entry.lapsCompleted;
-        driverLap.sector_1_state = driverLap.sector_2_state = null;
 
         if (entry.lastLapTime > -1) {
 
+          // get last lap and use previously calculated sector states
+          const lastLap = this._getLastLap(entry, driverLap);
+          lastLap.sector_1_state = driverLap.sector_1_state;
+          lastLap.sector_2_state = driverLap.sector_2_state;
           driverLap.sector_1_state = driverLap.sector_2_state = null;
 
-          const lastLap = this._getLastLap(entry, driverLap);
-
           // gap state + and assign to entry
-          const personalBest = (isEmpty(driverLap.best_lap)) ? null : driverLap.best_lap.total;
-          const state = this._getLapState('sector_2', lastLap.total, personalBest);
+          //const personalBest = (isEmpty(driverLap.best_lap)) ? null : driverLap.best_lap.total;
+          //const state = this._getLapState('sector_2', lastLap.total, personalBest);
           const gap = this._gapToBest(entry.lastLapTime);
-          entry.gapEvent = {state, gap};
+          //entry.gapEvent = {state, gap};
 
           // is this their pb?
           if (driverLap.best_lap === null || driverLap.total > lastLap.total) {
@@ -215,9 +215,9 @@ export class WatchService {
 
     const lastLap = {
       sector_1: sector1Last,
-      sector_1_state: this._getLapState('sector_1', sector1Last, sector1PB),
+      sector_1_state: null,
       sector_2: sector2Last,
-      sector_2_state: this._getLapState('sector_2', sector2Last, sector2PB),
+      sector_2_state: null,
       sector_3: sector3Last,
       sector_3_state: this._getLapState('sector_3', sector3Last, sector3PB),
       total: entry.lastLapTime

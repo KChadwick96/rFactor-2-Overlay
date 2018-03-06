@@ -4,28 +4,7 @@
     {{ (data?.session_info?.endEventTime - data?.session_info?.currentEventTime) | toMinutes }}
 </div>
 
-<div class="container__standings">
-    <div class="entry" *ngFor="let entry of data?.standings">
-        <div class="entry__position">
-            {{ entry.position }}
-        </div>
-        <div class="entry__colour" [ngStyle]="{'background-color': entry.colour}"></div>
-        <div class="entry__driver">
-            {{ entry.driverName | driverName:'abbreviated' }}
-        </div>
-        <div class="entry__gap" *ngIf="entry.bestLapTime !== -1">
-            <span *ngIf="entry.position === 1">
-                {{ entry.bestLapTime | toMinutes:true }}
-            </span>
-            <span *ngIf="entry.position > 1">
-                {{ entry.gapToLeader }}
-            </span>
-        </div>
-        <div class="entry__pit" *ngIf="entry.pitting">
-            PIT
-        </div>
-    </div>
-</div>
+<tower [standings]="data?.standings" [mode]="towerMode"></tower>
 
 <div class="container__driver" *ngIf="data?.focused_driver != null">
     <div class="main">
@@ -103,6 +82,8 @@
 
 <!-- Testing -->
 <div style="position: absolute; right: 40px; top: 40px; background-color: white; font-size: 16px; max-width: 600px;">
+    {{ data?.session_info | json }}
+    <br><br>
     {{ data?.overall_best_lap | json }}
     <br><br>
     <span *ngIf="data?.focused_driver != null">

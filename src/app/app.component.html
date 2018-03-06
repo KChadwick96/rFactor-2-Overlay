@@ -82,7 +82,8 @@
         <div class="data-value">{{ data.focused_driver.bestLapTime | toMinutes:true }}</div>
         <div class="data-key">Gap</div>
         <div class="data-value" [ngSwitch]="data.focused_driver.gapEvent">
-            <span *ngIf="data.focused_driver.lastLapHold; else currentGap">
+            <span *ngIf="data.focused_driver.lastLapHold; else currentGap"
+                [style.color]="_getSectorColour(data.focused_driver.lastLapHold.state)">
                 {{ data.focused_driver.lastLapHold.gap }}
             </span>
 

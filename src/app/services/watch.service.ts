@@ -112,8 +112,8 @@ export class WatchService {
           driverLap.sector_1_state = driverLap.sector_2_state = null;
 
           // gap state + and assign to entry
-          //const personalBest = (isEmpty(driverLap.best_lap)) ? null : driverLap.best_lap.total;
-          //const state = this._getLapState('sector_2', lastLap.total, personalBest);
+          const personalBest = (isEmpty(driverLap.best_lap)) ? null : driverLap.best_lap.total;
+          const state = this._getLapState('total', lastLap.total, personalBest);
           const gap = this._gapToBest(entry.lastLapTime);
           //entry.gapEvent = {state, gap};
 
@@ -123,7 +123,7 @@ export class WatchService {
           }
 
           // keep the last lap info on screen
-          driverLap.last_lap_hold = {counter: 0, lastLap, gap};
+          driverLap.last_lap_hold = {counter: 0, lastLap, gap, state};
 
           this._sessionFastestLapCheck(lastLap);
         }

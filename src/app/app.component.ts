@@ -1,6 +1,5 @@
 import { Component, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 
-
 import { WatchService } from './services/watch.service';
 
 @Component({
@@ -13,7 +12,6 @@ import { WatchService } from './services/watch.service';
 export class AppComponent {
 
   data: any;
-  towerMode: string = 'BASIC'; // FASTEST_LAP_GAP, BASIC, GAP_TO_LEADER
 
   constructor(
     private watchService: WatchService,
@@ -22,7 +20,6 @@ export class AppComponent {
 
   ngOnInit(): void {
     this._startDataCycle();
-    this._startTowerAlternate();
   }
 
   _startDataCycle(): void {
@@ -30,20 +27,6 @@ export class AppComponent {
       this.data = data;
       this.cdRef.markForCheck();
     });
-  }
-
-  _startTowerAlternate(): void {
-    setInterval(() => {
-      if (this.towerMode === 'BASIC') {
-        this.towerMode = 'FASTEST_LAP_GAP';
-      } else {
-        this.towerMode = 'BASIC';
-      }
-    }, 10000);
-  }
-
-  _getTowerMode(): string {
-    return 'FASTEST_LAP_GAP';
   }
   
   _getSectorColour(state: string): string {

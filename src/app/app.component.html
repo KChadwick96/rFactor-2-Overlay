@@ -4,7 +4,7 @@
     {{ (data?.session_info?.endEventTime - data?.session_info?.currentEventTime) | toMinutes }}
 </div>
 
-<tower [standings]="data?.standings" [mode]="towerMode"></tower>
+<tower [standings]="data?.standings" [raceSession]="data?.session_info?.session"></tower>
 
 <div class="container__driver" *ngIf="data?.focused_driver != null">
     <div class="main">

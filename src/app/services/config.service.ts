@@ -144,7 +144,7 @@ const config = {
             "flag": "https://imgur.com/o3kblwK.png"
         },
         "frank godrecki": {
-            "flag": ""
+            "flag": "https://imgur.com/3oTIESg.png"
         }
     }
 }

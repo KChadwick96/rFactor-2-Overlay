@@ -70,27 +70,81 @@ const config = {
         },
         "tino naukkarinen": {
             "flag": "https://imgur.com/VIJffgO.png"
+        },
+        "dan-ove brantholm": {
+            "flag": "https://imgur.com/pnoBMKg.png"
+        },
+        "vincent evers": {
+            "flag": "https://imgur.com/fhXmGJQ.png"
+        },
+        "adam cronin": {
+            "flag": "https://imgur.com/4yAOniI.png"
+        },
+        "jordy zwiers": {
+            "flag": "https://imgur.com/fhXmGJQ.png"
+        },
+        "brandon ohenlen": {
+            "flag": "https://imgur.com/4yAOniI.png"
+        },
+        "dominic lambrechts": {
+            "flag": "https://imgur.com/4yAOniI.png"
+        },
+        "jacob reid": {
+            "flag": "https://imgur.com/4yAOniI.png"
+        },
+        "dionysis faraos": {
+            "flag": "https://imgur.com/YsHTDTe.png"
+        },
+        "sulaiman bah": {
+            "flag": "https://imgur.com/lqEcsyy.png"
+        },
+        "gerrit de vries": {
+            "flag": "https://imgur.com/fhXmGJQ.png"
+        },
+        "tomi ylitalo": {
+            "flag": "https://imgur.com/VIJffgO.png"
+        },
+        "callum roberts": {
+            "flag": "https://imgur.com/4yAOniI.png"
+        },
+        "andrew smith": {
+            "flag": "https://imgur.com/4yAOniI.png"
+        },
+        "kevin turner": {
+            "flag": "https://imgur.com/wfwSvVC.png"
+        },
+        "max huss": {
+            "flag": "https://imgur.com/4yAOniI.png"
+        },
+        "edgaras gudaitis": {
+            "flag": "https://imgur.com/4yAOniI.png"
+        },
+        "noah chilla": {
+            "flag": "https://imgur.com/uXTuiD0.png"
+        },
+        "jukkapekka lalu": {
+            "flag": "https://imgur.com/VIJffgO.png"
+        },
+        "rik van doorn": {
+            "flag": "https://imgur.com/fhXmGJQ.png"
+        },
+        "martin pankratov": {
+            "flag": "https://imgur.com/4yAOniI.png"
+        },
+        "thomas lagny": {
+            "flag": "https://imgur.com/o3kblwK.png"
+        },
+        "jamie pounder": {
+            "flag": "https://imgur.com/4yAOniI.png"
+        },
+        "damian hall": {
+            "flag": "https://imgur.com/wfwSvVC.png"
+        },
+        "ismael nadire": {
+            "flag": "https://imgur.com/o3kblwK.png"
+        },
+        "frank godrecki": {
+            "flag": ""
         }
     }
 }
-
-// barbados  https://imgur.com/wfwSvVC.png
-// canada https://imgur.com/wfwSvVC.png
-// estonia https://imgur.com/lQY7jwt
-// usa https://imgur.com/lqEcsyy
-// finland https://imgur.com/VIJffgO
-// france https://imgur.com/o3kblwK
-// germany https://imgur.com/uXTuiD0
-// czech https://imgur.com/NW1W2Xq
-// ireland https://imgur.com/Wno1zTe
-// italy https://imgur.com/isyV4ka
-// lithuania https://imgur.com/MUamoPt
-// greece https://imgur.com/YsHTDTe
-// south africa https://imgur.com/6q7RieM
-// spain https://imgur.com/kWjTroJ
-// netherlands https://imgur.com/fhXmGJQ
-// portugal https://imgur.com/i7q5I4M
-// sweden https://imgur.com/pnoBMKg
-// uk https://imgur.com/4yAOniI
-// uruguay https://imgur.com/uySRbrm
-// scotland https://imgur.com/0apJFaG

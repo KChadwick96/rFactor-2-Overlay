@@ -1,9 +1,4 @@
-<div class="container__session-banner">
-    {{ data?.session_info?.session | sessionName:'abbreviated'}}
-    /
-    {{ (data?.session_info?.endEventTime - data?.session_info?.currentEventTime) | toMinutes }}
-</div>
-
+<banner [sessionData]="data?.session_info" [standings]="data?.standings"></banner>
 <tower [standings]="data?.standings" [raceSession]="data?.session_info?.session"></tower>
 
 <div class="container__driver" *ngIf="data?.focused_driver != null">

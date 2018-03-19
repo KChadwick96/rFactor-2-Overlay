@@ -22,17 +22,17 @@ export class SessionNamePipe implements PipeTransform {
                 if (type === 'abbreviated') session = 'P3';
                 break;
 
-            case 'QUALIFYING1':
+            case 'QUALIFY1':
                 if (type === 'full') session = 'Qualifying 1';
                 if (type === 'abbreviated') session = 'Q1';
                 break;
 
-            case 'QUALIFYING2':
+            case 'QUALIFY2':
                 if (type === 'full') session = 'Qualifying 2';
                 if (type === 'abbreviated') session = 'Q2';
                 break;
 
-            case 'QUALIFYING3':
+            case 'QUALIFY3':
                 if (type === 'full') session = 'Qualifying 3';
                 if (type === 'abbreviated') session = 'Q3';
                 break;

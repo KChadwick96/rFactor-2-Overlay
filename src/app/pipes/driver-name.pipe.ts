@@ -13,7 +13,7 @@ export class DriverNamePipe implements PipeTransform {
         if (type === 'last') {
             return last
         } else if (type === 'full') {
-             parts.pop();
+            parts.pop();
             return `${parts.join(' ')} ${last.toUpperCase()}`;
         } else if (type === 'abbreviated') {
             return last.substring(0, 3);

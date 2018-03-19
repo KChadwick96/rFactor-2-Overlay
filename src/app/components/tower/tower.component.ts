@@ -17,21 +17,17 @@ export class TowerComponent {
             },
             {
                 mode: 'FASTEST_LAP_GAP',
-                length: 5
-            },
-            {
-                mode: 'GAP_TO_LEADER',
-                length: 10
+                length: 20
             }
         ],
         race: [
             {
                 mode: 'BASIC' ,
-                length: 10   
+                length: 5   
             },
             {
                 mode: 'GAP_TO_LEADER',
-                length: 20
+                length: 30
             }
         ]
     };

@@ -6,8 +6,8 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./banner.component.scss']
 })
 export class BannerComponent {
-    private _mode: string = 'LAP'; // TIME, LAP
-    private _sessionData: any;
+    _mode: string; // TIME, LAP
+    _sessionData: any;
 
     @Input() standings: any[];
     @Input() 

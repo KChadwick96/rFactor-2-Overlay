@@ -9,7 +9,7 @@ export class ToMinutesPipe implements PipeTransform {
         seconds = seconds - minutes * 60;
         let secondsStr = showMilliseconds ? seconds.toFixed(3) : Math.round(seconds);
 
-        secondsStr = (seconds < 10) ? `0${secondsStr}` : `${secondsStr}`;
+        secondsStr = (seconds <= 9) ? `0${secondsStr}` : `${secondsStr}`;
         if (secondsStr === '60') secondsStr = '00';
 
         return (minutes > 0) ? `${minutes}:${secondsStr}` : secondsStr;

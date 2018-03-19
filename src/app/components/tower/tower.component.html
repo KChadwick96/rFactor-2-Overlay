@@ -1,0 +1,30 @@
+<div class="container__standings">
+    <div class="entry" *ngFor="let entry of standings">
+        <div class="entry__position">
+            {{ entry.position }}
+        </div>
+        <div class="entry__colour" [ngStyle]="{'background-color': entry.colour}"></div>
+        <div class="entry__driver">
+            {{ entry.driverName | driverName: (_mode === 'BASIC' ? 'last' : 'abbreviated') }}
+        </div>
+        <div class="entry__gap" *ngIf="_mode === 'FASTEST_LAP_GAP' && entry.bestLapTime !== -1">
+            <span *ngIf="entry.position === 1">
+                {{ entry.bestLapTime | toMinutes:true }}
+            </span>
+            <span *ngIf="entry.position > 1">
+                {{ entry.gapToLeader }}
+            </span>
+        </div>
+        <div class="entry__gap" *ngIf="_mode === 'GAP_TO_LEADER'">
+            <span *ngIf="entry.position === 1">
+                Leader
+            </span>
+            <span *ngIf="entry.position > 1">
+                +{{ entry.timeBehindLeader | toMinutes:true }}
+            </span>
+        </div>
+        <div class="entry__pit" *ngIf="entry.pitting">
+            PIT
+        </div>
+    </div>
+</div>

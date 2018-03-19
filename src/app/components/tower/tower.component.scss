@@ -1,0 +1,60 @@
+.container__standings {
+    width: 250px;
+    left: 100px;
+    top: 105px;
+    position: absolute;
+
+    .entry {
+        background-color: rgba(230, 230, 230, 0.9);
+        border-radius: 4px;
+        width: 100%;
+        border: 2px solid rgb(204, 204, 204);
+        position: relative;
+
+        &:nth-child(odd) {
+            background: rgba(251, 251, 251, 0.9);
+        }
+
+        &__position {
+            padding: 2px 0;
+            display: inline-block;
+            border-radius: 4px;
+            width: 33px;
+            text-align: center;
+            background-color: rgba(240, 39, 13, 0.9);;
+            color: rgb(240, 240, 240);
+        }
+
+        &__colour {
+            display: inline-block;
+            width: 13px;
+            height: 13px;
+            border-radius: 50%;
+            //background-color: rgb(255, 84, 5);
+            margin: 0 5px;
+            border: 1px solid rgb(124, 124, 124);
+        }
+
+        &__driver {
+            display: inline-block;
+            line-height: 30px;
+            text-transform: uppercase;
+        }
+
+        &__gap {
+            float: right;
+            line-height: 30px;
+            padding-right: 6px;
+        }
+
+        &__pit {
+            position: absolute;
+            left: 100%;
+            top: 5%;
+            padding: 1px 4px;
+            height: 90%;
+            background-color: rgba(212, 212, 212, 0.6);
+            color: rgb(49, 49, 49);
+        }
+    }
+}

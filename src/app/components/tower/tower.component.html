@@ -19,8 +19,8 @@
             <span *ngIf="entry.position === 1">
                 Leader
             </span>
-            <span *ngIf="entry.position > 1">
-                +{{ entry.timeBehindLeader | toMinutes:true }}
+            <span *ngIf="entry.position > 1 && entry.timeBehindLeader != 0">
+                +{{ entry.timeBehindLeader | toMinutes:true:false }}
             </span>
         </div>
         <div class="entry__pit" *ngIf="entry.pitting">

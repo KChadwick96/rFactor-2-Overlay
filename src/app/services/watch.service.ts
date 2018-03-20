@@ -186,7 +186,7 @@ export class WatchService {
   }
 
   _gapToBest(lapTime: number): string {
-    let gapValue = 0;
+    let gapValue = 8.421;
     if (!isEmpty(this._overallBestLap)) {
       gapValue = lapTime - this._overallBestLap.total;
     }
@@ -310,9 +310,9 @@ const sampleStandingsData = [
   {
     "position":9,
     "driverName":"Kieran Chadwick ",
-    "bestLapTime":-1.0,
+    "bestLapTime": 110,
     "pitstops":0,
-    "pitting":true,
+    "pitting":false,
     "lastLapTime":0.0,
     "vehicleName":"Cian White #48",
     "timeBehindNext":0.0,

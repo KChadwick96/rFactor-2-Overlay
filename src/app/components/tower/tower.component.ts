@@ -10,26 +10,20 @@ export class TowerComponent {
     private _interval;
     private _mode;
     private _schedules: any = {
-        quali: [
-            {
-                mode: 'BASIC' ,
-                length: 5   
-            },
-            {
-                mode: 'FASTEST_LAP_GAP',
-                length: 20
-            }
-        ],
-        race: [
-            {
-                mode: 'BASIC' ,
-                length: 5   
-            },
-            {
-                mode: 'GAP_TO_LEADER',
-                length: 30
-            }
-        ]
+        quali: [{
+            mode: 'BASIC' ,
+            length: 5   
+        },{
+            mode: 'FASTEST_LAP_GAP',
+            length: 20
+        }],
+        race: [{
+            mode: 'BASIC' ,
+            length: 5   
+        },{
+            mode: 'GAP_TO_LEADER',
+            length: 30
+        }]
     };
 
     @Input() standings: any[] = [];

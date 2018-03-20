@@ -1,5 +1,5 @@
 <div class="container__standings">
-    <div class="entry" *ngFor="let entry of standings">
+    <div class="entry" *ngFor="let entry of standings | slice:0:20">
         <div class="entry__position">
             {{ entry.position }}
         </div>

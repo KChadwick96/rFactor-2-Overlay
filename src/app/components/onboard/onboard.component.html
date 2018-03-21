@@ -1,0 +1,73 @@
+<div class="container__driver" *ngIf="driver != null">
+    <div class="main">
+        <div class="driver__position">
+            {{ driver.position }}
+        </div>
+    
+        <div class="driver__info">
+            <div class="info__details">
+                <p class="details__name">{{ driver.driverName | driverName:'full'}}</p>
+                <p class="details__team">{{ driver.carClass }}</p>
+    
+                <div class="details__flag">
+                    <img src="{{ driver.flag }}">
+                </div>
+            </div>
+            <div class="info__sectors">
+                <div class="sectors__row">
+                    <div class="sector" [ngClass]="_getSectorClass(driver, 1)">
+                        <span class="sector__number">S1</span>
+                        <span class="sector__time">
+                            <span *ngIf="driver.lastLapHold; else currentS1">
+                                {{ driver.lastLapHold.lastLap.sector_1 | toMinutes:true }}
+                            </span>
+                            <ng-template #currentS1>
+                                {{ (driver.currentSectorTime1 !== -1) ? (driver.currentSectorTime1 | toMinutes:true) : '' }}
+                            </ng-template>
+                        </span>
+                    </div>
+                    <div class="sector" [ngClass]="_getSectorClass(driver, 2)">
+                        <span class="sector__number">S2</span>
+                        <span class="sector__time">
+                            <span *ngIf="driver.lastLapHold; else currentS2">
+                                {{ driver.lastLapHold.lastLap.sector_2 | toMinutes:true }}
+                            </span>
+                            <ng-template #currentS2>
+                                {{ (driver.currentSectorTime2 !== -1) ? (driver.currentSectorTime2 - driver.currentSectorTime1 | toMinutes:true) : '' }}
+                            </ng-template>
+                        </span>
+                    </div>
+                    <div class="sector" [ngClass]="_getSectorClass(driver, 3)">
+                        <span class="sector__number">S3</span>
+                        <span class="sector__time" *ngIf="driver.lastLapHold">
+                            {{ driver.lastLapHold.lastLap.sector_3 | toMinutes:true }}
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="secondary">
+        <div class="data-key">Best</div>
+        <div class="data-value">{{ driver.bestLapTime | toMinutes:true }}</div>
+        <div class="data-key">Gap</div>
+        <div class="data-value" [ngSwitch]="driver.gapEvent">
+            <span *ngIf="driver.lastLapHold; else currentGap"
+                [style.color]="_getSectorColour(driver.lastLapHold.state)">
+                {{ driver.lastLapHold.gap }}
+            </span>
+
+            <ng-template #currentGap [ngSwitch]="driver.gapEvent">
+                <span *ngSwitchCase="null">-</span>
+                <span *ngSwitchDefault [style.color]="_getSectorColour(driver.gapEvent.state)">
+                    {{ driver.gapEvent.gap }}
+                </span>
+            </ng-template>
+        </div>
+        <div class="data-key">Last Lap</div>
+        <div class="data-value">
+            {{ (driver.lastLapTime !== -1) ? (driver.lastLapTime | toMinutes:true) : 'NA' }}
+        </div>
+    </div>
+</div>

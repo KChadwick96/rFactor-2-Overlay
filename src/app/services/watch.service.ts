@@ -119,7 +119,7 @@ export class WatchService {
           const personalBest = (isEmpty(driverLap.best_lap)) ? null : driverLap.best_lap.total;
           const state = this._getLapState('total', lastLap.total, personalBest);
           const gap = this._gapToBest(entry.lastLapTime);
-          //entry.gapEvent = {state, gap};
+          entry.gapEvent = {state, gap};
 
           // is this their pb?
           if (driverLap.best_lap === null || driverLap.total > lastLap.total) {
@@ -168,6 +168,11 @@ export class WatchService {
         }
       }
 
+      if (entry.pitting) {
+        driverLap.sector_1_state = driverLap.sector_2_state = null;
+        entry.sector1State = entry.sector2State = null;
+      }
+
       entry.colour = this._getTeamColour(entry.carClass.toLowerCase());
       entry.flag = this._getDriverFlag(entry.driverName);
       if (entry.focus) this._focusedDriver = entry;
@@ -186,7 +191,7 @@ export class WatchService {
   }
 
   _gapToBest(lapTime: number): string {
-    let gapValue = 8.421;
+    let gapValue = 0;
     if (!isEmpty(this._overallBestLap)) {
       gapValue = lapTime - this._overallBestLap.total;
     }

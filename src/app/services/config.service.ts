@@ -22,23 +22,53 @@ const config = {
             "colour": "#a000d2"
         },
         "disruptive tech racing": {
-            "colour": "#3c3c3d"
+            "colour": "#ef9607"
         },
         "acr zakspeed": {
-            "colour": "#e8e8e8"
+            "colour": "#002F7C"
         },
         "zesty racing": {
-            "colour": "#e28c28"
+            "colour": "#ff8a00"
         },
         "idos motorsport": {
-            "colour": "#000000"
+            "colour": "#f6ff00"
         },
         "vi race team": {
             "colour": "#e5e5e5"
         },
         "s2 racing": {
-            "colour": "#002b91"
-        } 
+            "colour": "#083789"
+        },
+        "covadis racing": {
+            "colour": "#E27D24"
+        },
+        "eleven ballast racing": {
+            "colour": "#F8DE01"
+        },
+        "visceral sim racing": {
+            "colour": "#FE0100"
+        },
+        "team galaxy": {
+            "colour": "#ff89e0"
+        },
+        "cor racing": {
+            "colour": "#c0c0c0"
+        },
+        "wolf racing": {
+            "colour": "#f5f5f5"
+        },
+        "drillers motorsport": {
+            "colour": "#f76600"
+        },
+        "thrive esports black": {
+            "colour": "#2ee3d3"
+        },
+        "thrive esports blue": {
+            "colour": "#141455"
+        },
+        "royal blue racing": {
+            "colour": "#1344b5"
+        }
     },
     drivers: {
         "kieran chadwick": {
@@ -74,9 +104,6 @@ const config = {
         "dan-ove brantholm": {
             "flag": "https://imgur.com/pnoBMKg.png"
         },
-        "vincent evers": {
-            "flag": "https://imgur.com/fhXmGJQ.png"
-        },
         "adam cronin": {
             "flag": "https://imgur.com/4yAOniI.png"
         },
@@ -106,6 +133,12 @@ const config = {
         },
         "callum roberts": {
             "flag": "https://imgur.com/4yAOniI.png"
+        },
+        "kamran khan": {
+            "flag": "https://imgur.com/4yAOniI.png"
+        },
+        "mattia silva": {
+            "flag": ""
         },
         "andrew smith": {
             "flag": "https://imgur.com/4yAOniI.png"
@@ -145,6 +178,18 @@ const config = {
         },
         "frank godrecki": {
             "flag": "https://imgur.com/3oTIESg.png"
-        }
+        },
+        "David Pashkovski": {
+            "flag": "https://imgur.com/3oTIESg.png"
+        },
+        "rafal glosinski": {
+            "flag": "https://imgur.com/3oTIESg.png"
+        },
+        "corey nyls": {
+            "flag": "https://imgur.com/lqEcsyy.png"
+        },
+        "vincent evers": {
+            "flag": "https://imgur.com/fhXmGJQ.png"
+        },
     }
 }

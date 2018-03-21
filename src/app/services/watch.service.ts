@@ -168,6 +168,7 @@ export class WatchService {
         }
       }
 
+      // clear sector states if driver in pits
       if (entry.pitting) {
         driverLap.sector_1_state = driverLap.sector_2_state = null;
         entry.sector1State = entry.sector2State = null;
@@ -308,7 +309,7 @@ const sampleSessionData = {
   ambientTemp: 29.0,
   trackTemp: 29.0,
   endEventTime: 7230.0,
-  currentEventTime: 375.8
+  currentEventTime: 7170
 }
 
 const sampleStandingsData = [

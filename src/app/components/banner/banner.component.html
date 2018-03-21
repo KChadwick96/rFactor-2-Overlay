@@ -1,8 +1,8 @@
 <div class="container__session-banner">
     <span *ngIf="_mode === 'TIME'">
-        {{ _sessionData?.session | sessionName:'abbreviated'}}
+        {{ _sessionData?.session | sessionName:'abbreviated' }}
         /
-        {{ (_sessionData?.endEventTime - _sessionData?.currentEventTime) | toMinutes }}
+        {{ (_sessionData?.endEventTime - _sessionData?.currentEventTime) | toMinutes:false:true:true }}
     </span>
     <span *ngIf="_mode === 'LAP'">
         LAP

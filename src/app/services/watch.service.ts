@@ -119,7 +119,7 @@ export class WatchService {
           const personalBest = (isEmpty(driverLap.best_lap)) ? null : driverLap.best_lap.total;
           const state = this._getLapState('total', lastLap.total, personalBest);
           const gap = this._gapToBest(entry.lastLapTime);
-          //entry.gapEvent = {state, gap};
+          entry.gapEvent = {state, gap};
 
           // is this their pb?
           if (driverLap.best_lap === null || driverLap.total > lastLap.total) {
@@ -166,6 +166,11 @@ export class WatchService {
           entry.gapEvent = {state, gap};
           driverLap.sector_1_state = state;
         }
+      }
+
+      if (entry.pitting) {
+        driverLap.sector_1_state = driverLap.sector_2_state = null;
+        entry.sector1State = entry.sector2State = null;
       }
 
       entry.colour = this._getTeamColour(entry.carClass.toLowerCase());
@@ -310,9 +315,9 @@ const sampleStandingsData = [
   {
     "position":9,
     "driverName":"Kieran Chadwick ",
-    "bestLapTime":-1.0,
+    "bestLapTime": 110,
     "pitstops":0,
-    "pitting":true,
+    "pitting":false,
     "lastLapTime":0.0,
     "vehicleName":"Cian White #48",
     "timeBehindNext":0.0,

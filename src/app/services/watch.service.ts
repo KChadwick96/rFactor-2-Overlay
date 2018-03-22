@@ -104,9 +104,6 @@ export class WatchService {
       // has the driver just finished a lap
       const lapsCheckedDifference = entry.lapsCompleted - driverLap.laps_checked;
       if (lapsCheckedDifference === 1) {
-
-        driverLap.laps_checked = entry.lapsCompleted;
-
         if (entry.lastLapTime > -1) {
 
           // get last lap and use previously calculated sector states
@@ -132,6 +129,7 @@ export class WatchService {
           this._sessionFastestLapCheck(lastLap);
         }
       }
+      driverLap.laps_checked = entry.lapsCompleted;
 
       entry.lastLapHold = this._updateLastLapHold(driverLap);
       entry.sector1State = driverLap.sector_1_state;

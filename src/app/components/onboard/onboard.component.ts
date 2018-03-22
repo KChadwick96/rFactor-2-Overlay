@@ -6,8 +6,19 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./onboard.component.scss']
 })
 export class OnboardComponent {
-    
+    _mode: string; // FASTEST_GAP, POSITION_GAP
+
     @Input() driver: any;
+    @Input()
+    set raceSession(session: string) {
+        if (!session) return;
+        
+        if (session.includes('PRACTICE') || session.includes('QUALIFY') || session.includes('WARMUP')) {
+            this._mode = 'FASTEST_GAP';
+        } else {
+            this._mode = 'FASTEST_GAP';
+        }
+    }
 
     constructor() {}
 

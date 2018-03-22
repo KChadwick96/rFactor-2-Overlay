@@ -27,7 +27,6 @@ export class TowerComponent {
     };
 
     @Input() standings: any[] = [];
-
     @Input() 
     set raceSession(session: string) {
         if (session !== this._raceSession) {

@@ -56,7 +56,7 @@
                 }
             }
 
-            .info__sectors {
+            .info__timing {
                 border-bottom-left-radius: 10px;
                 border-bottom-right-radius: 10px;
                 background-color: rgba(226, 224, 222, 0.952);
@@ -64,19 +64,21 @@
                 width: 100%;
                 height: 39px;
 
-                .sectors__row {
+                .row {
                     margin: 6px 22px;
                     display: flex;
                     flex-direction: row;
                     justify-content: space-between;
 
-                    .sector {
+                    .gap, .sector {
                         font-size: 18px;
-                        //font-weight: normal;
-                        flex-basis: 26%;
+                        line-height: 24px;
                         border-radius: 5px;
                         padding-left: 5px;
-                        line-height: 24px;
+                    }
+
+                    .sector {
+                        flex-basis: 26%;
 
                         &--down {
                             background: linear-gradient(to right, #ff0000 0%, transparent 60%);
@@ -91,6 +93,15 @@
                         }
 
                         &__time {
+                            float: right;
+                        }
+                    }
+
+                    .gap {
+                        flex-basis: 45%;
+                        background: linear-gradient(to right, #ffffff 0%, transparent 60%);
+
+                        &__value {
                             float: right;
                         }
                     }

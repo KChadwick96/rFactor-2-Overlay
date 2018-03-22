@@ -14,7 +14,7 @@ export class BannerComponent {
     set sessionData(data: any) {
         if (data == null) return;
 
-        if (data.session.includes('PRACTICE') || data.session.includes('QUALIFY')) {
+        if (data.session.includes('PRACTICE') || data.session.includes('QUALIFY') || data.session.includes('WARMUP')) {
             this._mode = 'TIME';
         } else {
             this._mode = 'LAP';

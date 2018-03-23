@@ -13,8 +13,11 @@
                     <img src="{{ driver.flag }}">
                 </div>
             </div>
-            <div class="info__sectors">
-                <div class="sectors__row">
+
+            <div class="info__timing">
+
+                <!-- Sector info -->
+                <div class="row" *ngIf="_mode === 'FASTEST_GAP'">
                     <div class="sector" [ngClass]="_getSectorClass(driver, 1)">
                         <span class="sector__number">S1</span>
                         <span class="sector__time">
@@ -44,6 +47,18 @@
                         </span>
                     </div>
                 </div>
+
+                <!-- Position gap info -->
+                <div class="row" *ngIf="_mode === 'POSITION_GAP'">
+                    <div class="gap">
+                        <span class="gap__title">Ahead</span>
+                        <span class="gap__value" *ngIf="driver.position !== 1">{{ driver.timeBehindNext | toMinutes:true }}</span>
+                    </div>
+                    <div class="gap">
+                        <span class="gap__title">Behind</span>
+                        <span class="gap__value">-</span>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -51,23 +66,30 @@
     <div class="secondary">
         <div class="data-key">Best</div>
         <div class="data-value">{{ driver.bestLapTime | toMinutes:true }}</div>
-        <div class="data-key">Gap</div>
-        <div class="data-value" [ngSwitch]="driver.gapEvent">
+        <div class="data-key">Last Lap</div>
+        <div class="data-value">
+            {{ (driver.lastLapTime !== -1) ? (driver.lastLapTime | toMinutes:true) : 'NA' }}
+        </div>
+        <div class="data-key">
+            {{ _mode === 'FASTEST_GAP' ? 'Gap' : 'Stops' }}
+        </div>
+        <div class="data-value" *ngIf="_mode === 'FASTEST_GAP'">
             <span *ngIf="driver.lastLapHold; else currentGap"
                 [style.color]="_getSectorColour(driver.lastLapHold.state)">
                 {{ driver.lastLapHold.gap }}
             </span>
 
-            <ng-template #currentGap [ngSwitch]="driver.gapEvent">
-                <span *ngSwitchCase="null">-</span>
-                <span *ngSwitchDefault [style.color]="_getSectorColour(driver.gapEvent.state)">
-                    {{ driver.gapEvent.gap }}
-                </span>
-            </ng-template>
+            <div [ngSwitch]="driver.gapEvent">
+                <ng-template #currentGap>
+                    <span *ngSwitchCase="null">-</span>
+                    <span *ngSwitchDefault [style.color]="_getSectorColour(driver.gapEvent.state)">
+                        {{ driver.gapEvent.gap }}
+                    </span>
+                </ng-template>
+            </div>
         </div>
-        <div class="data-key">Last Lap</div>
-        <div class="data-value">
-            {{ (driver.lastLapTime !== -1) ? (driver.lastLapTime | toMinutes:true) : 'NA' }}
+        <div class="data-value" *ngIf="_mode === 'POSITION_GAP'">
+            {{ driver.pitstops }}
         </div>
     </div>
 </div>

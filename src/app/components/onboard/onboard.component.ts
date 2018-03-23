@@ -45,14 +45,12 @@ export class OnboardComponent {
         return '';
     }
 
-    _getGapBehind(): string {
+    _getGapBehind(): number {
         const driverIndex = this.standings.findIndex(entry => entry.position === this.driver.position);
         const behindIndex = driverIndex + 1;
 
         const driverBehind = this.standings[behindIndex];
-        if (!driverBehind) {
-            return '-';
-        }
+        if (!driverBehind) return 0;
 
         return driverBehind.timeBehindNext;
     }

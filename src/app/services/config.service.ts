@@ -68,6 +68,9 @@ const config = {
         },
         "royal blue racing": {
             "colour": "#1344b5"
+        },
+        "vulcan racing": {
+            "colour": "#ba0000"
         }
     },
     drivers: {
@@ -190,6 +193,6 @@ const config = {
         },
         "vincent evers": {
             "flag": "https://imgur.com/fhXmGJQ.png"
-        },
+        }
     }
 }

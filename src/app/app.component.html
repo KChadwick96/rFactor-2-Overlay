@@ -1,9 +1,9 @@
 <banner [sessionData]="data?.session_info" [standings]="data?.standings"></banner>
 <tower [standings]="data?.standings" [raceSession]="data?.session_info?.session"></tower>
-<onboard [driver]="data?.focused_driver" [raceSession]="data?.session_info?.session"></onboard>
+<onboard [driver]="data?.focused_driver" [raceSession]="data?.session_info?.session" [standings]="data?.standings"></onboard>
 
 <!-- Testing -->
-<div style="position: absolute; right: 40px; top: 40px; background-color: white; font-size: 16px; max-width: 600px;">
+<!-- <div style="position: absolute; right: 40px; top: 40px; background-color: white; font-size: 16px; max-width: 600px;">
     {{ data?.session_info | json }}
     <br><br>
     {{ data?.overall_best_lap | json }}
@@ -11,4 +11,4 @@
     <span *ngIf="data?.focused_driver != null">
         {{ data?.focused_driver | json }}
     </span>
-</div>
+</div> -->

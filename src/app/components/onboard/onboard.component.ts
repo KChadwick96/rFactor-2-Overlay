@@ -9,6 +9,7 @@ export class OnboardComponent {
     _mode: string; // FASTEST_GAP, POSITION_GAP
 
     @Input() driver: any;
+    @Input() standings: any[] = [];
     @Input()
     set raceSession(session: string) {
         if (!session) return;
@@ -16,7 +17,7 @@ export class OnboardComponent {
         if (session.includes('PRACTICE') || session.includes('QUALIFY') || session.includes('WARMUP')) {
             this._mode = 'FASTEST_GAP';
         } else {
-            this._mode = 'FASTEST_GAP';
+            this._mode = 'POSITION_GAP';
         }
     }
 
@@ -42,5 +43,15 @@ export class OnboardComponent {
         if (state === 'PERSONAL_BEST') return 'sector--pb';
         if (state === 'DOWN') return 'sector--down';
         return '';
+    }
+
+    _getGapBehind(): number {
+        const driverIndex = this.standings.findIndex(entry => entry.position === this.driver.position);
+        const behindIndex = driverIndex + 1;
+
+        const driverBehind = this.standings[behindIndex];
+        if (!driverBehind) return 0;
+
+        return driverBehind.timeBehindNext;
     }
 }

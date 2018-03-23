@@ -2,7 +2,10 @@
     <span *ngIf="_mode === 'TIME'">
         {{ _sessionData?.session | sessionName:'abbreviated' }}
         /
-        {{ (_sessionData?.endEventTime - _sessionData?.currentEventTime) | toMinutes:false:true:true }}
+        <span *ngIf="_sessionData?.currentEventTime >= _sessionData?.endEventTime">0:00</span>
+        <span *ngIf="_sessionData?.currentEventTime < _sessionData?.endEventTime">
+            {{ (_sessionData?.endEventTime - _sessionData?.currentEventTime) | toMinutes:false:true:true }}
+        </span>
     </span>
     <span *ngIf="_mode === 'LAP'">
         LAP

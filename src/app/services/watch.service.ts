@@ -306,8 +306,8 @@ const sampleSessionData = {
   raining: 0.0,
   ambientTemp: 29.0,
   trackTemp: 29.0,
-  endEventTime: 7230.0,
-  currentEventTime: 7170
+  endEventTime: 300.0,
+  currentEventTime: 238.0
 }
 
 const sampleStandingsData = [

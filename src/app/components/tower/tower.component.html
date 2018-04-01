@@ -9,7 +9,7 @@
         </div>
         <div class="entry__gap" *ngIf="_mode === 'FASTEST_LAP_GAP' && entry.bestLapTime !== -1">
             <span *ngIf="entry.position === 1">
-                {{ entry.bestLapTime | toMinutes:true }}
+                {{ entry.bestLapTime | minutesAndSeconds:true:false }}
             </span>
             <span *ngIf="entry.position > 1">
                 {{ entry.gapToLeader }}
@@ -20,7 +20,7 @@
                 Leader
             </span>
             <span *ngIf="entry.position > 1 && entry.timeBehindLeader != 0">
-                +{{ entry.timeBehindLeader | toMinutes:true:false }}
+                +{{ entry.timeBehindLeader | minutesAndSeconds:true:false }}
             </span>
         </div>
         <div class="entry__pit" *ngIf="entry.pitting">

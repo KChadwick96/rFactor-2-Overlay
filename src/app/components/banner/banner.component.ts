@@ -24,4 +24,18 @@ export class BannerComponent {
     }
 
     constructor() {}
+
+    _getLapCounter(): string {
+        if (!this.standings || !this._sessionData) {
+            return '-';
+        }
+
+        const lapsCompleted = this.standings[0].lapsCompleted;
+        const maximumLaps = this._sessionData.maximumLaps;
+        if (lapsCompleted === maximumLaps) {
+            return `LAP ${lapsCompleted}/${maximumLaps}`;
+        } else {
+            return `LAP ${lapsCompleted + 1}/${maximumLaps}`;
+        }
+    }
 }

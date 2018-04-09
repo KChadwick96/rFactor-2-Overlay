@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
+import * as SocketIO from 'socket.io-client';
 import { sortBy, isEmpty } from 'lodash';
 import { Observable } from 'rxjs/Observable';
 import { Observer } from 'rxjs/Observer';
@@ -14,14 +15,17 @@ export class WatchService {
 
   private DATA_REFRESH_RATE = 500;
   private HOLD_LAP_INFO_DELAY = 10000;
+  private BASE_URL = 'http://localhost:5397/rest/watch'
+  private SOCKET_URL = 'http://localhost';
 
-  private _baseUrl: string = 'http://localhost:5397/rest/watch';
   private _sessionData: any;
   private _driverLaps: any;   // hold persistent driverlap info
   private _focusedDriver: any;
   private _overallBestLap: any;
   private _teamsConfig: any;
   private _driversConfig: any;
+  private _socket: SocketIOClient.Socket;
+  private _streamInterval: any;
 
   constructor(
     private http: Http,
@@ -29,6 +33,11 @@ export class WatchService {
   ) {}
 
   session(): Observable<any> {
+
+    // create socket connection
+    this._socket = SocketIO(this.SOCKET_URL);
+    this._socket.on('connect', () => console.log('connected to socket server'));
+    this._socket.on('disconnect', () => console.log('disconnected from socket server'));
 
     if (this._driverLaps === undefined) this._driverLaps = {};
     if (this._focusedDriver === undefined) this._focusedDriver = null;
@@ -177,6 +186,8 @@ export class WatchService {
       if (entry.focus) this._focusedDriver = entry;
     });
 
+    this._streamData(processed);
+
     return processed;
   }
 
@@ -276,14 +287,14 @@ export class WatchService {
 
   _standingsObservable(): Observable<any> {
     return this.http
-      .get(`${this._baseUrl}/standings`)
+      .get(`${this.BASE_URL}/standings`)
       .map(this._mapResponse)
       .catch(this._handleError);
   }
 
   _sessionObservable(): Observable<any> {
     return this.http
-      .get(`${this._baseUrl}/sessionInfo`)
+      .get(`${this.BASE_URL}/sessionInfo`)
       .map(this._mapResponse)
       .catch(this._handleError);
   }
@@ -294,6 +305,14 @@ export class WatchService {
 
   _handleError(error: any): any {
     console.log(error);
+  }
+
+  _streamData(data): void {
+    console.log(data);
+    if (data && this._socket.connected) {
+      console.log('streaming data');
+      this._socket.emit('sessionData', data);
+    }
   }
 }
 

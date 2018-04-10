@@ -8,8 +8,8 @@ import { OnboardComponent } from './components/onboard/onboard.component';
 import { TowerComponent } from './components/tower/tower.component';
 import { ConfigService } from './services/config.service';
 import { DriverNamePipe } from './pipes/driver-name.pipe';
+import { MinutesAndSecondsPipe } from './pipes/minutes-and-seconds.pipe';
 import { SessionNamePipe } from './pipes/session-name.pipe';
-import { ToMinutesPipe } from './pipes/to-minutes.pipe';
 
 @NgModule({
   declarations: [
@@ -18,8 +18,8 @@ import { ToMinutesPipe } from './pipes/to-minutes.pipe';
     OnboardComponent,
     TowerComponent,
     DriverNamePipe,
-    SessionNamePipe,
-    ToMinutesPipe
+    MinutesAndSecondsPipe,
+    SessionNamePipe
   ],
   imports: [
     BrowserModule,

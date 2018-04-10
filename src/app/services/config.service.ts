@@ -107,6 +107,9 @@ const config = {
         "dan-ove brantholm": {
             "flag": "https://imgur.com/pnoBMKg.png"
         },
+        "philip kraus": {
+            "flag": "https://imgur.com/lqEcsyy.png"
+        },
         "adam cronin": {
             "flag": "https://imgur.com/4yAOniI.png"
         },
@@ -182,7 +185,7 @@ const config = {
         "frank godrecki": {
             "flag": "https://imgur.com/3oTIESg.png"
         },
-        "David Pashkovski": {
+        "david pashkovski": {
             "flag": "https://imgur.com/3oTIESg.png"
         },
         "rafal glosinski": {

@@ -4,13 +4,10 @@
         /
         <span *ngIf="_sessionData?.currentEventTime >= _sessionData?.endEventTime">0:00</span>
         <span *ngIf="_sessionData?.currentEventTime < _sessionData?.endEventTime">
-            {{ (_sessionData?.endEventTime - _sessionData?.currentEventTime) | toMinutes:false:true:true }}
         </span>
+        {{ (_sessionData?.endEventTime - _sessionData?.currentEventTime) | minutesAndSeconds:false }}
     </span>
     <span *ngIf="_mode === 'LAP'">
-        LAP
-        {{ standings != null ? standings[0].lapsCompleted + 1 : 0 }}
-        /
-        {{ _sessionData?.maximumLaps }}
+        {{ _getLapCounter() }}
     </span>
 </div>

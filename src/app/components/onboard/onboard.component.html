@@ -22,10 +22,10 @@
                         <span class="sector__number">S1</span>
                         <span class="sector__time">
                             <span *ngIf="driver.lastLapHold; else currentS1">
-                                {{ driver.lastLapHold.lastLap.sector_1 | toMinutes:true }}
+                                {{ driver.lastLapHold.lastLap.sector_1 | minutesAndSeconds:true:false }}
                             </span>
                             <ng-template #currentS1>
-                                {{ (driver.currentSectorTime1 !== -1) ? (driver.currentSectorTime1 | toMinutes:true) : '' }}
+                                {{ (driver.currentSectorTime1 !== -1) ? (driver.currentSectorTime1 | minutesAndSeconds:true:false) : '' }}
                             </ng-template>
                         </span>
                     </div>
@@ -33,17 +33,17 @@
                         <span class="sector__number">S2</span>
                         <span class="sector__time">
                             <span *ngIf="driver.lastLapHold; else currentS2">
-                                {{ driver.lastLapHold.lastLap.sector_2 | toMinutes:true }}
+                                {{ driver.lastLapHold.lastLap.sector_2 | minutesAndSeconds:true:false }}
                             </span>
                             <ng-template #currentS2>
-                                {{ (driver.currentSectorTime2 !== -1) ? (driver.currentSectorTime2 - driver.currentSectorTime1 | toMinutes:true) : '' }}
+                                {{ (driver.currentSectorTime2 !== -1) ? (driver.currentSectorTime2 - driver.currentSectorTime1 | minutesAndSeconds:true:false) : '' }}
                             </ng-template>
                         </span>
                     </div>
                     <div class="sector" [ngClass]="_getSectorClass(driver, 3)">
                         <span class="sector__number">S3</span>
                         <span class="sector__time" *ngIf="driver.lastLapHold">
-                            {{ driver.lastLapHold.lastLap.sector_3 | toMinutes:true }}
+                            {{ driver.lastLapHold.lastLap.sector_3 | minutesAndSeconds:true:false }}
                         </span>
                     </div>
                 </div>
@@ -52,11 +52,11 @@
                 <div class="row" *ngIf="_mode === 'POSITION_GAP'">
                     <div class="gap">
                         <span class="gap__title">Ahead</span>
-                        <span class="gap__value" *ngIf="driver.position !== 1">{{ driver.timeBehindNext | toMinutes:true }}</span>
+                        <span class="gap__value" *ngIf="driver.position !== 1">{{ driver.timeBehindNext | minutesAndSeconds:true:false }}</span>
                     </div>
                     <div class="gap">
                         <span class="gap__title">Behind</span>
-                        <span class="gap__value">{{ _getGapBehind() | toMinutes:true }}</span>
+                        <span class="gap__value">{{ _getGapBehind() | minutesAndSeconds:true:false }}</span>
                     </div>
                 </div>
             </div>
@@ -65,10 +65,10 @@
 
     <div class="secondary">
         <div class="data-key">Best</div>
-        <div class="data-value">{{ driver.bestLapTime | toMinutes:true }}</div>
+        <div class="data-value">{{ driver.bestLapTime | minutesAndSeconds:true:false }}</div>
         <div class="data-key">Last Lap</div>
         <div class="data-value">
-            {{ (driver.lastLapTime !== -1) ? (driver.lastLapTime | toMinutes:true) : 'NA' }}
+            {{ (driver.lastLapTime !== -1) ? (driver.lastLapTime | minutesAndSeconds:true:false) : 'NA' }}
         </div>
         <div class="data-key">
             {{ _mode === 'FASTEST_GAP' ? 'Gap' : 'Stops' }}

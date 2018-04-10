@@ -38,6 +38,7 @@ export class WatchService {
     this._socket = SocketIO(this.SOCKET_URL);
     this._socket.on('connect', () => console.log('connected to socket server'));
     this._socket.on('disconnect', () => console.log('disconnected from socket server'));
+    this._socket.on('carSelect', data => this._goToCar(data.slot_id, data.camera));
 
     if (this._driverLaps === undefined) this._driverLaps = {};
     if (this._focusedDriver === undefined) this._focusedDriver = null;
@@ -285,6 +286,23 @@ export class WatchService {
     return null;
   }
 
+  _streamData(data): void {
+    if (data && this._socket.connected) {
+      this._socket.emit('sessionData', data);
+    }
+  }
+
+  _goToCar(slotId, camera): void {
+
+    // select camera
+    const cameraEndpoint = `${this.BASE_URL}/focus/${camera}/GROUP1/false`;
+    this.http.put(cameraEndpoint, {}).subscribe();
+
+    // select slot
+    const slotEndpoint = `${this.BASE_URL}/focus/${slotId}`;
+    this.http.put(slotEndpoint, {}).subscribe();
+  }
+
   _standingsObservable(): Observable<any> {
     return this.http
       .get(`${this.BASE_URL}/standings`)
@@ -305,14 +323,6 @@ export class WatchService {
 
   _handleError(error: any): any {
     console.log(error);
-  }
-
-  _streamData(data): void {
-    console.log(data);
-    if (data && this._socket.connected) {
-      console.log('streaming data');
-      this._socket.emit('sessionData', data);
-    }
   }
 }
 

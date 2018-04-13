@@ -19,9 +19,9 @@
             <span *ngIf="entry.position === 1">
                 Leader
             </span>
-            <span *ngIf="entry.position > 1 && entry.timeBehindLeader != 0">
+            <span *ngIf="entry.position > 1">
                 <span *ngIf="entry.lapsBehindLeader > 0">
-                    +{{entry.lapsBehindLeader }} LAP
+                    +{{entry.lapsBehindLeader }} Laps
                 </span>
                 <span *ngIf="entry.lapsBehindLeader == 0">
                     +{{ entry.timeBehindLeader | minutesAndSeconds:true:false }}

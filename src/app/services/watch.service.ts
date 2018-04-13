@@ -288,7 +288,7 @@ export class WatchService {
 
   _streamData(data): void {
     if (data && this._socket.connected) {
-      this._socket.emit('sessionData', data);
+      this._socket.emit('updateSessionData', data);
     }
   }
 

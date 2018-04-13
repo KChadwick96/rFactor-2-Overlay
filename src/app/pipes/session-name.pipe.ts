@@ -22,6 +22,11 @@ export class SessionNamePipe implements PipeTransform {
                 if (type === 'abbreviated') session = 'P3';
                 break;
 
+            case 'WARMUP':
+                if (type === 'full') session = 'Warmup';
+                if (type === 'abbreviated') session = 'WU';
+                break;
+
             case 'QUALIFY1':
                 if (type === 'full') session = 'Qualifying 1';
                 if (type === 'abbreviated') session = 'Q1';

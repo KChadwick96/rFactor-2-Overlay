@@ -1,3 +1,6 @@
+// TODO: sector state enum
+// TODO: rename driverlap interface
+
 import { Injectable } from '@angular/core';
 import { sortBy, slice } from 'lodash';
 
@@ -5,50 +8,100 @@ import { sortBy, slice } from 'lodash';
 export class StandingsService {
     private MAX_ENTRIES = 20;
 
-    private _driverLaps: Array<IDriverLap>;
+    private _currentStandings: Array<ProcessedEntry>;
+    private _driverLaps: Array<DriverLap>;
 
-    updateStandings(entries: Array<IEntry>): void {
+    updateStandings(entries: Array<RawEntry>): void {
 
         // sort by position and trim to MAX_ENTRIES + 1
         // since we need data for the entry below max
         entries = sortBy(entries, 'position');
-        entries = slice(entries, 0, this.MAX_ENTRIES + 1);
+        //entries = slice(entries, 0, this.MAX_ENTRIES + 1);
 
-        // entries.forEach(this._processEntry);
+        const processed: Array<ProcessedEntry> = [];
+        entries.forEach(entry => {
+            const processedEntry = this._processEntry(entry);
+            processed.push(processedEntry);
+        });
+
+        this._currentStandings = processed;
     }
 
-    _processEntry(entry: IEntry): void {
+    _processEntry(entry: RawEntry): ProcessedEntry {
+        const previousEntry = this._getLastDriverEntry(entry.driverName);
+
+        if (entry.lapsCompleted - previousEntry.lapsChecked)
+
         // do something
+        
+        return {
+            raw: entry
+        }
+    }
+
+    _getLastDriverEntry(driverName: string): ProcessedEntry {
+        if (this._currentStandings == null) {
+            return null;
+        }
+
+        return this._currentStandings.find(entry => entry.raw.driverName === driverName);
     }
 }
 
-interface IEntry {
-    position: number;
-    driverName: string;
-    bestLapTime: number;
-    pitstops: number;
-    pitting: boolean;
-    lastLapTime: number;
-    vehicleName: string;
-    timeBehindNext: number;
-    timeBehindLeader: number;
-    lapsBehindLeader: number;
-    lapsBehindNext: number;
-    currentSectorTime1: number;
-    currentSectorTime2: number;
-    lastSectorTime1: number;
-    lastSectorTime2: number;
-    focus: number;
-    carClass: string;
-    slotID: number;
-    carStatus: string;
-    lapsCompleted: number;
-    hasFocus: boolean;
+interface RawEntry {
+    readonly position: number;
+    readonly driverName: string;
+    readonly bestLapTime: number;
+    readonly pitstops: number;
+    readonly pitting: boolean;
+    readonly lastLapTime: number;
+    readonly vehicleName: string;
+    readonly timeBehindNext: number;
+    readonly timeBehindLeader: number;
+    readonly lapsBehindLeader: number;
+    readonly lapsBehindNext: number;
+    readonly currentSectorTime1: number;
+    readonly currentSectorTime2: number;
+    readonly lastSectorTime1: number;
+    readonly lastSectorTime2: number;
+    readonly focus: number;
+    readonly carClass: string;
+    readonly slotID: number;
+    readonly carStatus: string;
+    readonly lapsCompleted: number;
+    readonly hasFocus: boolean;
 }
 
-interface IDriverLap {
-    best_lap: number;
-    laps_checked: number;
-    sector_1_state: string;
-    sector_2_state: string;
+interface ProcessedEntry {
+    raw: RawEntry;
+    lapsChecked: number;
+    gapEvent?: GapEvent;
+
+}
+
+interface GapEvent {
+    state: string;
+    gapToBest: string;
+}
+
+interface DriverLap {
+    bestLap: Lap;
+    sector1State: string;
+    sector2State: string;
+}
+
+interface Lap {
+    sector1: number;
+    sector1State: null;
+    sector2: number;
+    sector2State: null;
+    sector3: number;
+    sector3State: string;
+    total: number;
+}
+
+enum State {
+    SessionBest,
+    PersonalBest,
+    Down
 }

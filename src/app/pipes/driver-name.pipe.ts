@@ -8,10 +8,10 @@ export class DriverNamePipe implements PipeTransform {
         const parts = name.trim().split(' ');
         const last = parts[parts.length - 1];
 
-        // return 
+        // return
         type = type.toLowerCase();
         if (type === 'last') {
-            return last
+            return last;
         } else if (type === 'full') {
             parts.pop();
             return `${parts.join(' ')} ${last.toUpperCase()}`;

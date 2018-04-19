@@ -1,33 +1,33 @@
-import { Component, Input } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
-  selector: 'tower',
+  selector: 'app-tower',
   templateUrl: './tower.component.html',
   styleUrls: ['./tower.component.scss']
 })
-export class TowerComponent {
+export class TowerComponent implements OnInit {
     private _raceSession: string;
     private _interval;
     private _mode;
     private _schedules: any = {
         quali: [{
             mode: 'BASIC' ,
-            length: 5   
-        },{
+            length: 5
+        }, {
             mode: 'FASTEST_LAP_GAP',
             length: 20
         }],
         race: [{
             mode: 'BASIC' ,
-            length: 5   
-        },{
+            length: 5
+        }, {
             mode: 'GAP_TO_LEADER',
             length: 30
         }]
     };
 
     @Input() standings: any[] = [];
-    @Input() 
+    @Input()
     set raceSession(session: string) {
         if (session !== this._raceSession) {
             this._raceSession = session;
@@ -42,13 +42,19 @@ export class TowerComponent {
     }
 
     _startCycle(): void {
-        if (!this._raceSession) return;
+        if (!this._raceSession) {
+            return;
+        }
 
-        // clear existing loop and select schedule based on race session
-        if (this._interval !== undefined) clearInterval(this._interval);
+        // clear existing loop
+        if (this._interval !== undefined) {
+            clearInterval(this._interval);
+        }
+
+        // select schedule based on race session
         let schedule = this._schedules.quali;
         if (this._raceSession.includes('RACE')) {
-            schedule = this._schedules.race;   
+            schedule = this._schedules.race;
         }
 
         // go through the schedule and switch when we've reached the part.length
@@ -60,7 +66,7 @@ export class TowerComponent {
 
             if (currentDuration >= part.length * 1000) {
                 currentDuration = 0;
-                
+
                 if (schedule[currentScheduleIndex + 1]) {
                     currentScheduleIndex++;
                 } else {

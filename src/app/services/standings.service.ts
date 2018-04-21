@@ -30,12 +30,18 @@ export class StandingsService {
     _processEntry(entry: RawEntry): ProcessedEntry {
         const previousEntry = this._getLastDriverEntry(entry.driverName);
 
-        if (entry.lapsCompleted - previousEntry.lapsChecked)
+        if (!previousEntry) {
+            return this._applyEntryDefaults(entry);
+        }
 
-        // do something
+        // has the driver just completed a lap
+        if (entry.lapsCompleted - previousEntry.lapsChecked === 1 && entry.lastLapTime > -1) {
+
+        }
         
         return {
-            raw: entry
+            raw: entry,
+            lapsChecked: 0
         }
     }
 
@@ -45,6 +51,13 @@ export class StandingsService {
         }
 
         return this._currentStandings.find(entry => entry.raw.driverName === driverName);
+    }
+
+    _applyEntryDefaults(raw: RawEntry): ProcessedEntry {
+        return {
+            raw,
+            lapsChecked: 0
+        }
     }
 }
 
@@ -75,6 +88,7 @@ interface RawEntry {
 interface ProcessedEntry {
     raw: RawEntry;
     lapsChecked: number;
+    bestLap?: Lap;
     gapEvent?: GapEvent;
 
 }

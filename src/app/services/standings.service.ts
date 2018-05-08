@@ -16,7 +16,7 @@ export class StandingsService {
         // sort by position and trim to MAX_ENTRIES + 1
         // since we need data for the entry below max
         entries = sortBy(entries, 'position');
-        //entries = slice(entries, 0, this.MAX_ENTRIES + 1);
+        // entries = slice(entries, 0, this.MAX_ENTRIES + 1);
 
         const processed: Array<ProcessedEntry> = [];
         entries.forEach(entry => {

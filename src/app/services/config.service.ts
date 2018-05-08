@@ -12,17 +12,17 @@ export class ConfigService {
 
 const config = {
     teams: {
-        'krt': {
-            'colour': '#e01b25'
+        'defiance racing': {
+            'colour': '#a000d2'
         },
         'sabre racing': {
             'colour': '#07b5f1'
         },
-        'defiance racing': {
-            'colour': '#a000d2'
+        'krt': {
+            'colour': '#e01b25'
         },
-        'disruptive tech racing': {
-            'colour': '#ef9607'
+        'vulcan racing': {
+            'colour': '#ba0000'
         },
         'acr zakspeed': {
             'colour': '#002F7C'
@@ -30,14 +30,29 @@ const config = {
         'zesty racing': {
             'colour': '#ff8a00'
         },
-        'idos motorsport': {
-            'colour': '#f6ff00'
-        },
-        'vi race team': {
-            'colour': '#e5e5e5'
+        'drillers motorsport': {
+            'colour': '#f76600'
         },
         's2 racing': {
             'colour': '#083789'
+        },
+        'schubert motorsport': {
+            'colour': '#C40000'
+        },
+        'ferslev racing team': {
+            'colour': '#CECFCE'
+        },
+        'royal blue racing': {
+            'colour': '#1344b5'
+        },
+        'race clutch': {
+            'colour': '#BE352B',
+        },
+        'thrive esports black': {
+            'colour': '#2ee3d3'
+        },
+        'visceral sim racing': {
+            'colour': '#0E0D0E'
         },
         'covadis racing': {
             'colour': '#E27D24'
@@ -45,32 +60,14 @@ const config = {
         'eleven ballast racing': {
             'colour': '#F8DE01'
         },
-        'visceral sim racing': {
-            'colour': '#FE0100'
-        },
-        'team galaxy': {
-            'colour': '#ff89e0'
-        },
         'cor racing': {
             'colour': '#c0c0c0'
         },
         'wolf racing': {
             'colour': '#f5f5f5'
         },
-        'drillers motorsport': {
-            'colour': '#f76600'
-        },
-        'thrive esports black': {
-            'colour': '#2ee3d3'
-        },
         'thrive esports blue': {
             'colour': '#141455'
-        },
-        'royal blue racing': {
-            'colour': '#1344b5'
-        },
-        'vulcan racing': {
-            'colour': '#ba0000'
         }
     },
     drivers: {
@@ -117,7 +114,7 @@ const config = {
             'flag': 'https://imgur.com/fhXmGJQ.png'
         },
         'brandon ohenlen': {
-            'flag': 'https://imgur.com/4yAOniI.png'
+            'flag': 'https://imgur.com/uXTuiD0.png'
         },
         'dominic lambrechts': {
             'flag': 'https://imgur.com/4yAOniI.png'
@@ -128,9 +125,6 @@ const config = {
         'dionysis faraos': {
             'flag': 'https://imgur.com/YsHTDTe.png'
         },
-        'sulaiman bah': {
-            'flag': 'https://imgur.com/lqEcsyy.png'
-        },
         'gerrit de vries': {
             'flag': 'https://imgur.com/fhXmGJQ.png'
         },
@@ -140,23 +134,8 @@ const config = {
         'callum roberts': {
             'flag': 'https://imgur.com/4yAOniI.png'
         },
-        'kamran khan': {
-            'flag': 'https://imgur.com/4yAOniI.png'
-        },
-        'mattia silva': {
-            'flag': ''
-        },
-        'andrew smith': {
-            'flag': 'https://imgur.com/4yAOniI.png'
-        },
         'kevin turner': {
             'flag': 'https://imgur.com/wfwSvVC.png'
-        },
-        'max huss': {
-            'flag': 'https://imgur.com/4yAOniI.png'
-        },
-        'edgaras gudaitis': {
-            'flag': 'https://imgur.com/4yAOniI.png'
         },
         'noah chilla': {
             'flag': 'https://imgur.com/uXTuiD0.png'
@@ -167,9 +146,6 @@ const config = {
         'rik van doorn': {
             'flag': 'https://imgur.com/fhXmGJQ.png'
         },
-        'martin pankratov': {
-            'flag': 'https://imgur.com/4yAOniI.png'
-        },
         'thomas lagny': {
             'flag': 'https://imgur.com/o3kblwK.png'
         },
@@ -179,23 +155,8 @@ const config = {
         'damian hall': {
             'flag': 'https://imgur.com/wfwSvVC.png'
         },
-        'ismael nadire': {
-            'flag': 'https://imgur.com/o3kblwK.png'
-        },
-        'frank godrecki': {
-            'flag': 'https://imgur.com/3oTIESg.png'
-        },
         'david pashkovski': {
             'flag': 'https://imgur.com/3oTIESg.png'
-        },
-        'rafal glosinski': {
-            'flag': 'https://imgur.com/3oTIESg.png'
-        },
-        'corey nyls': {
-            'flag': 'https://imgur.com/lqEcsyy.png'
-        },
-        'vincent evers': {
-            'flag': 'https://imgur.com/fhXmGJQ.png'
         }
     }
 };

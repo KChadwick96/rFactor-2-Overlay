@@ -54,7 +54,7 @@ export class OnboardComponent {
         }
 
         const map = this._getMap(state);
-        return map.class_name;
+        return map ? map.class_name : '';
     }
 
     _getGapBehind(): number {

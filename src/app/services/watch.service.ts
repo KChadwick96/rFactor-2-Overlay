@@ -35,10 +35,10 @@ export class WatchService {
   session(): Observable<any> {
 
     // create socket connection
-    this._socket = SocketIO(this.SOCKET_URL);
+    /* this._socket = SocketIO(this.SOCKET_URL);
     this._socket.on('connect', () => console.log('connected to socket server'));
     this._socket.on('disconnect', () => console.log('disconnected from socket server'));
-    this._socket.on('carSelect', data => this._goToCar(data.slot_id, data.camera));
+    this._socket.on('carSelect', data => this._goToCar(data.slot_id, data.camera)); */
 
     if (this._driverLaps === undefined) {
       this._driverLaps = {};
@@ -197,7 +197,7 @@ export class WatchService {
       }
     });
 
-    this._streamData(processed);
+    // this._streamData(processed);
 
     return processed;
   }

@@ -9,8 +9,8 @@ export class SessionNamePipe implements PipeTransform {
         abbreviated: 'P1'
     }, {
         key: 'PRACTICE2',
-        full: 'Practice 2',
-        abbreviated: 'P2'
+        full: 'Qualifying 1',
+        abbreviated: 'Q1'
     }, {
         key: 'PRACTICE3',
         full: 'Practice 3',
@@ -21,8 +21,8 @@ export class SessionNamePipe implements PipeTransform {
         abbreviated: 'WU'
     }, {
         key: 'QUALIFY1',
-        full: 'Qualifying 1',
-        abbreviated: 'Q1'
+        full: 'Qualifying 2',
+        abbreviated: 'Q2'
     }, {
         key: 'QUALIFY2',
         full: 'Qualifying 2',
@@ -34,7 +34,7 @@ export class SessionNamePipe implements PipeTransform {
         const session = this._sessionMapping.find(map => map.key === key);
 
         if (session) {
-            return session[key];
+            return session[type];
         } else {
             return '-';
         }

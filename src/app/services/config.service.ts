@@ -31,7 +31,7 @@ const config = {
             'colour': '#ff8a00'
         },
         'drillers motorsport': {
-            'colour': '#f76600'
+            'colour': '#424542'
         },
         's2 racing': {
             'colour': '#083789'
@@ -71,23 +71,23 @@ const config = {
         }
     },
     drivers: {
-        'kieran chadwick': {
-            'flag': 'https://imgur.com/4yAOniI.png'
-        },
         'craig baxter': {
             'flag': 'https://imgur.com/0apJFaG.png'
         },
         'scott davison': {
             'flag': 'https://imgur.com/4yAOniI.png'
         },
-        'evan rice': {
-            'flag': 'https://imgur.com/lqEcsyy.png'
-        },
         'sam carpenter': {
             'flag': 'https://imgur.com/4yAOniI.png'
         },
         'cian white': {
             'flag': 'https://imgur.com/Wno1zTe.png'
+        },
+        'kieran chadwick': {
+            'flag': 'https://imgur.com/4yAOniI.png'
+        },
+        'evan rice': {
+            'flag': 'https://imgur.com/lqEcsyy.png'
         },
         'mac shepherd': {
             'flag': 'https://imgur.com/4yAOniI.png'
@@ -125,14 +125,23 @@ const config = {
         'dionysis faraos': {
             'flag': 'https://imgur.com/YsHTDTe.png'
         },
-        'gerrit de vries': {
-            'flag': 'https://imgur.com/fhXmGJQ.png'
+        'asger hebsgaard': {
+            'flag': 'https://imgur.com/sffO9eY.png'
+        },
+        'lasse sorensen': {
+            'flag': 'https://imgur.com/sffO9eY.png'
         },
         'tomi ylitalo': {
             'flag': 'https://imgur.com/VIJffgO.png'
         },
         'callum roberts': {
             'flag': 'https://imgur.com/4yAOniI.png'
+        },
+        'eneric andre': {
+            'flag': 'https://imgur.com/o3kblwK.png'
+        },
+        'robin bondon': {
+            'flag': 'https://imgur.com/o3kblwK.png'
         },
         'kevin turner': {
             'flag': 'https://imgur.com/wfwSvVC.png'
@@ -146,17 +155,23 @@ const config = {
         'rik van doorn': {
             'flag': 'https://imgur.com/fhXmGJQ.png'
         },
+        'daniel cermak': {
+            'flag': 'https://imgur.com/NW1W2Xq.png'
+        },
         'thomas lagny': {
             'flag': 'https://imgur.com/o3kblwK.png'
-        },
-        'jamie pounder': {
-            'flag': 'https://imgur.com/4yAOniI.png'
         },
         'damian hall': {
             'flag': 'https://imgur.com/wfwSvVC.png'
         },
+        'jeff jacobs': {
+            'flag': 'https://imgur.com/x9Cp0mK.png'
+        },
         'david pashkovski': {
             'flag': 'https://imgur.com/3oTIESg.png'
+        },
+        'mathias guldager': {
+            'flag': 'https://imgur.com/sffO9eY.png'
         }
     }
 };

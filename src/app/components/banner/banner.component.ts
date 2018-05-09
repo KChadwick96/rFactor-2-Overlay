@@ -34,8 +34,11 @@ export class BannerComponent {
 
         const lapsCompleted = this.standings[0].lapsCompleted;
         const maximumLaps = this._sessionData.maximumLaps;
-        if (lapsCompleted === maximumLaps) {
-            return `LAP ${lapsCompleted}/${maximumLaps}`;
+
+        if (maximumLaps - lapsCompleted === 1) {
+            return 'LAST LAP';
+        } else if (lapsCompleted === maximumLaps) {
+            return 'FINISH';
         } else {
             return `LAP ${lapsCompleted + 1}/${maximumLaps}`;
         }

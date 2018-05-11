@@ -1,12 +1,14 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
-@Pipe({ name: 'minutesAndSeconds' })
-export class MinutesAndSecondsPipe implements PipeTransform {
-    transform(secondsVal: number, showMiliseconds: boolean = true, alwaysShowMinute: boolean = true): string {
-       if (secondsVal <= 0) {
-           return '0:00';
+@Pipe({ name: 'sessionTimer' })
+export class SessionTimerPipe implements PipeTransform {
+    transform(seconds: number): string {
+       if (seconds <= 0) {
+           return '00:00';
        }
 
-       
+        const date = new Date(null);
+        date.setSeconds(seconds);
+        return date.toISOString().substr(14, 5);
     }
 }

@@ -46,10 +46,7 @@ export class TowerComponent implements OnInit {
             return;
         }
 
-        // clear existing loop
-        if (this._interval !== undefined) {
-            clearInterval(this._interval);
-        }
+        this._stopCycle();
 
         // select schedule based on race session
         let schedule = this._schedules.quali;
@@ -76,5 +73,11 @@ export class TowerComponent implements OnInit {
                 currentDuration += 1000;
             }
         }, 1000);
+    }
+
+    _stopCycle(): void {
+        if (this._interval) {
+            clearInterval(this._interval);
+        }
     }
 }

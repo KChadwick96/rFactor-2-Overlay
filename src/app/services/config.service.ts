@@ -12,190 +12,166 @@ export class ConfigService {
 
 const config = {
     teams: {
-        "krt": {
-            "colour": "#e01b25"
+        'defiance racing': {
+            'colour': '#a000d2'
         },
-        "sabre racing": {
-            "colour": "#07b5f1"
+        'sabre racing': {
+            'colour': '#07b5f1'
         },
-        "defiance racing": {
-            "colour": "#a000d2"
+        'krt': {
+            'colour': '#e01b25'
         },
-        "disruptive tech racing": {
-            "colour": "#ef9607"
+        'vulcan racing': {
+            'colour': '#ba0000'
         },
-        "acr zakspeed": {
-            "colour": "#002F7C"
+        'acr zakspeed': {
+            'colour': '#002F7C'
         },
-        "zesty racing": {
-            "colour": "#ff8a00"
+        'zesty racing': {
+            'colour': '#ff8a00'
         },
-        "idos motorsport": {
-            "colour": "#f6ff00"
+        'drillers motorsport': {
+            'colour': '#424542'
         },
-        "vi race team": {
-            "colour": "#e5e5e5"
+        's2 racing': {
+            'colour': '#083789'
         },
-        "s2 racing": {
-            "colour": "#083789"
+        'schubert motorsport': {
+            'colour': '#C40000'
         },
-        "covadis racing": {
-            "colour": "#E27D24"
+        'ferslev racing team': {
+            'colour': '#CECFCE'
         },
-        "eleven ballast racing": {
-            "colour": "#F8DE01"
+        'royal blue racing': {
+            'colour': '#1344b5'
         },
-        "visceral sim racing": {
-            "colour": "#FE0100"
+        'race clutch': {
+            'colour': '#BE352B',
         },
-        "team galaxy": {
-            "colour": "#ff89e0"
+        'thrive esports black': {
+            'colour': '#2ee3d3'
         },
-        "cor racing": {
-            "colour": "#c0c0c0"
+        'visceral sim racing': {
+            'colour': '#0E0D0E'
         },
-        "wolf racing": {
-            "colour": "#f5f5f5"
+        'covadis racing': {
+            'colour': '#E27D24'
         },
-        "drillers motorsport": {
-            "colour": "#f76600"
+        'eleven ballast racing': {
+            'colour': '#F8DE01'
         },
-        "thrive esports black": {
-            "colour": "#2ee3d3"
+        'cor racing': {
+            'colour': '#c0c0c0'
         },
-        "thrive esports blue": {
-            "colour": "#141455"
+        'wolf racing': {
+            'colour': '#f5f5f5'
         },
-        "royal blue racing": {
-            "colour": "#1344b5"
-        },
-        "vulcan racing": {
-            "colour": "#ba0000"
+        'thrive esports blue': {
+            'colour': '#141455'
         }
     },
     drivers: {
-        "kieran chadwick": {
-            "flag": "https://imgur.com/4yAOniI.png"
+        'craig baxter': {
+            'flag': 'https://imgur.com/0apJFaG.png'
         },
-        "craig baxter": {
-            "flag": "https://imgur.com/0apJFaG.png"
+        'scott davison': {
+            'flag': 'https://imgur.com/4yAOniI.png'
         },
-        "scott davison": {
-            "flag": "https://imgur.com/4yAOniI.png"
+        'sam carpenter': {
+            'flag': 'https://imgur.com/4yAOniI.png'
         },
-        "evan rice": {
-            "flag": "https://imgur.com/lqEcsyy.png"
+        'cian white': {
+            'flag': 'https://imgur.com/Wno1zTe.png'
         },
-        "sam carpenter": {
-            "flag": "https://imgur.com/4yAOniI.png"
+        'kieran chadwick': {
+            'flag': 'https://imgur.com/4yAOniI.png'
         },
-        "cian white": {
-            "flag": "https://imgur.com/Wno1zTe.png"
+        'evan rice': {
+            'flag': 'https://imgur.com/lqEcsyy.png'
         },
-        "mac shepherd": {
-            "flag": "https://imgur.com/4yAOniI.png"
+        'mac shepherd': {
+            'flag': 'https://imgur.com/4yAOniI.png'
         },
-        "kevin cox": {
-            "flag": "https://imgur.com/4yAOniI.png"
+        'kevin cox': {
+            'flag': 'https://imgur.com/4yAOniI.png'
         },
-        "ross woodford": {
-            "flag": "https://imgur.com/4yAOniI.png"
+        'ross woodford': {
+            'flag': 'https://imgur.com/4yAOniI.png'
         },
-        "tino naukkarinen": {
-            "flag": "https://imgur.com/VIJffgO.png"
+        'tino naukkarinen': {
+            'flag': 'https://imgur.com/VIJffgO.png'
         },
-        "dan-ove brantholm": {
-            "flag": "https://imgur.com/pnoBMKg.png"
+        'dan-ove brantholm': {
+            'flag': 'https://imgur.com/pnoBMKg.png'
         },
-        "philip kraus": {
-            "flag": "https://imgur.com/lqEcsyy.png"
+        'philip kraus': {
+            'flag': 'https://imgur.com/lqEcsyy.png'
         },
-        "adam cronin": {
-            "flag": "https://imgur.com/4yAOniI.png"
+        'adam cronin': {
+            'flag': 'https://imgur.com/4yAOniI.png'
         },
-        "jordy zwiers": {
-            "flag": "https://imgur.com/fhXmGJQ.png"
+        'jordy zwiers': {
+            'flag': 'https://imgur.com/fhXmGJQ.png'
         },
-        "brandon ohenlen": {
-            "flag": "https://imgur.com/4yAOniI.png"
+        'brandon ohenlen': {
+            'flag': 'https://imgur.com/uXTuiD0.png'
         },
-        "dominic lambrechts": {
-            "flag": "https://imgur.com/4yAOniI.png"
+        'dominic lambrechts': {
+            'flag': 'https://imgur.com/4yAOniI.png'
         },
-        "jacob reid": {
-            "flag": "https://imgur.com/4yAOniI.png"
+        'jacob reid': {
+            'flag': 'https://imgur.com/4yAOniI.png'
         },
-        "dionysis faraos": {
-            "flag": "https://imgur.com/YsHTDTe.png"
+        'dionysis faraos': {
+            'flag': 'https://imgur.com/YsHTDTe.png'
         },
-        "sulaiman bah": {
-            "flag": "https://imgur.com/lqEcsyy.png"
+        'asger hebsgaard': {
+            'flag': 'https://imgur.com/sffO9eY.png'
         },
-        "gerrit de vries": {
-            "flag": "https://imgur.com/fhXmGJQ.png"
+        'lasse sorensen': {
+            'flag': 'https://imgur.com/sffO9eY.png'
         },
-        "tomi ylitalo": {
-            "flag": "https://imgur.com/VIJffgO.png"
+        'tomi ylitalo': {
+            'flag': 'https://imgur.com/VIJffgO.png'
         },
-        "callum roberts": {
-            "flag": "https://imgur.com/4yAOniI.png"
+        'callum roberts': {
+            'flag': 'https://imgur.com/4yAOniI.png'
         },
-        "kamran khan": {
-            "flag": "https://imgur.com/4yAOniI.png"
+        'eneric andre': {
+            'flag': 'https://imgur.com/o3kblwK.png'
         },
-        "mattia silva": {
-            "flag": ""
+        'robin bondon': {
+            'flag': 'https://imgur.com/o3kblwK.png'
         },
-        "andrew smith": {
-            "flag": "https://imgur.com/4yAOniI.png"
+        'kevin turner': {
+            'flag': 'https://imgur.com/wfwSvVC.png'
         },
-        "kevin turner": {
-            "flag": "https://imgur.com/wfwSvVC.png"
+        'noah chilla': {
+            'flag': 'https://imgur.com/uXTuiD0.png'
         },
-        "max huss": {
-            "flag": "https://imgur.com/4yAOniI.png"
+        'jukkapekka lalu': {
+            'flag': 'https://imgur.com/VIJffgO.png'
         },
-        "edgaras gudaitis": {
-            "flag": "https://imgur.com/4yAOniI.png"
+        'rik van doorn': {
+            'flag': 'https://imgur.com/fhXmGJQ.png'
         },
-        "noah chilla": {
-            "flag": "https://imgur.com/uXTuiD0.png"
+        'daniel cermak': {
+            'flag': 'https://imgur.com/NW1W2Xq.png'
         },
-        "jukkapekka lalu": {
-            "flag": "https://imgur.com/VIJffgO.png"
+        'thomas lagny': {
+            'flag': 'https://imgur.com/o3kblwK.png'
         },
-        "rik van doorn": {
-            "flag": "https://imgur.com/fhXmGJQ.png"
+        'damian hall': {
+            'flag': 'https://imgur.com/wfwSvVC.png'
         },
-        "martin pankratov": {
-            "flag": "https://imgur.com/4yAOniI.png"
+        'jeff jacobs': {
+            'flag': 'https://imgur.com/x9Cp0mK.png'
         },
-        "thomas lagny": {
-            "flag": "https://imgur.com/o3kblwK.png"
+        'david pashkovski': {
+            'flag': 'https://imgur.com/3oTIESg.png'
         },
-        "jamie pounder": {
-            "flag": "https://imgur.com/4yAOniI.png"
-        },
-        "damian hall": {
-            "flag": "https://imgur.com/wfwSvVC.png"
-        },
-        "ismael nadire": {
-            "flag": "https://imgur.com/o3kblwK.png"
-        },
-        "frank godrecki": {
-            "flag": "https://imgur.com/3oTIESg.png"
-        },
-        "david pashkovski": {
-            "flag": "https://imgur.com/3oTIESg.png"
-        },
-        "rafal glosinski": {
-            "flag": "https://imgur.com/3oTIESg.png"
-        },
-        "corey nyls": {
-            "flag": "https://imgur.com/lqEcsyy.png"
-        },
-        "vincent evers": {
-            "flag": "https://imgur.com/fhXmGJQ.png"
+        'mathias guldager': {
+            'flag': 'https://imgur.com/sffO9eY.png'
         }
     }
-}
+};

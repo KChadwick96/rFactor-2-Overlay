@@ -10,6 +10,7 @@ import { ConfigService } from './services/config.service';
 import { DriverNamePipe } from './pipes/driver-name.pipe';
 import { MinutesAndSecondsPipe } from './pipes/minutes-and-seconds.pipe';
 import { SessionNamePipe } from './pipes/session-name.pipe';
+import { SessionTimerPipe } from './pipes/session-timer.pipe';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { SessionNamePipe } from './pipes/session-name.pipe';
     TowerComponent,
     DriverNamePipe,
     MinutesAndSecondsPipe,
-    SessionNamePipe
+    SessionNamePipe,
+    SessionTimerPipe
   ],
   imports: [
     BrowserModule,

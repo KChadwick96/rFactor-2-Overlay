@@ -2,47 +2,41 @@ import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({ name: 'sessionName' })
 export class SessionNamePipe implements PipeTransform {
-    transform(name: string, type: string): string {
+
+    private _sessionMapping = [{
+        key: 'PRACTICE1',
+        full: 'Practice 1',
+        abbreviated: 'P1'
+    }, {
+        key: 'PRACTICE2',
+        full: 'Qualifying 1',
+        abbreviated: 'Q1'
+    }, {
+        key: 'PRACTICE3',
+        full: 'Practice 3',
+        abbreviated: 'P3'
+    }, {
+        key: 'WARMUP',
+        full: 'Warmup',
+        abbreviated: 'WU'
+    }, {
+        key: 'QUALIFY1',
+        full: 'Qualifying 2',
+        abbreviated: 'Q2'
+    }, {
+        key: 'QUALIFY2',
+        full: 'Qualifying 2',
+        abbreviated: 'Q2'
+    }];
+
+    transform(key: string, type: string): string {
         type = type.toLowerCase();
+        const session = this._sessionMapping.find(map => map.key === key);
 
-        let session = '';
-        switch (name) {
-            case 'PRACTICE1':
-                if (type === 'full') session = 'Practice 1';
-                if (type === 'abbreviated') session = 'P1';
-                break;
-
-            case 'PRACTICE2':
-                if (type === 'full') session = 'Practice 2';
-                if (type === 'abbreviated') session = 'P2';
-                break;
-
-            case 'PRACTICE3':
-                if (type === 'full') session = 'Practice 3';
-                if (type === 'abbreviated') session = 'P3';
-                break;
-
-            case 'WARMUP':
-                if (type === 'full') session = 'Warmup';
-                if (type === 'abbreviated') session = 'WU';
-                break;
-
-            case 'QUALIFY1':
-                if (type === 'full') session = 'Qualifying 1';
-                if (type === 'abbreviated') session = 'Q1';
-                break;
-
-            case 'QUALIFY2':
-                if (type === 'full') session = 'Qualifying 2';
-                if (type === 'abbreviated') session = 'Q2';
-                break;
-
-            case 'QUALIFY3':
-                if (type === 'full') session = 'Qualifying 3';
-                if (type === 'abbreviated') session = 'Q3';
-                break;
+        if (session) {
+            return session[type];
+        } else {
+            return '-';
         }
-
-        return session;
     }
 }

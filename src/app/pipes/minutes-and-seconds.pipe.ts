@@ -16,12 +16,8 @@ export class MinutesAndSecondsPipe implements PipeTransform {
         // and greater than 1 min
         const seconds = secondsVal % 60;
         const dp = (showMiliseconds) ? 3 : 0;
-        const roundedSeconds = seconds.toFixed(dp);
-        let secondsPrefix = '';
-        if (roundedSeconds.length === 1 && (minutes > 0 || alwaysShowMinute)) {
-            secondsPrefix = '0';
-        }
-        const secondsStr = secondsPrefix + roundedSeconds;
+        const secondsPrefix = (seconds < 10 && minutes > 0) ? '0' : '';
+        const secondsStr = secondsPrefix + seconds.toFixed(dp);
 
         return minutesStr + secondsStr;
     }

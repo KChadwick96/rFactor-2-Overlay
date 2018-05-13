@@ -34,17 +34,7 @@ export class WatchService {
 
   session(): Observable<any> {
 
-    if (this._driverLaps === undefined) {
-      this._driverLaps = {};
-    }
-
-    if (this._focusedDriver === undefined) {
-      this._focusedDriver = null;
-    }
-
-    if (this._overallBestLap === undefined) {
-      this._overallBestLap = null;
-    }
+    this._resetData();
 
     const config = this.config.getConfig();
     this._teamsConfig = config.teams;
@@ -55,8 +45,10 @@ export class WatchService {
       setInterval(() => {
         this._sessionObservable().subscribe(session => {
           if (this._sessionData && this._sessionData.session !== session.session) {
-            this._clearData();
+            this._resetData();
           }
+
+          this._sessionData = session;
         });
       }, this.DATA_REFRESH_RATE);
     }
@@ -308,9 +300,8 @@ export class WatchService {
       .catch(this._handleError);
   }
 
-  _clearData(): void {
-    this._sessionData = null;
-    this._driverLaps = null;
+  _resetData(): void {
+    this._driverLaps = {};
     this._focusedDriver = null;
     this._overallBestLap = null;
   }

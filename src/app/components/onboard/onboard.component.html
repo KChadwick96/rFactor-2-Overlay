@@ -51,12 +51,16 @@
                 <!-- Position gap info -->
                 <div class="row" *ngIf="_mode === 'POSITION_GAP'">
                     <div class="gap">
-                        <span class="gap__title">Ahead</span>
-                        <span class="gap__value" *ngIf="driver.position !== 1">{{ driver.timeBehindNext | minutesAndSeconds:true:false }}</span>
+                        <span class="gap__title">
+                            {{ (driver.position === 1) ? 'Leader' : 'Ahead' }}
+                        </span>
+                        <span class="gap__value" *ngIf="driver.position !== 1">
+                            {{ driver.timeBehindNext | secondsConvert }}
+                        </span>
                     </div>
                     <div class="gap">
                         <span class="gap__title">Behind</span>
-                        <span class="gap__value">{{ _getGapBehind() | minutesAndSeconds:true:false }}</span>
+                        <span class="gap__value">{{ _getGapBehind() | secondsConvert }}</span>
                     </div>
                 </div>
             </div>

@@ -28,6 +28,19 @@
                 </span>
             </span>
         </div>
+        <div class="entry__gap" *ngIf="_mode === 'GAP_TO_NEXT'">
+            <span *ngIf="entry.position === 1">
+                Interval
+            </span>
+            <span *ngIf="entry.position > 1">
+                <span *ngIf="entry.lapsBehindNext > 0">
+                    +{{entry.lapsBehindNext }} Laps
+                </span>
+                <span *ngIf="entry.lapsBehindLeader == 0">
+                    +{{ entry.timeBehindNext | minutesAndSeconds:true:false }}
+                </span>
+            </span>
+        </div>
         <div class="entry__pit" *ngIf="entry.pitting">
             PIT
         </div>

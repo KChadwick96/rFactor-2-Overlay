@@ -33,7 +33,6 @@ export class WatchService {
   ) {}
 
   session(): Observable<any> {
-
     this._resetData();
 
     const config = this.config.getConfig();
@@ -187,7 +186,7 @@ export class WatchService {
       }
     });
 
-    // this._streamData(processed);
+    console.log(processed);
 
     return processed;
   }

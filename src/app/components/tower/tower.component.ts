@@ -22,7 +22,10 @@ export class TowerComponent implements OnInit {
             length: 5
         }, {
             mode: 'GAP_TO_LEADER',
-            length: 30
+            length: 10
+        }, {
+            mode: 'GAP_TO_NEXT',
+            length: 40
         }]
     };
 

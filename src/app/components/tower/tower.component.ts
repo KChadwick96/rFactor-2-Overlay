@@ -31,9 +31,13 @@ export class TowerComponent implements OnInit {
 
     @Input() standings: any[] = [];
     @Input()
-    set raceSession(session: string) {
-        if (session !== this._raceSession) {
-            this._raceSession = session;
+    set sessionData(data: any) {
+        if (data == null) {
+            return;
+        }
+
+        if (data.session !== this._raceSession) {
+            this._raceSession = data.session;
             this._startCycle();
         }
     }

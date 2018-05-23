@@ -37,6 +37,9 @@ export class TowerComponent implements OnInit {
         }
 
         if (data.session.includes('RACE')) {
+
+            // for race sessions, if its the start or end of the race
+            // show the basic tower with names
             const lapsCompleted = this.standings[0] ? this.standings[0].lapsCompleted : 0;
             if (lapsCompleted === 0 || lapsCompleted >= data.maximumLaps) {
                 this._mode = 'BASIC';

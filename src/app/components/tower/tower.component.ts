@@ -36,7 +36,14 @@ export class TowerComponent implements OnInit {
             return;
         }
 
-        if (data.session !== this._raceSession) {
+        if (data.session.includes('RACE')) {
+            const lapsCompleted = this.standings[0] ? this.standings[0].lapsCompleted : 0;
+            if (lapsCompleted === 0 || lapsCompleted >= data.maximumLaps) {
+                this._mode = 'BASIC';
+            } else if (!this._interval) {
+                this._startCycle();
+            }
+        } else if (data.session !== this._raceSession) {
             this._raceSession = data.session;
             this._startCycle();
         }

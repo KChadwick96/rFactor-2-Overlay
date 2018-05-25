@@ -24,7 +24,20 @@
                     +{{entry.lapsBehindLeader }} Laps
                 </span>
                 <span *ngIf="entry.lapsBehindLeader == 0">
-                    +{{ entry.timeBehindLeader | minutesAndSeconds:true:false }}
+                    {{ entry.timeBehindLeader | secondsConvert:true }}
+                </span>
+            </span>
+        </div>
+        <div class="entry__gap" *ngIf="_mode === 'GAP_TO_NEXT'">
+            <span *ngIf="entry.position === 1">
+                Interval
+            </span>
+            <span *ngIf="entry.position > 1">
+                <span *ngIf="entry.lapsBehindNext > 0">
+                    +{{entry.lapsBehindNext }} Laps
+                </span>
+                <span *ngIf="entry.lapsBehindLeader == 0">
+                    {{ entry.timeBehindNext | secondsConvert:true }}
                 </span>
             </span>
         </div>

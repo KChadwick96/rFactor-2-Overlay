@@ -22,7 +22,10 @@ export class TowerComponent implements OnInit {
             length: 5
         }, {
             mode: 'GAP_TO_LEADER',
-            length: 10
+            length: 15
+        }, {
+            mode: 'BASIC',
+            length: 5
         }, {
             mode: 'GAP_TO_NEXT',
             length: 40
@@ -36,18 +39,24 @@ export class TowerComponent implements OnInit {
             return;
         }
 
-        if (data.session.includes('RACE')) {
+        const previousSession = this._raceSession;
+        const newSession = data.session;
 
-            // for race sessions, if its the start or end of the race
-            // show the basic tower with names
+        // for race sessions, if its the start or end of the race
+        // show the basic tower with names
+        let shouldStartCycle = true;
+        if (newSession.includes('RACE')) {
+
             const lapsCompleted = this.standings[0] ? this.standings[0].lapsCompleted : 0;
             if (lapsCompleted === 0 || lapsCompleted >= data.maximumLaps) {
+                this._stopCycle();
+                shouldStartCycle = false;
                 this._mode = 'BASIC';
-            } else if (!this._interval) {
-                this._startCycle();
             }
-        } else if (data.session !== this._raceSession) {
-            this._raceSession = data.session;
+        }
+
+        this._raceSession = newSession;
+        if (shouldStartCycle && !this._interval) {
             this._startCycle();
         }
     }

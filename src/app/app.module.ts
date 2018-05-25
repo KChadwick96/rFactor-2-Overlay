@@ -9,6 +9,7 @@ import { TowerComponent } from './components/tower/tower.component';
 import { ConfigService } from './services/config.service';
 import { DriverNamePipe } from './pipes/driver-name.pipe';
 import { MinutesAndSecondsPipe } from './pipes/minutes-and-seconds.pipe';
+import { SecondsConvertPipe } from './pipes/seconds-convert.pipe';
 import { SessionNamePipe } from './pipes/session-name.pipe';
 import { SessionTimerPipe } from './pipes/session-timer.pipe';
 
@@ -20,6 +21,7 @@ import { SessionTimerPipe } from './pipes/session-timer.pipe';
     TowerComponent,
     DriverNamePipe,
     MinutesAndSecondsPipe,
+    SecondsConvertPipe,
     SessionNamePipe,
     SessionTimerPipe
   ],

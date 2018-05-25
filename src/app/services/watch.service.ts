@@ -33,24 +33,7 @@ export class WatchService {
   ) {}
 
   session(): Observable<any> {
-
-    // create socket connection
-    /* this._socket = SocketIO(this.SOCKET_URL);
-    this._socket.on('connect', () => console.log('connected to socket server'));
-    this._socket.on('disconnect', () => console.log('disconnected from socket server'));
-    this._socket.on('carSelect', data => this._goToCar(data.slot_id, data.camera)); */
-
-    if (this._driverLaps === undefined) {
-      this._driverLaps = {};
-    }
-
-    if (this._focusedDriver === undefined) {
-      this._focusedDriver = null;
-    }
-
-    if (this._overallBestLap === undefined) {
-      this._overallBestLap = null;
-    }
+    this._resetData();
 
     const config = this.config.getConfig();
     this._teamsConfig = config.teams;
@@ -59,7 +42,13 @@ export class WatchService {
     // fetch session data
     if (environment.production) {
       setInterval(() => {
-        this._sessionObservable().subscribe(session => this._sessionData = session);
+        this._sessionObservable().subscribe(session => {
+          if (this._sessionData && this._sessionData.session !== session.session) {
+            this._resetData();
+          }
+
+          this._sessionData = session;
+        });
       }, this.DATA_REFRESH_RATE);
     }
 
@@ -197,8 +186,6 @@ export class WatchService {
       }
     });
 
-    // this._streamData(processed);
-
     return processed;
   }
 
@@ -296,23 +283,6 @@ export class WatchService {
     return null;
   }
 
-  _streamData(data): void {
-    if (data && this._socket.connected) {
-      this._socket.emit('updateSessionData', data);
-    }
-  }
-
-  _goToCar(slotId, camera): void {
-
-    // select camera
-    const cameraEndpoint = `${this.BASE_URL}/focus/${camera}/GROUP1/false`;
-    this.http.put(cameraEndpoint, {}).subscribe();
-
-    // select slot
-    const slotEndpoint = `${this.BASE_URL}/focus/${slotId}`;
-    this.http.put(slotEndpoint, {}).subscribe();
-  }
-
   _standingsObservable(): Observable<any> {
     return this.http
       .get(`${this.BASE_URL}/standings`)
@@ -325,6 +295,12 @@ export class WatchService {
       .get(`${this.BASE_URL}/sessionInfo`)
       .map(this._mapResponse)
       .catch(this._handleError);
+  }
+
+  _resetData(): void {
+    this._driverLaps = {};
+    this._focusedDriver = null;
+    this._overallBestLap = null;
   }
 
   _mapResponse(response: Response): any {

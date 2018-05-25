@@ -9,7 +9,7 @@ export class StandingsService {
     private MAX_ENTRIES = 20;
 
     private _currentStandings: Array<ProcessedEntry>;
-    private _driverLaps: Array<DriverLap>;
+    private _overallBestLap: Lap;
 
     updateStandings(entries: Array<RawEntry>): void {
 
@@ -34,9 +34,50 @@ export class StandingsService {
             return this._applyEntryDefaults(entry);
         }
 
-        // has the driver just completed a lap
+        const processed: ProcessedEntry = {
+            raw: entry,
+            lapsChecked: previousEntry.lapsChecked
+        };
+
+        // driver just completed a lap
         if (entry.lapsCompleted - previousEntry.lapsChecked === 1 && entry.lastLapTime > -1) {
 
+            // current lap data on previous entry holds last lap data now
+            const lastLap = previousEntry.currentLap;
+            lastLap.sector3 = previousEntry.raw.lastLapTime - previousEntry.raw.lastSectorTime2;
+            lastLap.sector3State = this._getLapState('sector3', lastLap.sector3, previousEntry.bestLap);
+            processed.lastLap = lastLap;
+            processed.currentLap = null;
+
+
+
+
+
+
+
+            
+
+            // get last lap and use previously calculated sector states
+            //const lastLap = this._getLastLap(entry, driverLap);
+            //lastLap.sector_1_state = driverLap.sector_1_state;
+            //lastLap.sector_2_state = driverLap.sector_2_state;
+            //driverLap.sector_1_state = driverLap.sector_2_state = null;
+
+            // gap state + and assign to entry
+            const personalBest = (isEmpty(driverLap.best_lap)) ? null : driverLap.best_lap.total;
+            const state = this._getLapState('total', lastLap.total, personalBest);
+            const gap = this._gapToBest(entry.lastLapTime);
+            entry.gapEvent = {state, gap};
+
+            // is this their pb?
+            if (driverLap.best_lap === null || driverLap.total > lastLap.total) {
+                driverLap.best_lap = lastLap;
+            }
+
+            // keep the last lap info on screen
+            /*driverLap.last_lap_hold = {counter: 0, lastLap, gap, state};
+
+            this._sessionFastestLapCheck(lastLap); */
         }
         
         return {
@@ -57,6 +98,16 @@ export class StandingsService {
         return {
             raw,
             lapsChecked: 0
+        }
+    }
+
+    _getLapState(sectorKey: string, current: number, personalBestLap: Lap): State {
+        if (!this._overallBestLap || current < this._overallBestLap[sectorKey]) {
+            return State.SessionBest;
+        } else if (!personalBestLap || current < personalBestLap[sectorKey]) {
+            return State.PersonalBest;
+        } else {
+            return State.Down;
         }
     }
 }
@@ -89,33 +140,27 @@ interface ProcessedEntry {
     raw: RawEntry;
     lapsChecked: number;
     bestLap?: Lap;
-    gapEvent?: GapEvent;
-
-}
-
-interface GapEvent {
-    state: string;
-    gapToBest: string;
-}
-
-interface DriverLap {
-    bestLap: Lap;
-    sector1State: string;
-    sector2State: string;
+    currentLap?: Lap;
+    lastLap?: Lap;
 }
 
 interface Lap {
     sector1: number;
-    sector1State: null;
+    sector1State: State;
     sector2: number;
-    sector2State: null;
+    sector2State: State;
     sector3: number;
-    sector3State: string;
+    sector3State: State;
     total: number;
 }
 
+interface GapEvent {
+    state: State;
+    gap: number;
+}
+
 enum State {
-    SessionBest,
-    PersonalBest,
-    Down
+    SessionBest = 'SESSION_BEST',
+    PersonalBest = 'PERSONAL_BEST',
+    Down = 'DOWN'
 }

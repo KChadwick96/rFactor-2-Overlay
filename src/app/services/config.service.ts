@@ -68,6 +68,9 @@ const config = {
         },
         'thrive esports blue': {
             'colour': '#141455'
+        },
+        'vd sport': {
+            'colour': '#252525'
         }
     },
     drivers: {
@@ -110,7 +113,7 @@ const config = {
         'adam cronin': {
             'flag': 'https://imgur.com/4yAOniI.png'
         },
-        'jordy zwiers': {
+        'luca d\'amelio': {
             'flag': 'https://imgur.com/fhXmGJQ.png'
         },
         'brandon ohenlen': {
@@ -152,6 +155,9 @@ const config = {
         'jukkapekka lalu': {
             'flag': 'https://imgur.com/VIJffgO.png'
         },
+        'mathias christensen': {
+            'flag': 'https://imgur.com/sffO9eY.png'
+        },
         'rik van doorn': {
             'flag': 'https://imgur.com/fhXmGJQ.png'
         },
@@ -172,6 +178,12 @@ const config = {
         },
         'mathias guldager': {
             'flag': 'https://imgur.com/sffO9eY.png'
+        },
+        'jordy zwiers': {
+            'flag': 'https://imgur.com/fhXmGJQ.png'
+        },
+        'ruben van den hudding': {
+            'flag': 'https://imgur.com/fhXmGJQ.png'
         }
     }
 };

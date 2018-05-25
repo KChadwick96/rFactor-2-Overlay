@@ -16,7 +16,7 @@ export class DriverNamePipe implements PipeTransform {
             parts.pop();
             return `${parts.join(' ')} ${last.toUpperCase()}`;
         } else if (type === 'abbreviated') {
-            return last.substring(0, 3);
+            return last.replace(/[^a-zA-Z]+/g, '').substring(0, 3);
         }
     }
 }

@@ -1,0 +1,23 @@
+.container__session-banner {
+    width: 250px;
+    height: 150px;
+    left: 0;
+    right: 0;
+    top: 50px;
+    position: absolute;
+    background-color: #000;
+    color: #FFF;
+    font-size: 24px;
+    text-align: center;
+    border: #FFF;
+
+    .banner-image-container {
+        img {
+            width: 100px;
+        }
+    }
+
+    .banner-image-timer {
+        
+    }
+}

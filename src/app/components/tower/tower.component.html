@@ -36,7 +36,7 @@
                 <span *ngIf="entry.lapsBehindNext > 0">
                     +{{entry.lapsBehindNext }} Laps
                 </span>
-                <span *ngIf="entry.lapsBehindLeader == 0">
+                <span *ngIf="entry.lapsBehindNext == 0">
                     {{ entry.timeBehindNext | secondsConvert:true }}
                 </span>
             </span>

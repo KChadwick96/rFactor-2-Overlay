@@ -5,5 +5,5 @@
 
 export const environment = {
   production: false,
-  settings_url: 'https://firebasestorage.googleapis.com/v0/b/rfactor-2-overlay/o/config.development.json?alt=media&token=6dc710ea-fa8c-4744-af34-89b82e32cfb7'
+  settings_url: 'https://s3.eu-west-2.amazonaws.com/rfactor2-overlay-settings/config.development.json'
 };

@@ -35,9 +35,8 @@ export class WatchService {
   session(): Observable<any> {
     this._resetData();
 
-    const config = this.config.getConfig();
-    this._teamsConfig = config.teams;
-    this._driversConfig = config.drivers;
+    this._teamsConfig = this.config.get('teams');
+    this._driversConfig = this.config.get('drivers');
 
     // fetch session data
     if (environment.production) {

@@ -1,0 +1,64 @@
+{
+    "teams": {
+        "defiance racing": {
+            "colour": "#a000d2"
+        },
+        "sabre racing": {
+            "colour": "#07b5f1"
+        },
+        "krt": {
+            "colour": "#e01b25"
+        },
+        "vulcan racing": {
+            "colour": "#ba0000"
+        },
+        "acr zakspeed": {
+            "colour": "#002F7C"
+        },
+        "zesty racing": {
+            "colour": "#ff8a00"
+        },
+        "drillers motorsport": {
+            "colour": "#424542"
+        },
+        "s2 racing": {
+            "colour": "#083789"
+        },
+        "schubert motorsport": {
+            "colour": "#C40000"
+        },
+        "ferslev racing team": {
+            "colour": "#CECFCE"
+        },
+        "royal blue racing": {
+            "colour": "#1344b5"
+        },
+        "race clutch": {
+            "colour": "#BE352B"
+        },
+        "thrive esports black": {
+            "colour": "#2ee3d3"
+        },
+        "visceral sim racing": {
+            "colour": "#0E0D0E"
+        },
+        "covadis racing": {
+            "colour": "#E27D24"
+        },
+        "eleven ballast racing": {
+            "colour": "#F8DE01"
+        },
+        "cor racing": {
+            "colour": "#c0c0c0"
+        },
+        "wolf racing": {
+            "colour": "#f5f5f5"
+        },
+        "thrive esports blue": {
+            "colour": "#141455"
+        },
+        "vd sport": {
+            "colour": "#252525"
+        }
+    }
+}

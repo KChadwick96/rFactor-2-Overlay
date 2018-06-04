@@ -10,7 +10,7 @@
 </div>
 
 <!-- Testing -->
-<!-- <div style="position: absolute; right: 40px; top: 40px; background-color: white; font-size: 16px; max-width: 600px;">
+<div *ngIf="!production" style="position: absolute; right: 40px; top: 40px; background-color: white; font-size: 16px; max-width: 600px;">
     {{ data?.session_info | json }}
     <br><br>
     {{ data?.overall_best_lap | json }}
@@ -18,4 +18,4 @@
     <span *ngIf="data?.focused_driver != null">
         {{ data?.focused_driver | json }}
     </span>
-</div> -->
+</div>

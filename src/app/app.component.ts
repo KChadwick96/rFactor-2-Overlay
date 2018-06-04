@@ -1,5 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 
+import { environment } from '../environments/environment';
 import { ConfigService } from './services/config.service';
 import { WatchService } from './services/watch.service';
 
@@ -14,6 +15,7 @@ export class AppComponent implements OnInit {
 
   data: any;
   theme: string = 'default';
+  production: boolean = true;
 
   constructor(
     private configService: ConfigService,
@@ -24,7 +26,7 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this._startDataCycle();
     this.theme = this.configService.get('theme');
-    console.log(this.theme);
+    this.production = environment.production;
   }
 
   _startDataCycle(): void {

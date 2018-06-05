@@ -320,7 +320,7 @@ const sampleSessionData = {
   raining: 0.0,
   ambientTemp: 29.0,
   trackTemp: 29.0,
-  endEventTime: 300.0,
+  endEventTime: 86400.0,
   currentEventTime: 238.0
 };
 

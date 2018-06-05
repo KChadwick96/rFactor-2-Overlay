@@ -6,7 +6,7 @@
 </div>
 
 <div *ngIf="theme === 'endurance'">
-    <app-banner-endurance></app-banner-endurance>
+    <app-banner-endurance [sessionData]="data?.session_info"></app-banner-endurance>
 </div>
 
 <!-- Testing -->

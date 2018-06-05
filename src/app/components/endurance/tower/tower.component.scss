@@ -1,0 +1,39 @@
+.container__standings {
+    width: 100%;
+    position: absolute;
+    left: 0;
+    bottom: 20px;
+    height: 80px;
+    background: linear-gradient(#661b1b ,#4c1414);
+    border: 2px solid #b8b8b8;
+    border-left: none;
+    border-right: none;
+
+    .container__entries {
+        width: 92%;
+        margin: 0 auto;
+        height: 100%;
+    }
+
+    .entry {
+        display: flex;
+        width: 20%;
+        height: 100%;
+        background-color: blue;
+
+        &__position {
+            flex: 0 0 70px;
+            height: 100%;
+            line-height: 75px;
+            font-size: 55px;
+            background-color: #000;
+            color: #FFF;
+            text-align: center;
+            border-right: 7px solid #FFF;
+        }
+
+        &__info {
+            padding: 2px 10px;
+        }
+    }
+}

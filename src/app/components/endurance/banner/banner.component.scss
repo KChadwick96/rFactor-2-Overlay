@@ -1,7 +1,7 @@
 
 
 .container__session-banner {
-    width: 300px;
+    width: 250px;
     left: 0;
     right: 0;
     top: 50px;
@@ -14,8 +14,8 @@
     .banner-image-container {
         width: 100%;
         background-color: #661b1b;
-        background: linear-gradient(#661b1b ,#4c1414); /* Standard syntax (must be last) */
-        height: 65px;
+        background: linear-gradient(#661b1b ,#4c1414);
+        height: 50px;
         border: 1px solid #909090;
     }
 
@@ -23,9 +23,9 @@
         margin-top: 1px;
         width: 100%;
         background-color: #000;
-        height: 65px;
+        height: 50px;
         border: 1px solid #909090;
-        font-size: 50px;
-        line-height: 65px;
+        font-size: 40px;
+        line-height: 50px;
     }
 }

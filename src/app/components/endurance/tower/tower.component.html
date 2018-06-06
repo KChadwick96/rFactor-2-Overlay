@@ -1,9 +1,11 @@
 <div class="container__standings">
     <div class="container__entries">
-        <div class="entry">
-            <div class="entry__position">1</div>
+        <div class="entry" *ngFor="let entry of standings">
+            <div class="entry__position">{{ entry.position }}</div>
             <div class="entry__info">
-                <div class="name">VD Sport</div>
+                <div class="name">{{ entry.vehicleName }}</div>
+                <div class="gap">{{ entry.gapToLeader }}</div>
+                <div class="team-number">44</div>
             </div>
         </div>
     </div>

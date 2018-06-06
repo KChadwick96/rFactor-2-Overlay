@@ -332,7 +332,7 @@ const sampleStandingsData = [
     'pitstops': 0,
     'pitting': false,
     'lastLapTime': 0.0,
-    'vehicleName': 'Cian White #48',
+    'vehicleName': '16LM JBM Racing eSports GT',
     'timeBehindNext': 0.0,
     'timeBehindLeader': 0.0,
     'lapsBehindLeader': 2,

@@ -22,7 +22,7 @@
         height: 100%;
 
         &__position {
-            flex: 0 0 75px;
+            flex: 0 0 18%;
             height: 100%;
             line-height: 73px;
             font-size: 60px;
@@ -33,15 +33,20 @@
         }
 
         &__info {
-            flex-grow: 1;
+            flex: 0 0 82%;
             color: #FFF;
             font-weight: normal;
             padding: 5px 16px;
             font-size: 25px;
             position: relative;
+            overflow: hidden;
 
             .name {
                 margin-bottom: 3px;
+                text-overflow: ellipsis;
+                width: 100%;
+                overflow: hidden;
+                white-space: nowrap;
             }
 
             .gap {
@@ -52,9 +57,9 @@
                 font-family: 'Krona One', sans-serif;
                 font-weight: bold;
                 position: absolute;
-                right: 20px;
-                bottom: 5px;
-                font-size: 35px;
+                right: 55px;
+                bottom: 4px;
+                font-size: 33px;
             }
         }
     }

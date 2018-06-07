@@ -26,6 +26,7 @@ export class WatchService {
   private _driversConfig: any;
   private _socket: SocketIOClient.Socket;
   private _streamInterval: any;
+  private _theme: string;
 
   constructor(
     private http: Http,
@@ -37,6 +38,7 @@ export class WatchService {
 
     this._teamsConfig = this.config.get('teams');
     this._driversConfig = this.config.get('drivers');
+    this._theme = this.config.get('theme');
 
     // fetch session data
     if (environment.production) {
@@ -97,6 +99,13 @@ export class WatchService {
 
     processed.forEach(entry => {
       const driverName = entry.driverName;
+
+      // remove 16LM from endurance car team names
+      if (this._theme === 'endurance' && entry.vehicleName.startsWith('16LM')) {
+        const vehicleNameParts = entry.vehicleName.split(' ');
+        vehicleNameParts.shift();
+        entry.vehicleName = vehicleNameParts.join(' ');
+      }
 
       // does the driver exist in the driverlaps object
       if (this._driverLaps[driverName] === undefined) {

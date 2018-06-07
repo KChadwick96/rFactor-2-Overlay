@@ -1,0 +1,54 @@
+.container__driver {
+    position: absolute;
+    left: 100px;
+    top: 81px;
+    width: 340px;
+    border: 1px solid #b8b8b8;
+
+    .title {
+        background-color: #000;
+        color: #FFF;
+        text-transform: uppercase;
+        text-align: center;
+        width: 220px;
+        position: absolute;
+        font-weight: normal;
+        top: -29px;
+        left: 71px;
+    }
+
+    .main {
+        display: flex;
+        color: #FFF;
+
+        .position {
+            flex: 0 0 64px;
+            background-color: #000;
+            font-size: 52px;
+            text-align: center;
+            border-right: 7px solid #FFF;
+        }
+
+        .info {
+            flex-grow: 1;
+            background: linear-gradient(#661b1b ,#4c1414);
+            font-weight: normal;
+            padding: 3px 0;
+
+            .name, .gap {
+                text-align: center;
+            }
+
+            .name {
+            }
+
+            .divider {
+                background: -webkit-linear-gradient(left, rgba(234,234,234,0) 0%,rgba(234,234,234,0.43) 22%,rgba(234,234,234,1) 51%,rgba(234,234,234,0.37) 82%,rgba(234,234,234,0) 100%); /* Chrome10-25,Safari5.1-6 */
+                background: linear-gradient(to right, rgba(234,234,234,0) 0%,rgba(234,234,234,0.43) 22%,rgba(234,234,234,1) 51%,rgba(234,234,234,0.37) 82%,rgba(234,234,234,0) 100%);
+                margin: 4px 20px 2px 20px;
+                height: 2px;
+                max-width: 100%;
+            }
+        }
+    }
+}

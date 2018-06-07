@@ -1,0 +1,15 @@
+<div class="container__driver" *ngIf="driver != null">
+
+    <div class="title">Onboard</div>
+    <div class="main">
+        <div class="position">
+            {{ driver.position }}
+        </div>
+
+        <div class="info">
+            <div class="name">{{ driver.driverName | uppercase }}</div>
+            <div class="divider"></div>
+            <div class="gap">+1.234</div>
+        </div>
+    </div>
+</div>

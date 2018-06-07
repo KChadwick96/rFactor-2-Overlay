@@ -8,6 +8,7 @@
 <div *ngIf="theme === 'endurance'">
     <app-banner-endurance [sessionData]="data?.session_info"></app-banner-endurance>
     <app-tower-endurance [standings]="data?.standings"></app-tower-endurance>
+    <app-onboard-endurance [driver]="data?.focused_driver"></app-onboard-endurance>
 </div>
 
 <!-- Testing -->

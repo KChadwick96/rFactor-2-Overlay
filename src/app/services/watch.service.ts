@@ -350,12 +350,12 @@ const sampleStandingsData = [
     'currentSectorTime2': -1.0,
     'lastSectorTime1': 0.0,
     'lastSectorTime2': 0.0,
-    'focus': false,
+    'focus': true,
     'carClass': 'Sabre Racing',
     'slotID': 0,
     'carStatus': 'PITTING',
     'lapsCompleted': 0,
-    'hasFocus': false
+    'hasFocus': true
   },
   {
     'position': 5, 'driverName': 'Mattia Silva', 'bestLapTime': -1.0, 'pitstops': 0, 'pitting': false, 'lastLapTime': -1.0,

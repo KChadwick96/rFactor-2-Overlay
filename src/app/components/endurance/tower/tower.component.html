@@ -1,11 +1,11 @@
 <div class="container__standings">
     <div class="container__entries">
-        <div class="entry" *ngFor="let entry of standings">
-            <div class="entry__position">{{ entry.position }}</div>
+        <div class="entry" *ngFor="let entry of _entriesToShow">
+            <div class="entry__position" [style.border-color]="entry.colour">{{ entry.position }}</div>
             <div class="entry__info">
                 <div class="name">{{ entry.vehicleName }}</div>
                 <div class="gap">
-                    <span *ngIf="entry.position === 1">Leader</span>
+                    <span *ngIf="entry.position === 1">Interval</span>
                     <span *ngIf="entry.position > 1 && entry.lapsBehindNext > 0">+{{entry.lapsBehindNext }} Laps</span>
                     <span *ngIf="entry.position > 1 && entry.lapsBehindNext === 0">{{ entry.timeBehindNext | secondsConvert:true }}</span>
                 </div>

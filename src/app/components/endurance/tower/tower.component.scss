@@ -2,7 +2,7 @@
     width: 100%;
     position: absolute;
     left: 0;
-    bottom: 20px;
+    bottom: 30px;
     height: 75px;
     background: linear-gradient(#661b1b ,#4c1414);
     border: 2px solid #b8b8b8;
@@ -25,25 +25,25 @@
             flex: 0 0 18%;
             height: 100%;
             line-height: 73px;
-            font-size: 60px;
+            font-size: 56px;
             background-color: #000;
             color: #FFF;
             text-align: center;
-            border-right: 7px solid #FFF;
+            border-right: 9px solid #FFF;
         }
 
         &__info {
-            flex: 0 0 82%;
+            flex: 1;
             color: #FFF;
             font-weight: normal;
-            padding: 5px 16px;
-            font-size: 25px;
+            padding: 4px 0 4px 14px;
+            font-size: 20px;
             position: relative;
             overflow: hidden;
 
             .name {
-                margin-bottom: 3px;
-                text-overflow: ellipsis;
+                margin-bottom: 7px;
+                text-overflow: clip;
                 width: 100%;
                 overflow: hidden;
                 white-space: nowrap;
@@ -57,7 +57,7 @@
                 font-family: 'Krona One', sans-serif;
                 font-weight: bold;
                 position: absolute;
-                right: 55px;
+                right: 15px;
                 bottom: 3px;
                 font-size: 32px;
             }

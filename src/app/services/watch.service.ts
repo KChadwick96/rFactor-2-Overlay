@@ -194,6 +194,7 @@ export class WatchService {
       }
     });
 
+    console.log(processed);
     return processed;
   }
 
@@ -335,7 +336,7 @@ const sampleSessionData = {
 
 const sampleStandingsData = [
   {
-    'position': 9,
+    'position': 1,
     'driverName': 'Kieran Chadwick ',
     'bestLapTime': 110,
     'pitstops': 0,
@@ -351,14 +352,44 @@ const sampleStandingsData = [
     'lastSectorTime1': 0.0,
     'lastSectorTime2': 0.0,
     'focus': true,
-    'carClass': 'Sabre Racing',
+    'carClass': 'ES_P2',
     'slotID': 0,
     'carStatus': 'PITTING',
     'lapsCompleted': 0,
     'hasFocus': true
   },
   {
+    'position': 2, 'driverName': 'Mattia Silva', 'bestLapTime': -1.0, 'pitstops': 0, 'pitting': false, 'lastLapTime': -1.0,
+    'vehicleName': '16LM Meticulous Engineering Motorsports Endurance Squad', 'timeBehindNext': 0.0, 'timeBehindLeader': 0.0, 'lapsBehindLeader': 1,
+    'lapsBehindNext': 1, 'currentSectorTime1': -1.0, 'currentSectorTime2': -1.0, 'lastSectorTime1': -1.0, 'lastSectorTime2': -1.0,
+    'focus': false, 'carClass': 'ES_GTE', 'slotID': 1, 'carStatus': 'FINISHED', 'lapsCompleted': 1, 'hasFocus': false
+  },
+  {
+    'position': 3, 'driverName': 'Mattia Silva', 'bestLapTime': -1.0, 'pitstops': 0, 'pitting': false, 'lastLapTime': -1.0,
+    'vehicleName': '16LM Shattered Windshield Racing', 'timeBehindNext': 0.0, 'timeBehindLeader': 0.0, 'lapsBehindLeader': 1,
+    'lapsBehindNext': 1, 'currentSectorTime1': -1.0, 'currentSectorTime2': -1.0, 'lastSectorTime1': -1.0, 'lastSectorTime2': -1.0,
+    'focus': false, 'carClass': 'Disruptive Tech Racing', 'slotID': 1, 'carStatus': 'FINISHED', 'lapsCompleted': 1, 'hasFocus': false
+  },
+  {
+    'position': 4, 'driverName': 'Mattia Silva', 'bestLapTime': -1.0, 'pitstops': 0, 'pitting': false, 'lastLapTime': -1.0,
+    'vehicleName': 'Mattia Silva #47', 'timeBehindNext': 0.0, 'timeBehindLeader': 0.0, 'lapsBehindLeader': 1,
+    'lapsBehindNext': 1, 'currentSectorTime1': -1.0, 'currentSectorTime2': -1.0, 'lastSectorTime1': -1.0, 'lastSectorTime2': -1.0,
+    'focus': false, 'carClass': 'Disruptive Tech Racing', 'slotID': 1, 'carStatus': 'FINISHED', 'lapsCompleted': 1, 'hasFocus': false
+  },
+  {
     'position': 5, 'driverName': 'Mattia Silva', 'bestLapTime': -1.0, 'pitstops': 0, 'pitting': false, 'lastLapTime': -1.0,
+    'vehicleName': 'Mattia Silva #47', 'timeBehindNext': 185.4, 'timeBehindLeader': 0.0, 'lapsBehindLeader': 1,
+    'lapsBehindNext': 0, 'currentSectorTime1': -1.0, 'currentSectorTime2': -1.0, 'lastSectorTime1': -1.0, 'lastSectorTime2': -1.0,
+    'focus': false, 'carClass': 'Disruptive Tech Racing', 'slotID': 1, 'carStatus': 'FINISHED', 'lapsCompleted': 1, 'hasFocus': false
+  },
+  {
+    'position': 6, 'driverName': 'Mattia Silva', 'bestLapTime': -1.0, 'pitstops': 0, 'pitting': false, 'lastLapTime': -1.0,
+    'vehicleName': 'Mattia Silva #47', 'timeBehindNext': 0.0, 'timeBehindLeader': 0.0, 'lapsBehindLeader': 1,
+    'lapsBehindNext': 1, 'currentSectorTime1': -1.0, 'currentSectorTime2': -1.0, 'lastSectorTime1': -1.0, 'lastSectorTime2': -1.0,
+    'focus': false, 'carClass': 'Disruptive Tech Racing', 'slotID': 1, 'carStatus': 'FINISHED', 'lapsCompleted': 1, 'hasFocus': false
+  },
+  {
+    'position': 7, 'driverName': 'Mattia Silva', 'bestLapTime': -1.0, 'pitstops': 0, 'pitting': false, 'lastLapTime': -1.0,
     'vehicleName': 'Mattia Silva #47', 'timeBehindNext': 0.0, 'timeBehindLeader': 0.0, 'lapsBehindLeader': 1,
     'lapsBehindNext': 1, 'currentSectorTime1': -1.0, 'currentSectorTime2': -1.0, 'lastSectorTime1': -1.0, 'lastSectorTime2': -1.0,
     'focus': false, 'carClass': 'Disruptive Tech Racing', 'slotID': 1, 'carStatus': 'FINISHED', 'lapsCompleted': 1, 'hasFocus': false

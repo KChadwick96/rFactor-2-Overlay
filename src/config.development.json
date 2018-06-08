@@ -174,11 +174,134 @@
         "vd sport": {
             "colour": "#252525"
         },
+
+        // endurance
         "es_gte": {
             "colour": "#038439"
         },
         "es_p2": {
             "colour": "#0d50a0"
+        },
+        
+        "team rookie monsters jr": {
+            "number": "773"
+        },
+        "gurken racing": {
+            "number": "188"
+        },
+        "f1 bros":{
+            "number": " 187"
+        },
+        "world of simracing jr": {
+            "number": "151"
+        },
+        "racingclub endurance team jr.": {
+            "number": "130"
+        },
+        "default aor car blue": {
+            "number": "104"
+        },
+        "default aor car red": {
+            "number": "103"
+        },
+        "infinity racing": {
+            "number": "100"
+        },
+        "ferslev esport racing team": {
+            "number": "95"
+        },
+        "team tepa": {
+            "number": "86"
+        },
+        "shattered windshield racing": {
+            "number": "80"
+        },
+        "team rookie monsters": {
+            "number": "73"
+        },
+        "rfactor2race": {
+            "number": "71"
+        },
+        "pro-race simulation": {
+            "number": "68"
+        },
+        "jbm racing esports gt": {
+            "number": "55"
+        },
+        "mj racing team": {
+            "number": "49"
+        },
+        "racingclub endurance team": {
+            "number": "48"
+        },
+        "mouseone andromeda racing": {
+            "number": "38"
+        },
+        "pickewickle racing": {
+            "number": "33"
+        },
+        "drivegameseat racing team": {
+            "number": "27"
+        },
+        "acr zakspeed": {
+            "number": "24"
+        },
+        "outlaws engineering": {
+            "number": "16"
+        },
+        "crebbez racing team": {
+            "number": "03"
+        },
+        "default aor car": {
+            "number": "04"
+        },
+        "infinity racing": {
+            "number": "99"
+        },
+        "team iris": {
+            "number": "07"
+        },
+        "world of simracing": {
+            "number": "131"
+        },
+        "default aor lmp car blue": {
+            "number": "102"
+        },
+        "default aor lmp car red": {
+            "number": "101"
+        },
+        "plf1": {
+            "number": "612"
+        },
+        "bottlejob racing": {
+            "number": "45"
+        },
+        "vd sport": {
+            "number": "44"
+        },
+        "meticulous engineering motorsports endurance squad": {
+            "number": "420"
+        },
+        "jbm racing esports": {
+            "number": "21"
+        },
+        "thrive esports": {
+            "number": "15"
+        },
+        "royal blue racing": {
+            "number": "13"
+        },
+        "vulcan racing": {
+            "number": "09"
+        },
+        "visceral sim racing": {
+            "number": "02"
+        },
+        "default aor lmp car": {
+            "number": "01"
+        },
+        "acrzakspeed": {
+            "number": "05"
         }
     }
 }

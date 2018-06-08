@@ -194,7 +194,6 @@ export class WatchService {
       }
     });
 
-    console.log(processed);
     return processed;
   }
 

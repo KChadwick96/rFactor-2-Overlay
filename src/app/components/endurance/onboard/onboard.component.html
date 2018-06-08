@@ -9,7 +9,11 @@
         <div class="info">
             <div class="name">{{ driver.driverName | uppercase }}</div>
             <div class="divider"></div>
-            <div class="gap">+1.234</div>
+            <div class="gap">
+                <span *ngIf="driver.position === 1">Leader</span>
+                <span *ngIf="driver.position > 1 && driver.lapsBehindNext > 0">+{{driver.lapsBehindNext }} Laps</span>
+                <span *ngIf="driver.position > 1 && driver.lapsBehindNext === 0">{{ driver.timeBehindNext | secondsConvert:true }}</span>
+            </div>
         </div>
     </div>
 </div>

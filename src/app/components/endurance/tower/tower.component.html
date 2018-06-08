@@ -4,8 +4,12 @@
             <div class="entry__position">{{ entry.position }}</div>
             <div class="entry__info">
                 <div class="name">{{ entry.vehicleName }}</div>
-                <div class="gap">{{ entry.gapToLeader }}</div>
-                <div class="team-number">44</div>
+                <div class="gap">
+                    <span *ngIf="entry.position === 1">Leader</span>
+                    <span *ngIf="entry.position > 1 && entry.lapsBehindNext > 0">+{{entry.lapsBehindNext }} Laps</span>
+                    <span *ngIf="entry.position > 1 && entry.lapsBehindNext === 0">{{ entry.timeBehindNext | secondsConvert:true }}</span>
+                </div>
+                <div class="team-number">4444</div>
             </div>
         </div>
     </div>

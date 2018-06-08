@@ -188,6 +188,7 @@ export class WatchService {
       }
 
       entry.colour = this._getTeamColour(entry.carClass.toLowerCase());
+      entry.car_number = this._getTeamNumber(entry.vehicleName.toLowerCase());
       entry.flag = this._getDriverFlag(entry.driverName);
       if (entry.focus) {
         this._focusedDriver = entry;
@@ -280,6 +281,17 @@ export class WatchService {
     }
 
     return colour;
+  }
+
+  _getTeamNumber(teamName: string): string {
+    let number = '';
+
+    const teamConfig = this._teamsConfig[teamName];
+    if (teamConfig && teamConfig.number) {
+      number = teamConfig.number;
+    }
+
+    return number;
   }
 
   _getDriverFlag(driverName: string): string {

@@ -124,10 +124,12 @@
             "colour": "#e01b25"
         },
         "vulcan racing": {
-            "colour": "#ba0000"
+            "colour": "#ba0000",
+            "number": "09"
         },
         "acr zakspeed": {
-            "colour": "#002F7C"
+            "colour": "#002F7C",
+            "number": "24"
         },
         "zesty racing": {
             "colour": "#ff8a00"
@@ -145,7 +147,8 @@
             "colour": "#CECFCE"
         },
         "royal blue racing": {
-            "colour": "#1344b5"
+            "colour": "#1344b5",
+            "number": "13"
         },
         "race clutch": {
             "colour": "#BE352B"
@@ -154,7 +157,8 @@
             "colour": "#2ee3d3"
         },
         "visceral sim racing": {
-            "colour": "#0E0D0E"
+            "colour": "#0E0D0E",
+            "number": "02"
         },
         "covadis racing": {
             "colour": "#E27D24"
@@ -172,10 +176,10 @@
             "colour": "#141455"
         },
         "vd sport": {
-            "colour": "#252525"
+            "colour": "#252525",
+            "number": "44"
         },
 
-        // endurance
         "es_gte": {
             "colour": "#038439"
         },
@@ -203,9 +207,6 @@
         },
         "default aor car red": {
             "number": "103"
-        },
-        "infinity racing": {
-            "number": "100"
         },
         "ferslev esport racing team": {
             "number": "95"
@@ -243,9 +244,6 @@
         "drivegameseat racing team": {
             "number": "27"
         },
-        "acr zakspeed": {
-            "number": "24"
-        },
         "outlaws engineering": {
             "number": "16"
         },
@@ -276,9 +274,6 @@
         "bottlejob racing": {
             "number": "45"
         },
-        "vd sport": {
-            "number": "44"
-        },
         "meticulous engineering motorsports endurance squad": {
             "number": "420"
         },
@@ -287,15 +282,6 @@
         },
         "thrive esports": {
             "number": "15"
-        },
-        "royal blue racing": {
-            "number": "13"
-        },
-        "vulcan racing": {
-            "number": "09"
-        },
-        "visceral sim racing": {
-            "number": "02"
         },
         "default aor lmp car": {
             "number": "01"

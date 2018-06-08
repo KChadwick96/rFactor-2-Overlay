@@ -1,0 +1,36 @@
+
+
+.container__session-banner {
+    width: 250px;
+    left: 0;
+    right: 0;
+    top: 50px;
+    margin: 0 auto;
+    position: absolute;
+    color: #FFF;
+    font-size: 24px;
+    text-align: center;
+
+    .banner-image-container {
+        width: 100%;
+        background-color: #661b1b;
+        background: linear-gradient(#661b1b ,#4c1414);
+        height: 50px;
+        border: 1px solid #909090;
+
+        img {
+            margin-top: 1px;
+            width: 140px;
+        }
+    }
+
+    .banner-image-timer {
+        margin-top: 1px;
+        width: 100%;
+        background-color: #000;
+        height: 50px;
+        border: 1px solid #909090;
+        font-size: 40px;
+        line-height: 50px;
+    }
+}

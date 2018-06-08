@@ -1,0 +1,66 @@
+.container__standings {
+    width: 100%;
+    position: absolute;
+    left: 0;
+    bottom: 30px;
+    height: 75px;
+    background: linear-gradient(#661b1b ,#4c1414);
+    border: 2px solid #b8b8b8;
+    border-left: none;
+    border-right: none;
+
+    .container__entries {
+        width: 92%;
+        margin: 0 auto;
+        height: 100%;
+        display: flex;
+    }
+
+    .entry {
+        display: flex;
+        width: 20%;
+        height: 100%;
+
+        &__position {
+            flex: 0 0 18%;
+            height: 100%;
+            line-height: 73px;
+            font-size: 56px;
+            background-color: #000;
+            color: #FFF;
+            text-align: center;
+            border-right: 9px solid #FFF;
+        }
+
+        &__info {
+            flex: 1;
+            color: #FFF;
+            font-weight: normal;
+            padding: 4px 0 4px 14px;
+            font-size: 20px;
+            position: relative;
+            overflow: hidden;
+
+            .name {
+                margin-bottom: 7px;
+                text-overflow: clip;
+                width: 100%;
+                overflow: hidden;
+                white-space: nowrap;
+            }
+
+            .gap {
+                font-size: 23px;
+            }
+
+            .team-number {
+                font-family: 'Krona One', sans-serif;
+                font-weight: bold;
+                position: absolute;
+                right: 15px;
+                bottom: 3px;
+                font-size: 32px;
+            }
+        }
+    }
+}

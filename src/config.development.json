@@ -1,0 +1,293 @@
+{
+    "theme": "endurance",
+    "drivers": {
+        "craig baxter": {
+            "flag": "https://imgur.com/0apJFaG.png"
+        },
+        "scott davison": {
+            "flag": "https://imgur.com/4yAOniI.png"
+        },
+        "sam carpenter": {
+            "flag": "https://imgur.com/4yAOniI.png"
+        },
+        "cian white": {
+            "flag": "https://imgur.com/Wno1zTe.png"
+        },
+        "kieran chadwick": {
+            "flag": "https://imgur.com/4yAOniI.png"
+        },
+        "evan rice": {
+            "flag": "https://imgur.com/lqEcsyy.png"
+        },
+        "mac shepherd": {
+            "flag": "https://imgur.com/4yAOniI.png"
+        },
+        "kevin cox": {
+            "flag": "https://imgur.com/4yAOniI.png"
+        },
+        "ross woodford": {
+            "flag": "https://imgur.com/4yAOniI.png"
+        },
+        "tino naukkarinen": {
+            "flag": "https://imgur.com/VIJffgO.png"
+        },
+        "dan-ove brantholm": {
+            "flag": "https://imgur.com/pnoBMKg.png"
+        },
+        "philip kraus": {
+            "flag": "https://imgur.com/lqEcsyy.png"
+        },
+        "adam cronin": {
+            "flag": "https://imgur.com/4yAOniI.png"
+        },
+        "luca d\"amelio": {
+            "flag": "https://imgur.com/fhXmGJQ.png"
+        },
+        "brandon ohenlen": {
+            "flag": "https://imgur.com/uXTuiD0.png"
+        },
+        "dominic lambrechts": {
+            "flag": "https://imgur.com/4yAOniI.png"
+        },
+        "jacob reid": {
+            "flag": "https://imgur.com/4yAOniI.png"
+        },
+        "dionysis faraos": {
+            "flag": "https://imgur.com/YsHTDTe.png"
+        },
+        "asger hebsgaard": {
+            "flag": "https://imgur.com/sffO9eY.png"
+        },
+        "lasse sorensen": {
+            "flag": "https://imgur.com/sffO9eY.png"
+        },
+        "tomi ylitalo": {
+            "flag": "https://imgur.com/VIJffgO.png"
+        },
+        "callum roberts": {
+            "flag": "https://imgur.com/4yAOniI.png"
+        },
+        "eneric andre": {
+            "flag": "https://imgur.com/o3kblwK.png"
+        },
+        "robin bondon": {
+            "flag": "https://imgur.com/o3kblwK.png"
+        },
+        "kevin turner": {
+            "flag": "https://imgur.com/wfwSvVC.png"
+        },
+        "noah chilla": {
+            "flag": "https://imgur.com/uXTuiD0.png"
+        },
+        "jukkapekka lalu": {
+            "flag": "https://imgur.com/VIJffgO.png"
+        },
+        "mathias christensen": {
+            "flag": "https://imgur.com/sffO9eY.png"
+        },
+        "rik van doorn": {
+            "flag": "https://imgur.com/fhXmGJQ.png"
+        },
+        "daniel cermak": {
+            "flag": "https://imgur.com/NW1W2Xq.png"
+        },
+        "thomas lagny": {
+            "flag": "https://imgur.com/o3kblwK.png"
+        },
+        "damian hall": {
+            "flag": "https://imgur.com/wfwSvVC.png"
+        },
+        "jeff jacobs": {
+            "flag": "https://imgur.com/x9Cp0mK.png"
+        },
+        "david pashkovski": {
+            "flag": "https://imgur.com/3oTIESg.png"
+        },
+        "mathias guldager": {
+            "flag": "https://imgur.com/sffO9eY.png"
+        },
+        "jordy zwiers": {
+            "flag": "https://imgur.com/fhXmGJQ.png"
+        },
+        "ruben van den hudding": {
+            "flag": "https://imgur.com/fhXmGJQ.png"
+        }
+    },
+    "teams": {
+        "defiance racing": {
+            "colour": "#a000d2"
+        },
+        "sabre racing": {
+            "colour": "#07b5f1"
+        },
+        "krt": {
+            "colour": "#e01b25"
+        },
+        "vulcan racing": {
+            "colour": "#ba0000",
+            "number": "09"
+        },
+        "acr zakspeed": {
+            "colour": "#002F7C",
+            "number": "24"
+        },
+        "zesty racing": {
+            "colour": "#ff8a00"
+        },
+        "drillers motorsport": {
+            "colour": "#424542"
+        },
+        "s2 racing": {
+            "colour": "#083789"
+        },
+        "schubert motorsport": {
+            "colour": "#C40000"
+        },
+        "ferslev racing team": {
+            "colour": "#CECFCE"
+        },
+        "royal blue racing": {
+            "colour": "#1344b5",
+            "number": "13"
+        },
+        "race clutch": {
+            "colour": "#BE352B"
+        },
+        "thrive esports black": {
+            "colour": "#2ee3d3"
+        },
+        "visceral sim racing": {
+            "colour": "#0E0D0E",
+            "number": "02"
+        },
+        "covadis racing": {
+            "colour": "#E27D24"
+        },
+        "eleven ballast racing": {
+            "colour": "#F8DE01"
+        },
+        "cor racing": {
+            "colour": "#c0c0c0"
+        },
+        "wolf racing": {
+            "colour": "#f5f5f5"
+        },
+        "thrive esports blue": {
+            "colour": "#141455"
+        },
+        "vd sport": {
+            "colour": "#252525",
+            "number": "44"
+        },
+
+        "es_gte": {
+            "colour": "#038439"
+        },
+        "es_p2": {
+            "colour": "#0d50a0"
+        },
+        
+        "team rookie monsters jr": {
+            "number": "773"
+        },
+        "gurken racing": {
+            "number": "188"
+        },
+        "f1 bros":{
+            "number": " 187"
+        },
+        "world of simracing jr": {
+            "number": "151"
+        },
+        "racingclub endurance team jr.": {
+            "number": "130"
+        },
+        "default aor car blue": {
+            "number": "104"
+        },
+        "default aor car red": {
+            "number": "103"
+        },
+        "ferslev esport racing team": {
+            "number": "95"
+        },
+        "team tepa": {
+            "number": "86"
+        },
+        "shattered windshield racing": {
+            "number": "80"
+        },
+        "team rookie monsters": {
+            "number": "73"
+        },
+        "rfactor2race": {
+            "number": "71"
+        },
+        "pro-race simulation": {
+            "number": "68"
+        },
+        "jbm racing esports gt": {
+            "number": "55"
+        },
+        "mj racing team": {
+            "number": "49"
+        },
+        "racingclub endurance team": {
+            "number": "48"
+        },
+        "mouseone andromeda racing": {
+            "number": "38"
+        },
+        "pickewickle racing": {
+            "number": "33"
+        },
+        "drivegameseat racing team": {
+            "number": "27"
+        },
+        "outlaws engineering": {
+            "number": "16"
+        },
+        "crebbez racing team": {
+            "number": "03"
+        },
+        "default aor car": {
+            "number": "04"
+        },
+        "infinity racing": {
+            "number": "99"
+        },
+        "team iris": {
+            "number": "07"
+        },
+        "world of simracing": {
+            "number": "131"
+        },
+        "default aor lmp car blue": {
+            "number": "102"
+        },
+        "default aor lmp car red": {
+            "number": "101"
+        },
+        "plf1": {
+            "number": "612"
+        },
+        "bottlejob racing": {
+            "number": "45"
+        },
+        "meticulous engineering motorsports endurance squad": {
+            "number": "420"
+        },
+        "jbm racing esports": {
+            "number": "21"
+        },
+        "thrive esports": {
+            "number": "15"
+        },
+        "default aor lmp car": {
+            "number": "01"
+        },
+        "acrzakspeed": {
+            "number": "05"
+        }
+    }
+}

@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  settings_url: 'https://storage.googleapis.com/rf2-overlay-settings/config.development.json'
+  settings_url: 'https://s3.eu-west-2.amazonaws.com/rfactor2-overlay-settings/config.development.json'
 };

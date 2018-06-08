@@ -6,8 +6,8 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./tower.component.scss']
 })
 export class TowerEnduranceComponent {
+  public entriesToShow: any = [];
   private _interval: any;
-  private _entriesToShow: any = [];
   private _standings: any = [];
   private _currentPage = 1;
   private _secondsPerPage = 5 * 1000;
@@ -32,7 +32,7 @@ export class TowerEnduranceComponent {
       const pages = Math.ceil(this._standings.length / 5);
 
       const start = (this._currentPage - 1) * 5;
-      this._entriesToShow = this._standings.slice(start, start + 5);
+      this.entriesToShow = this._standings.slice(start, start + 5);
 
       // reset to 1 if last, otherwise increment
       if (this._currentPage >= pages) {

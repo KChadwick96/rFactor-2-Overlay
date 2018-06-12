@@ -99,6 +99,18 @@ export class WatchService {
     processed.forEach(entry => {
       const driverName = entry.driverName;
 
+      // remove 16LM from endurance car team names
+      if (this._theme === 'endurance' && entry.vehicleName.startsWith('16LM')) {
+        const vehicleNameParts = entry.vehicleName.split(' ');
+        vehicleNameParts.shift();
+        if (vehicleNameParts[vehicleNameParts.length - 1].startsWith('#')) {
+          const number = vehicleNameParts.pop();
+          entry.car_number = number.substring(1);
+        }
+
+        entry.vehicleName = vehicleNameParts.join(' ');
+      }
+
       // does the driver exist in the driverlaps object
       if (this._driverLaps[driverName] === undefined) {
         this._initialiseDriverLap(driverName);
@@ -333,7 +345,7 @@ const sampleStandingsData = [
     'pitstops': 0,
     'pitting': false,
     'lastLapTime': 0.0,
-    'vehicleName': 'Cian White #48',
+    'vehicleName': '16LM JBM Racing eSports GT #123',
     'timeBehindNext': 0.0,
     'timeBehindLeader': 0.0,
     'lapsBehindLeader': 2,

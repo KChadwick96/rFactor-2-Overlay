@@ -1,13 +1,13 @@
 <div class="container__standings">
     <div class="entry" *ngFor="let entry of standings | slice:0:20">
         <div class="entry__position">
-            {{ entry.position }}
+            {{ entry.raw.position }}
         </div>
         <div class="entry__colour" [ngStyle]="{'background-color': entry.colour}"></div>
         <div class="entry__driver">
-            {{ entry.driverName | driverName: (_mode === 'BASIC' ? 'last' : 'abbreviated') }}
+            {{ entry.raw.driverName | driverName: (_mode === 'BASIC' ? 'last' : 'abbreviated') }}
         </div>
-        <div class="entry__gap" *ngIf="_mode === 'FASTEST_LAP_GAP' && entry.bestLapTime !== -1">
+        <div class="entry__gap" *ngIf="_mode === 'FASTEST_LAP_GAP' && entry.raw.bestLapTime !== -1">
             <span *ngIf="entry.position === 1">
                 {{ entry.bestLapTime | minutesAndSeconds:true:false }}
             </span>
@@ -16,32 +16,32 @@
             </span>
         </div>
         <div class="entry__gap" *ngIf="_mode === 'GAP_TO_LEADER'">
-            <span *ngIf="entry.position === 1">
+            <span *ngIf="entry.raw.position === 1">
                 Leader
             </span>
-            <span *ngIf="entry.position > 1">
-                <span *ngIf="entry.lapsBehindLeader > 0">
-                    +{{entry.lapsBehindLeader }} Laps
+            <span *ngIf="entry.raw.position > 1">
+                <span *ngIf="entry.raw.lapsBehindLeader > 0">
+                    +{{entry.raw.lapsBehindLeader }} Laps
                 </span>
-                <span *ngIf="entry.lapsBehindLeader == 0">
-                    {{ entry.timeBehindLeader | secondsConvert:true }}
+                <span *ngIf="entry.raw.lapsBehindLeader == 0">
+                    {{ entry.raw.timeBehindLeader | secondsConvert:true }}
                 </span>
             </span>
         </div>
         <div class="entry__gap" *ngIf="_mode === 'GAP_TO_NEXT'">
-            <span *ngIf="entry.position === 1">
+            <span *ngIf="entry.raw.position === 1">
                 Interval
             </span>
-            <span *ngIf="entry.position > 1">
-                <span *ngIf="entry.lapsBehindNext > 0">
-                    +{{entry.lapsBehindNext }} Laps
+            <span *ngIf="entry.raw.position > 1">
+                <span *ngIf="entry.raw.lapsBehindNext > 0">
+                    +{{entry.raw.lapsBehindNext }} Laps
                 </span>
-                <span *ngIf="entry.lapsBehindNext == 0">
-                    {{ entry.timeBehindNext | secondsConvert:true }}
+                <span *ngIf="entry.raw.lapsBehindNext == 0">
+                    {{ entry.raw.timeBehindNext | secondsConvert:true }}
                 </span>
             </span>
         </div>
-        <div class="entry__pit" *ngIf="entry.pitting">
+        <div class="entry__pit" *ngIf="entry.raw.pitting">
             PIT
         </div>
     </div>

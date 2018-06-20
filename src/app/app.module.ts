@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { BannerComponent } from './components/banner/banner.component';
 import { OnboardComponent } from './components/onboard/onboard.component';
 import { TowerComponent } from './components/tower/tower.component';
-import { ConfigService } from './services/config.service';
+import { ConfigService, StandingsService  } from './services';
 import { DriverNamePipe } from './pipes/driver-name.pipe';
 import { MinutesAndSecondsPipe } from './pipes/minutes-and-seconds.pipe';
 import { SecondsConvertPipe } from './pipes/seconds-convert.pipe';
@@ -29,7 +29,7 @@ import { SessionTimerPipe } from './pipes/session-timer.pipe';
     BrowserModule,
     HttpModule
   ],
-  providers: [ConfigService],
+  providers: [ConfigService, StandingsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

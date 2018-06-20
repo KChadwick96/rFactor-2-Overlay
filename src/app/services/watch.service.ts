@@ -8,12 +8,13 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
 import { ConfigService } from './config.service';
+import { StandingsService } from './standings.service';
 import { environment } from '../../environments/environment';
 
 @Injectable()
 export class WatchService {
 
-  private DATA_REFRESH_RATE = 500;
+  private DATA_REFRESH_RATE = 2000;
   private HOLD_LAP_INFO_DELAY = 10000;
   private BASE_URL = 'http://localhost:5397/rest/watch';
   private SOCKET_URL = 'http://localhost';
@@ -26,10 +27,12 @@ export class WatchService {
   private _driversConfig: any;
   private _socket: SocketIOClient.Socket;
   private _streamInterval: any;
+  private _theme: string;
 
   constructor(
     private http: Http,
-    private config: ConfigService
+    private config: ConfigService,
+    private standingsService: StandingsService
   ) {}
 
   session(): Observable<any> {
@@ -57,7 +60,13 @@ export class WatchService {
 
         // test data
         if (!environment.production) {
-          const processedStandings = this._processStandings(sampleStandingsData);
+          const processedStandings = this.standingsService.updateStandings(sampleStandingsData);
+          console.log({
+            session_info: sampleSessionData,
+            standings: processedStandings,
+            focused_driver: this._focusedDriver,
+            overall_best_lap: this._overallBestLap
+          });
           return observer.next({
             session_info: sampleSessionData,
             standings: processedStandings,
@@ -78,7 +87,7 @@ export class WatchService {
 
         // live data
         this._standingsObservable().subscribe(standings => {
-          const processedStandings = this._processStandings(standings);
+          const processedStandings = this.standingsService.updateStandings(standings);
           observer.next({
             session_info: this._sessionData,
             standings: processedStandings,
@@ -98,18 +107,6 @@ export class WatchService {
 
     processed.forEach(entry => {
       const driverName = entry.driverName;
-
-      // remove 16LM from endurance car team names
-      if (this._theme === 'endurance' && entry.vehicleName.startsWith('16LM')) {
-        const vehicleNameParts = entry.vehicleName.split(' ');
-        vehicleNameParts.shift();
-        if (vehicleNameParts[vehicleNameParts.length - 1].startsWith('#')) {
-          const number = vehicleNameParts.pop();
-          entry.car_number = number.substring(1);
-        }
-
-        entry.vehicleName = vehicleNameParts.join(' ');
-      }
 
       // does the driver exist in the driverlaps object
       if (this._driverLaps[driverName] === undefined) {
@@ -354,12 +351,12 @@ const sampleStandingsData = [
     'currentSectorTime2': -1.0,
     'lastSectorTime1': 0.0,
     'lastSectorTime2': 0.0,
-    'focus': false,
+    'focus': true,
     'carClass': 'Sabre Racing',
     'slotID': 0,
     'carStatus': 'PITTING',
     'lapsCompleted': 0,
-    'hasFocus': false
+    'hasFocus': true
   },
   {
     'position': 5, 'driverName': 'Mattia Silva', 'bestLapTime': -1.0, 'pitstops': 0, 'pitting': false, 'lastLapTime': -1.0,
@@ -368,3 +365,16 @@ const sampleStandingsData = [
     'focus': false, 'carClass': 'Disruptive Tech Racing', 'slotID': 1, 'carStatus': 'FINISHED', 'lapsCompleted': 1, 'hasFocus': false
   }
 ];
+
+// TODO: figure out what to do with this old endurance specific code
+// remove 16LM from endurance car team names
+/* if (this._theme === 'endurance' && entry.vehicleName.startsWith('16LM')) {
+  const vehicleNameParts = entry.vehicleName.split(' ');
+  vehicleNameParts.shift();
+  if (vehicleNameParts[vehicleNameParts.length - 1].startsWith('#')) {
+    const number = vehicleNameParts.pop();
+    entry.car_number = number.substring(1);
+  }
+
+  entry.vehicleName = vehicleNameParts.join(' ');
+} */

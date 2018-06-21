@@ -4,20 +4,47 @@
 import { Injectable } from '@angular/core';
 import { sortBy, isEmpty } from 'lodash';
 
+import { ConfigService } from './config.service';
+
 @Injectable()
 export class StandingsService {
     private DATA_REFRESH_RATE = 2000;
     private HOLD_LAP_INFO_DELAY = 10000;
 
+    private _teamsConfig: any;
+    private _driversConfig: any;
     private _currentStandings: Array<ProcessedEntry>;
     private _overallBestLap: Lap;
     private _focusedDriver: ProcessedEntry;
+
+    get currentStandings(): Array<ProcessedEntry> {
+        return this._currentStandings;
+    }
+
+    get overallBestLap(): Lap {
+        return this._overallBestLap;
+    }
+
+    get focusedDriver(): ProcessedEntry {
+        return this._focusedDriver;
+    }
+
+    constructor(private config: ConfigService) {}
+
+    /**
+     * Loads config info so we don't have to refetch on each cycle
+     */
+    init(): void {
+        this.reset();
+        this._teamsConfig = this.config.get('teams');
+        this._driversConfig = this.config.get('drivers');
+    }
 
     /**
      * Processes the new entries from RF2
      * @param entries - Raw Entries from RF2
      */
-    updateStandings(entries: Array<RawEntry>): Array<ProcessedEntry> {
+    updateStandings(entries: Array<RawEntry>): void {
 
         entries = sortBy(entries, 'position');
 
@@ -28,7 +55,15 @@ export class StandingsService {
         });
 
         this._currentStandings = processed;
-        return processed;
+    }
+
+    /**
+     * Resets stored data
+     */
+    reset() {
+        this._currentStandings = [];
+        this._focusedDriver = null;
+        this._overallBestLap = null;
     }
 
     /**
@@ -44,7 +79,8 @@ export class StandingsService {
 
         const processed: ProcessedEntry = {
             raw: entry,
-            lapsChecked: previousEntry.lapsChecked
+            lapsChecked: previousEntry.lapsChecked,
+            gapToLeader: this._gapToBest(entry.bestLapTime)
         };
 
         // driver just completed a lap
@@ -84,10 +120,39 @@ export class StandingsService {
         processed.currentLap = !entry.pitting ? null : previousEntry.currentLap;
 
         // have they just completed the 1st or 2nd sector
-        /* TODO Some sector calculations */
+        // have they just completed the 1st or 2nd sector
+        if (entry.currentSectorTime1 !== -1) {
+            if (entry.currentSectorTime2 !== -1) {
+
+                // sector 2 completed
+                /* let gapValue = 0;
+                if (!isEmpty(this._overallBestLap)) {
+                    gapValue = entry.currentSectorTime2 - (this._overallBestLap.sector_1 + this._overallBestLap.sector_2);
+                }
+                const gap = (gapValue > 0 ? '+' : '') + gapValue.toFixed(3);
+
+                // gap state + and assign to entry
+                const personalBest = (isEmpty(driverLap.best_lap)) ? null : driverLap.best_lap.sector_1 + driverLap.best_lap.sector_2;
+                const state = this._getLapState('sector_2', entry.currentSector2Time, personalBest);
+                entry.gapEvent = {state, gap};
+                driverLap.sector_2_state = state; */
+            } else {
+
+                // sector 1 completed
+               /*  const gapValue = isEmpty(this._overallBestLap) ? 0 : entry.currentSectorTime1 - this._overallBestLap.sector_1;
+                const gap = (gapValue > 0 ? '+' : '') + gapValue.toFixed(3);
+
+                // gap state + and assign to entry
+                const personalBest = (isEmpty(driverLap.best_lap)) ? null : driverLap.best_lap.sector_1;
+                const state = this._getLapState('sector_1', entry.currentSectorTime1, personalBest);
+                entry.gapEvent = {state, gap};
+                driverLap.sector_1_state = state; */
+            }
+        }
 
         // colour, flag and focuseddriver
-        processed.col
+        processed.colour = this._getTeamColour(entry.carClass);
+        processed.flag = this._getDriverFlag(entry.driverName);
         if (entry.focus) {
             this._focusedDriver = processed;
         }
@@ -170,6 +235,36 @@ export class StandingsService {
         hold.counter += this.DATA_REFRESH_RATE;
         return hold;
     }
+
+    /**
+     * Take drivername and fetch flag from config
+     * @param driverName - RF2 Driver Name
+     */
+    _getDriverFlag(driverName: string): string {
+        driverName = driverName.toLowerCase();
+
+        const driverConfig = this._driversConfig[driverName];
+        if (!driverConfig) {
+            return null;
+        }
+
+        return driverConfig.flag;
+    }
+
+    /**
+     * Take carclass and fetch colour from config
+     * @param carClass - RF2 Car Class
+     */
+    _getTeamColour(carClass: string): string {
+        carClass = carClass.toLowerCase();
+
+        const teamConfig = this._teamsConfig[carClass];
+        if (!teamConfig) {
+            return '#FFF';
+        }
+
+        return teamConfig.colour;
+    }
 }
 
 interface RawEntry {
@@ -199,6 +294,7 @@ interface RawEntry {
 interface ProcessedEntry {
     raw: RawEntry;
     lapsChecked: number;
+    gapToLeader?: string;
     bestLap?: Lap;
     currentLap?: Lap;
     lastLap?: Lap;

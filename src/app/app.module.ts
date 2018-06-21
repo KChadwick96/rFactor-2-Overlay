@@ -42,6 +42,7 @@ const COMPONENTS = [
   ],
   providers: [
     ConfigService,
+    StandingsService,
     {
       provide: APP_INITIALIZER,
       useFactory: (config: ConfigService) => () => config.load(),

@@ -1,0 +1,8 @@
+<div class="container__session-banner">
+    <div class="banner-image-container">
+        <img src="https://i.imgur.com/O7eIAR9.png">
+    </div>
+    <div class="banner-image-timer">
+        {{ (sessionData?.endEventTime - sessionData?.currentEventTime) | sessionTimer: true }}
+    </div>
+</div>

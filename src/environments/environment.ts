@@ -4,5 +4,6 @@
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  settings_url: 'https://s3.eu-west-2.amazonaws.com/rfactor2-overlay-settings/config.development.json'
 };

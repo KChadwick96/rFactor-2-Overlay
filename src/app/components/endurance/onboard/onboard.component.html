@@ -1,0 +1,19 @@
+<div class="container__driver" *ngIf="driver != null">
+
+    <div class="title">Onboard</div>
+    <div class="main">
+        <div class="position" [style.border-color]="driver.colour">
+            {{ driver.position }}
+        </div>
+
+        <div class="info">
+            <div class="name">{{ driver.driverName | uppercase }}</div>
+            <div class="divider"></div>
+            <div class="gap">
+                <span *ngIf="driver.position === 1">Leader</span>
+                <span *ngIf="driver.position > 1 && driver.lapsBehindNext > 0">+{{driver.lapsBehindNext }} Laps</span>
+                <span *ngIf="driver.position > 1 && driver.lapsBehindNext === 0">{{ driver.timeBehindNext | secondsConvert:true }}</span>
+            </div>
+        </div>
+    </div>
+</div>

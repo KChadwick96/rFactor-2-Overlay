@@ -6,6 +6,8 @@ import { sortBy, isEmpty } from 'lodash';
 
 @Injectable()
 export class StandingsService {
+    private DATA_REFRESH_RATE = 2000;
+    private HOLD_LAP_INFO_DELAY = 10000;
 
     private _currentStandings: Array<ProcessedEntry>;
     private _overallBestLap: Lap;
@@ -66,10 +68,19 @@ export class StandingsService {
             }
 
             // keep the last lap info on screen
-            /*driverLap.last_lap_hold = {counter: 0, lastLap, gap, state};
+            processed.lastLapHold = {
+                counter: 0,
+                lap: lastLap,
+                gap, state
+            };
 
-            this._sessionFastestLapCheck(lastLap); */
+            this._sessionFastestLapCheck(lastLap);
         }
+
+        // update laps checked and lastLapHold
+        processed.lapsChecked = entry.lapsCompleted;
+        processed.currentLap = previousEntry.currentLap;
+        processed.lastLapHold = this._updateLastLapHold(previousEntry);
 
         return processed;
     }
@@ -123,7 +134,32 @@ export class StandingsService {
             gapValue = lapTime - this._overallBestLap.total;
         }
         return (gapValue > 0 ? '+' : '') + gapValue.toFixed(3);
-      }
+    }
+
+    /**
+     * If session fastest lap, update overallBestLap
+     * @param lap - Lap to check
+     */
+    _sessionFastestLapCheck(lap: Lap) {
+        if (isEmpty(this._overallBestLap) || this._overallBestLap.total > lap.total) {
+            this._overallBestLap = lap;
+        }
+    }
+
+    /**
+     * Are we still showing last lap info
+     * @param entry - Entry to check last lap hold
+     */
+    _updateLastLapHold(entry: ProcessedEntry): any {
+        const hold = entry.lastLapHold;
+        if (!hold || hold.counter > this.HOLD_LAP_INFO_DELAY) {
+            return null;
+        }
+
+        // valid hold so increase counter
+        hold.counter += this.DATA_REFRESH_RATE;
+        return hold;
+    }
 }
 
 interface RawEntry {
@@ -157,6 +193,7 @@ interface ProcessedEntry {
     currentLap?: Lap;
     lastLap?: Lap;
     gapEvent?: GapEvent;
+    lastLapHold?: LapHold;
 }
 
 interface Lap {
@@ -172,6 +209,13 @@ interface Lap {
 interface GapEvent {
     state: State;
     gap: string;
+}
+
+interface LapHold {
+    lap: Lap;
+    counter: number;
+    gap: string;
+    state: State;
 }
 
 enum State {

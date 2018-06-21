@@ -11,6 +11,7 @@ export class StandingsService {
 
     private _currentStandings: Array<ProcessedEntry>;
     private _overallBestLap: Lap;
+    private _focusedDriver: ProcessedEntry;
 
     /**
      * Processes the new entries from RF2
@@ -77,10 +78,19 @@ export class StandingsService {
             this._sessionFastestLapCheck(lastLap);
         }
 
-        // update laps checked and lastLapHold
+        // update laps checked, lastLapHold and currentLap (if not pitting)
         processed.lapsChecked = entry.lapsCompleted;
-        processed.currentLap = previousEntry.currentLap;
         processed.lastLapHold = this._updateLastLapHold(previousEntry);
+        processed.currentLap = !entry.pitting ? null : previousEntry.currentLap;
+
+        // have they just completed the 1st or 2nd sector
+        /* TODO Some sector calculations */
+
+        // colour, flag and focuseddriver
+        processed.col
+        if (entry.focus) {
+            this._focusedDriver = processed;
+        }
 
         return processed;
     }
@@ -194,6 +204,8 @@ interface ProcessedEntry {
     lastLap?: Lap;
     gapEvent?: GapEvent;
     lastLapHold?: LapHold;
+    colour?: string;
+    flag?: string;
 }
 
 interface Lap {

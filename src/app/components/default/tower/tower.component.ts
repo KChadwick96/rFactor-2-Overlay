@@ -8,9 +8,10 @@ import { ProcessedEntry } from '../../../interfaces';
   styleUrls: ['./tower.component.scss']
 })
 export class TowerComponent implements OnInit {
+    mode: string;
+
     private _raceSession: string;
     private _interval;
-    private _mode;
     private _schedules: any = {
         quali: [{
             mode: 'BASIC' ,
@@ -53,7 +54,7 @@ export class TowerComponent implements OnInit {
             if (lapsCompleted === 0 || lapsCompleted >= data.maximumLaps) {
                 this._stopCycle();
                 shouldStartCycle = false;
-                this._mode = 'BASIC';
+                this.mode = 'BASIC';
             }
         }
 
@@ -87,7 +88,7 @@ export class TowerComponent implements OnInit {
         let currentDuration = 0;
         this._interval = setInterval(() => {
             const part = schedule[currentScheduleIndex];
-            this._mode = part.mode;
+            this.mode = part.mode;
 
             if (currentDuration >= part.length * 1000) {
                 currentDuration = 0;

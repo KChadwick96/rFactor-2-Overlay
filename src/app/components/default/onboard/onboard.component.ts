@@ -9,6 +9,7 @@ import { OnboardMode, SectorMap } from './interfaces';
   styleUrls: ['./onboard.component.scss']
 })
 export class OnboardComponent {
+    mode: OnboardMode;
 
     _sectorMaps: Array<SectorMap> = [{
         key: 'SESSION_BEST',
@@ -23,8 +24,6 @@ export class OnboardComponent {
         colour: 'red',
         class_name: 'sector--down'
     }];
-    _mode: OnboardMode;
-
     @Input() driver: ProcessedEntry;
     @Input() standings: Array<ProcessedEntry> = [];
     @Input()
@@ -34,9 +33,9 @@ export class OnboardComponent {
         }
 
         if (session.includes('PRACTICE') || session.includes('QUALIFY') || session.includes('WARMUP')) {
-            this._mode = OnboardMode.FastestGap;
+            this.mode = OnboardMode.FastestGap;
         } else {
-            this._mode = OnboardMode.PositionGap;
+            this.mode = OnboardMode.PositionGap;
         }
     }
 

@@ -5,9 +5,9 @@
         </div>
         <div class="entry__colour" [ngStyle]="{'background-color': entry.colour}"></div>
         <div class="entry__driver">
-            {{ entry.raw.driverName | driverName: (_mode === 'BASIC' ? 'last' : 'abbreviated') }}
+            {{ entry.raw.driverName | driverName: (mode === 'BASIC' ? 'last' : 'abbreviated') }}
         </div>
-        <div class="entry__gap" *ngIf="_mode === 'FASTEST_LAP_GAP' && entry.raw.bestLapTime !== -1">
+        <div class="entry__gap" *ngIf="mode === 'FASTEST_LAP_GAP' && entry.raw.bestLapTime !== -1">
             <span *ngIf="entry.raw.position === 1">
                 {{ entry.raw.bestLapTime | minutesAndSeconds:true:false }}
             </span>
@@ -15,7 +15,7 @@
                 {{ entry.gapToLeader }}
             </span>
         </div>
-        <div class="entry__gap" *ngIf="_mode === 'GAP_TO_LEADER'">
+        <div class="entry__gap" *ngIf="mode === 'GAP_TO_LEADER'">
             <span *ngIf="entry.raw.position === 1">
                 Leader
             </span>
@@ -28,7 +28,7 @@
                 </span>
             </span>
         </div>
-        <div class="entry__gap" *ngIf="_mode === 'GAP_TO_NEXT'">
+        <div class="entry__gap" *ngIf="mode === 'GAP_TO_NEXT'">
             <span *ngIf="entry.raw.position === 1">
                 Interval
             </span>

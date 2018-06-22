@@ -1,5 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 
+import { ProcessedEntry } from '../../../interfaces';
+
 @Component({
   selector: 'app-tower',
   templateUrl: './tower.component.html',
@@ -32,7 +34,7 @@ export class TowerComponent implements OnInit {
         }]
     };
 
-    @Input() standings: any[] = [];
+    @Input() standings: Array<ProcessedEntry> = [];
     @Input()
     set sessionData(data: any) {
         if (data == null) {
@@ -47,7 +49,7 @@ export class TowerComponent implements OnInit {
         let shouldStartCycle = true;
         if (newSession.includes('RACE')) {
 
-            const lapsCompleted = this.standings[0] ? this.standings[0].lapsCompleted : 0;
+            const lapsCompleted = this.standings[0] ? this.standings[0].raw.lapsCompleted : 0;
             if (lapsCompleted === 0 || lapsCompleted >= data.maximumLaps) {
                 this._stopCycle();
                 shouldStartCycle = false;

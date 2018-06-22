@@ -1,5 +1,8 @@
 import { Component, Input } from '@angular/core';
 
+import { ProcessedEntry } from '../../../interfaces';
+import { OnboardMode, SectorMap } from './interfaces';
+
 @Component({
   selector: 'app-onboard',
   templateUrl: './onboard.component.html',
@@ -7,7 +10,7 @@ import { Component, Input } from '@angular/core';
 })
 export class OnboardComponent {
 
-    _sectorMaps: Array<ISectorMap> = [{
+    _sectorMaps: Array<SectorMap> = [{
         key: 'SESSION_BEST',
         colour: 'purple',
         class_name: 'sector--sb'
@@ -22,8 +25,8 @@ export class OnboardComponent {
     }];
     _mode: OnboardMode;
 
-    @Input() driver: any;
-    @Input() standings: any[] = [];
+    @Input() driver: ProcessedEntry;
+    @Input() standings: Array<ProcessedEntry> = [];
     @Input()
     set raceSession(session: string) {
         if (!session) {
@@ -44,13 +47,13 @@ export class OnboardComponent {
         return map.colour;
     }
 
-    _getSectorClass(driver: any, sector: number): string {
+    _getSectorClass(driver: ProcessedEntry, sector: number): string {
         let state = null;
         const lastLapHold = driver.lastLapHold;
         if (lastLapHold) {
-            state = lastLapHold.lastLap[`sector_${sector}_state`];
-        } else if (sector === 1 || sector === 2) {
-            state = driver[`sector${sector}State`];
+            state = lastLapHold.lap[`sector${sector}State`];
+        } else if ((sector === 1 || sector === 2) && driver.currentLap) {
+            state = driver.currentLap[`sector${sector}State`];
         }
 
         const map = this._getMap(state);
@@ -58,7 +61,7 @@ export class OnboardComponent {
     }
 
     _getGapBehind(): number {
-        const driverIndex = this.standings.findIndex(entry => entry.position === this.driver.position);
+        const driverIndex = this.standings.findIndex(entry => entry.raw.position === this.driver.raw.position);
         const behindIndex = driverIndex + 1;
 
         const driverBehind = this.standings[behindIndex];
@@ -66,21 +69,10 @@ export class OnboardComponent {
             return 0;
         }
 
-        return driverBehind.timeBehindNext;
+        return driverBehind.raw.timeBehindNext;
     }
 
-    _getMap(key: string): ISectorMap {
+    _getMap(key: string): SectorMap {
         return this._sectorMaps.find(sectorMap => sectorMap.key === key);
     }
-}
-
-interface ISectorMap {
-    key: string;
-    colour: string;
-    class_name: string;
-}
-
-enum OnboardMode {
-    FastestGap = 'FASTEST_GAP',
-    PositionGap = 'POSITION_GAP'
 }

@@ -1,10 +1,8 @@
-// TODO: sector state enum
-// TODO: rename driverlap interface
-
 import { Injectable } from '@angular/core';
 import { sortBy, isEmpty } from 'lodash';
 
 import { ConfigService } from './config.service';
+import { RawEntry, ProcessedEntry, Lap, State } from '../interfaces';
 
 @Injectable()
 export class StandingsService {
@@ -77,11 +75,11 @@ export class StandingsService {
             return this._applyEntryDefaults(entry);
         }
 
-        const processed: ProcessedEntry = {
-            raw: entry,
-            lapsChecked: previousEntry.lapsChecked,
-            gapToLeader: this._gapToBest(entry.bestLapTime)
-        };
+
+        const processed = previousEntry;
+
+        processed.raw = entry;
+        processed.gapToLeader = this._gapToBest(entry.bestLapTime);
 
         // driver just completed a lap
         if (entry.lapsCompleted - previousEntry.lapsChecked === 1 && entry.lastLapTime > -1) {
@@ -120,34 +118,29 @@ export class StandingsService {
         processed.currentLap = !entry.pitting ? null : previousEntry.currentLap;
 
         // have they just completed the 1st or 2nd sector
-        // have they just completed the 1st or 2nd sector
-        if (entry.currentSectorTime1 !== -1) {
-            if (entry.currentSectorTime2 !== -1) {
+        if (entry.currentSectorTime1 !== -1 && entry.currentSectorTime2 !== -1) {
 
-                // sector 2 completed
-                /* let gapValue = 0;
-                if (!isEmpty(this._overallBestLap)) {
-                    gapValue = entry.currentSectorTime2 - (this._overallBestLap.sector_1 + this._overallBestLap.sector_2);
-                }
-                const gap = (gapValue > 0 ? '+' : '') + gapValue.toFixed(3);
-
-                // gap state + and assign to entry
-                const personalBest = (isEmpty(driverLap.best_lap)) ? null : driverLap.best_lap.sector_1 + driverLap.best_lap.sector_2;
-                const state = this._getLapState('sector_2', entry.currentSector2Time, personalBest);
-                entry.gapEvent = {state, gap};
-                driverLap.sector_2_state = state; */
-            } else {
-
-                // sector 1 completed
-               /*  const gapValue = isEmpty(this._overallBestLap) ? 0 : entry.currentSectorTime1 - this._overallBestLap.sector_1;
-                const gap = (gapValue > 0 ? '+' : '') + gapValue.toFixed(3);
-
-                // gap state + and assign to entry
-                const personalBest = (isEmpty(driverLap.best_lap)) ? null : driverLap.best_lap.sector_1;
-                const state = this._getLapState('sector_1', entry.currentSectorTime1, personalBest);
-                entry.gapEvent = {state, gap};
-                driverLap.sector_1_state = state; */
+            // sector 2 completed
+            let gapValue = 0;
+            if (!isEmpty(this._overallBestLap)) {
+                gapValue = entry.currentSectorTime2 - (this._overallBestLap.sector1 + this._overallBestLap.sector2);
             }
+            const gap = (gapValue > 0 ? '+' : '') + gapValue.toFixed(3);
+
+            // gap state + and assign to entry
+            const state = this._getLapState('sector2', entry.currentSectorTime2, previousEntry.bestLap);
+            processed.gapEvent = {state, gap};
+            processed.currentLap.sector2State = state;
+        } else if (entry.currentSectorTime1 !== -1) {
+
+            // sector 1 completed
+            const gapValue = isEmpty(this._overallBestLap) ? 0 : entry.currentSectorTime1 - this._overallBestLap.sector1;
+            const gap = (gapValue > 0 ? '+' : '') + gapValue.toFixed(3);
+
+            // gap state + and assign to entry
+            const state = this._getLapState('sector1', entry.currentSectorTime1, previousEntry.bestLap);
+            processed.gapEvent = {state, gap};
+            processed.currentLap.sector1State = state;
         }
 
         // colour, flag and focuseddriver
@@ -265,69 +258,4 @@ export class StandingsService {
 
         return teamConfig.colour;
     }
-}
-
-interface RawEntry {
-    readonly position: number;
-    readonly driverName: string;
-    readonly bestLapTime: number;
-    readonly pitstops: number;
-    readonly pitting: boolean;
-    readonly lastLapTime: number;
-    readonly vehicleName: string;
-    readonly timeBehindNext: number;
-    readonly timeBehindLeader: number;
-    readonly lapsBehindLeader: number;
-    readonly lapsBehindNext: number;
-    readonly currentSectorTime1: number;
-    readonly currentSectorTime2: number;
-    readonly lastSectorTime1: number;
-    readonly lastSectorTime2: number;
-    readonly focus: boolean;
-    readonly carClass: string;
-    readonly slotID: number;
-    readonly carStatus: string;
-    readonly lapsCompleted: number;
-    readonly hasFocus: boolean;
-}
-
-interface ProcessedEntry {
-    raw: RawEntry;
-    lapsChecked: number;
-    gapToLeader?: string;
-    bestLap?: Lap;
-    currentLap?: Lap;
-    lastLap?: Lap;
-    gapEvent?: GapEvent;
-    lastLapHold?: LapHold;
-    colour?: string;
-    flag?: string;
-}
-
-interface Lap {
-    sector1: number;
-    sector1State: State;
-    sector2: number;
-    sector2State: State;
-    sector3: number;
-    sector3State: State;
-    total: number;
-}
-
-interface GapEvent {
-    state: State;
-    gap: string;
-}
-
-interface LapHold {
-    lap: Lap;
-    counter: number;
-    gap: string;
-    state: State;
-}
-
-enum State {
-    SessionBest = 'SESSION_BEST',
-    PersonalBest = 'PERSONAL_BEST',
-    Down = 'DOWN'
 }

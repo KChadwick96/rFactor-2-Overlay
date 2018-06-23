@@ -1,6 +1,6 @@
 <div class="container__standings">
     <div class="entry" *ngFor="let entry of standings | slice:0:20">
-        <div class="entry__position">
+        <div class="entry__position" [ngClass]="_positionClass(entry.raw.position)">
             {{ entry.raw.position }}
         </div>
         <div class="entry__colour" [ngStyle]="{'background-color': entry.colour}"></div>

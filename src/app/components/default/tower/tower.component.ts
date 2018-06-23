@@ -109,4 +109,10 @@ export class TowerComponent implements OnInit {
             clearInterval(this._interval);
         }
     }
+
+    _positionClass(position: number): string {
+        if (position > 10 && (this._raceSession === 'PRACTICE2' || this._raceSession === 'QUALIFY1')) {
+            return 'entry__position--shitcunt';
+        }
+    }
 }

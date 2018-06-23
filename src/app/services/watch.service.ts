@@ -130,7 +130,7 @@ const sampleStandingsData = [
     'driverName': 'Kieran Chadwick ',
     'bestLapTime': 110,
     'pitstops': 0,
-    'pitting': false,
+    'pitting': true,
     'lastLapTime': 0.0,
     'vehicleName': '16LM JBM Racing eSports GT #123',
     'timeBehindNext': 0.0,

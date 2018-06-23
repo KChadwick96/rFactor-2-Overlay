@@ -58,7 +58,7 @@ export class StandingsService {
     /**
      * Resets stored data
      */
-    reset() {
+    reset(): void {
         this._currentStandings = [];
         this._focusedDriver = null;
         this._overallBestLap = null;
@@ -75,7 +75,6 @@ export class StandingsService {
             return this._applyEntryDefaults(entry);
         }
 
-
         const processed = previousEntry;
 
         processed.raw = entry;
@@ -89,7 +88,6 @@ export class StandingsService {
             lastLap.sector3 = previousEntry.raw.lastLapTime - previousEntry.raw.lastSectorTime2;
             lastLap.sector3State = this._getLapState('sector3', lastLap.sector3, previousEntry.bestLap);
             processed.lastLap = lastLap;
-            processed.currentLap = null;
 
             // gap state + and assign to entry
             const personalBest = isEmpty(previousEntry.bestLap) ? null : previousEntry.bestLap;
@@ -115,7 +113,7 @@ export class StandingsService {
         // update laps checked, lastLapHold and currentLap (if not pitting)
         processed.lapsChecked = entry.lapsCompleted;
         processed.lastLapHold = this._updateLastLapHold(previousEntry);
-        processed.currentLap = !entry.pitting ? null : previousEntry.currentLap;
+        //processed.currentLap = !entry.pitting ? null : previousEntry.currentLap;
 
         // have they just completed the 1st or 2nd sector
         if (entry.currentSectorTime1 !== -1 && entry.currentSectorTime2 !== -1) {
@@ -140,6 +138,9 @@ export class StandingsService {
             // gap state + and assign to entry
             const state = this._getLapState('sector1', entry.currentSectorTime1, previousEntry.bestLap);
             processed.gapEvent = {state, gap};
+
+            console.log('Setting sector1State', processed);
+
             processed.currentLap.sector1State = state;
         }
 
@@ -172,7 +173,16 @@ export class StandingsService {
     _applyEntryDefaults(raw: RawEntry): ProcessedEntry {
         return {
             raw,
-            lapsChecked: 0
+            lapsChecked: 0,
+            currentLap: {
+                sector1: null,
+                sector1State: null,
+                sector2: null,
+                sector2State: null,
+                sector3: null,
+                sector3State: null,
+                total: null
+            }
         };
     }
 

@@ -11,7 +11,7 @@ import { OnboardMode, SectorMap } from './interfaces';
 export class OnboardComponent {
     mode: OnboardMode;
 
-    _sectorMaps: Array<SectorMap> = [{
+    private _sectorMaps: Array<SectorMap> = [{
         key: 'SESSION_BEST',
         colour: 'purple',
         class_name: 'sector--sb'

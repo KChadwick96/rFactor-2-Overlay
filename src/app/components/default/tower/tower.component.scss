@@ -24,7 +24,7 @@
             background-color: #f0270d;
             color: rgb(240, 240, 240);
 
-            &--shitcunt {
+            &--elim {
                 background-color: #861000;
             }
         }
@@ -53,11 +53,11 @@
         &__pit {
             position: absolute;
             left: 100%;
-            top: 5%;
+            top: 0;
             padding: 1px 4px;
-            height: 90%;
-            background-color: rgba(233, 233, 233, 0.568);
-            color: #313131;
+            height: 30px;
+            background-color: inherit;
+            color: #f0270d;
         }
     }
 }

@@ -10,6 +10,8 @@ import { ProcessedEntry } from '../../../interfaces';
 export class TowerComponent implements OnInit {
     mode: string;
 
+    public _isRace: boolean;
+
     private _raceSession: string;
     private _interval;
     private _schedules: any = {
@@ -42,13 +44,14 @@ export class TowerComponent implements OnInit {
             return;
         }
 
-        const previousSession = this._raceSession;
         const newSession = data.session;
+
+        this._isRace = newSession.includes('RACE');
 
         // for race sessions, if its the start or end of the race
         // show the basic tower with names
         let shouldStartCycle = true;
-        if (newSession.includes('RACE')) {
+        if (this._isRace) {
 
             const lapsCompleted = this.standings[0] ? this.standings[0].raw.lapsCompleted : 0;
             if (lapsCompleted === 0 || lapsCompleted >= data.maximumLaps) {
@@ -112,7 +115,15 @@ export class TowerComponent implements OnInit {
 
     _positionClass(position: number): string {
         if (position > 10 && (this._raceSession === 'PRACTICE2' || this._raceSession === 'QUALIFY1')) {
-            return 'entry__position--shitcunt';
+            return 'entry__position--elim';
         }
+    }
+
+    /**
+     * Stop timing from showing if we're in a race and the entry is pitting
+     * @param entry Entry to evalutate
+     */
+    _shouldShowTiming(entry: ProcessedEntry): boolean {
+        return !(this._isRace && entry.raw.pitting);
     }
 }

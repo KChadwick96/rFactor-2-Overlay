@@ -15,7 +15,9 @@
                 {{ entry.gapToLeader }}
             </span>
         </div>
-        <div class="entry__gap" *ngIf="mode === 'GAP_TO_LEADER'">
+
+        <!-- Gap to leader -->
+        <div class="entry__gap" *ngIf="mode === 'GAP_TO_LEADER' && _shouldShowTiming(entry)">
             <span *ngIf="entry.raw.position === 1">
                 Leader
             </span>
@@ -28,7 +30,9 @@
                 </span>
             </span>
         </div>
-        <div class="entry__gap" *ngIf="mode === 'GAP_TO_NEXT'">
+
+        <!-- Interval -->
+        <div class="entry__gap" *ngIf="mode === 'GAP_TO_NEXT' && _shouldShowTiming(entry)">
             <span *ngIf="entry.raw.position === 1">
                 Interval
             </span>
@@ -41,6 +45,8 @@
                 </span>
             </span>
         </div>
+
+        <!-- PIT graphic -->
         <div class="entry__pit" *ngIf="entry.raw.pitting">
             PIT
         </div>

@@ -143,7 +143,7 @@ const sampleStandingsData = [
     'hasFocus': true
   },
   {
-    'position': 3, 'driverName': 'Mattia Salva', 'bestLapTime': -1.0, 'pitstops': 0, 'pitting': false, 'lastLapTime': -1.0,
+    'position': 3, 'driverName': 'Mattia Salva', 'bestLapTime': -1.0, 'pitstops': 0, 'pitting': true, 'lastLapTime': -1.0,
     'vehicleName': '16LM Shattered Windshield Racing', 'timeBehindNext': 0.0, 'timeBehindLeader': 0.0, 'lapsBehindLeader': 1,
     'lapsBehindNext': 1, 'currentSectorTime1': -1.0, 'currentSectorTime2': -1.0, 'lastSectorTime1': -1.0, 'lastSectorTime2': -1.0,
     'focus': false, 'carClass': 'Disruptive Tech Racing', 'slotID': 1, 'carStatus': 'FINISHED', 'lapsCompleted': 1, 'hasFocus': false

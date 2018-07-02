@@ -1,13 +1,9 @@
 
 # rFactor 2 Overlay
 <p align="center">
-	<img  alt="Ninja Labs"  src="https://i.imgur.com/bCvPZQF.png" width="200">
+	<img  alt="Ninja Labs" src="https://i.imgur.com/bCvPZQF.png" width="200">
 	&nbsp;
-	<img  alt="rFactor 2"  src="https://www.studio-397.com/wp-content/uploads/2016/09/logo_rf2_blue-red.png" width="150">
-</p>
-
-<p align="center">
-	<strong>This is still early in development and will not work in its current state</strong>
+	<img  alt="rFactor 2" src="https://www.studio-397.com/wp-content/uploads/2016/09/logo_rf2_blue-red.png" width="150">
 </p>
 
 Built using Angular 5. This app uses an rFactor 2 REST API to fetch session info and provide a stream overlay. It currently uses an unreleased REST API client so breaking changes are likely once fully released.

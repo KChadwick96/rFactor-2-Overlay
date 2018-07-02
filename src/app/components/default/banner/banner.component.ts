@@ -33,7 +33,7 @@ export class BannerComponent {
             return '-';
         }
 
-        const lapsCompleted = this.standings[0].raw.lapsCompleted;
+        const lapsCompleted = this.standings[0].lapsCompleted;
         const maximumLaps = this._sessionData.maximumLaps;
 
         if (maximumLaps - lapsCompleted === 1) {

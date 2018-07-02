@@ -1,13 +1,13 @@
 <div class="container__driver" *ngIf="driver != null">
     <div class="main">
         <div class="driver__position">
-            {{ driver.raw.position }}
+            {{ driver.position }}
         </div>
     
         <div class="driver__info">
             <div class="info__details">
-                <p class="details__name">{{ driver.raw.driverName | driverName:'full'}}</p>
-                <p class="details__team">{{ driver.raw.carClass }}</p>
+                <p class="details__name">{{ driver.driverName | driverName:'full'}}</p>
+                <p class="details__team">{{ driver.carClass }}</p>
     
                 <div class="details__flag">
                     <img src="{{ driver.flag }}">
@@ -25,7 +25,7 @@
                                 {{ driver.lastLapHold.lap.sector1 | minutesAndSeconds:true:false }}
                             </span>
                             <ng-template #currentS1>
-                                {{ (driver.raw.currentSectorTime1 !== -1) ? (driver.raw.currentSectorTime1 | minutesAndSeconds:true:false) : '' }}
+                                {{ (driver.currentSectorTime1 !== -1) ? (driver.currentSectorTime1 | minutesAndSeconds:true:false) : '' }}
                             </ng-template>
                         </span>
                     </div>
@@ -36,7 +36,7 @@
                                 {{ driver.lastLapHold.lap.sector2 | minutesAndSeconds:true:false }}
                             </span>
                             <ng-template #currentS2>
-                                {{ (driver.raw.currentSectorTime2 !== -1) ? (driver.raw.currentSectorTime2 - driver.raw.currentSectorTime1 | minutesAndSeconds:true:false) : '' }}
+                                {{ (driver.currentSectorTime2 !== -1) ? (driver.currentSectorTime2 - driver.currentSectorTime1 | minutesAndSeconds:true:false) : '' }}
                             </ng-template>
                         </span>
                     </div>
@@ -52,10 +52,10 @@
                 <div class="row" *ngIf="mode === 'POSITION_GAP'">
                     <div class="gap">
                         <span class="gap__title">
-                            {{ (driver.raw.position === 1) ? 'Leader' : 'Ahead' }}
+                            {{ (driver.position === 1) ? 'Leader' : 'Ahead' }}
                         </span>
-                        <span class="gap__value" *ngIf="driver.raw.position !== 1">
-                            {{ driver.raw.timeBehindNext | secondsConvert }}
+                        <span class="gap__value" *ngIf="driver.position !== 1">
+                            {{ driver.timeBehindNext | secondsConvert }}
                         </span>
                     </div>
                     <div class="gap">
@@ -69,10 +69,10 @@
 
     <div class="secondary">
         <div class="data-key">Best</div>
-        <div class="data-value">{{ driver.raw.bestLapTime | minutesAndSeconds:true:false }}</div>
+        <div class="data-value">{{ driver.bestLapTime | minutesAndSeconds:true:false }}</div>
         <div class="data-key">Last Lap</div>
         <div class="data-value">
-            {{ (driver.raw.lastLapTime !== -1) ? (driver.raw.lastLapTime | minutesAndSeconds:true:false) : 'NA' }}
+            {{ (driver.lastLapTime !== -1) ? (driver.lastLapTime | minutesAndSeconds:true:false) : 'NA' }}
         </div>
         <div class="data-key">
             {{ mode === 'FASTEST_GAP' ? 'Gap' : 'Stops' }}
@@ -93,7 +93,7 @@
             </div>
         </div>
         <div class="data-value" *ngIf="mode === 'POSITION_GAP'">
-            {{ driver.raw.pitstops }}
+            {{ driver.pitstops }}
         </div>
     </div>
 </div>

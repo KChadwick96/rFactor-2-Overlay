@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { sortBy, isEmpty } from 'lodash';
 
 import { ConfigService } from './config.service';
-import { RawEntry, ProcessedEntry, Lap, State } from '../interfaces';
+import { Entry, ProcessedEntry, Lap, State } from '../interfaces';
 
 @Injectable()
 export class StandingsService {
@@ -42,7 +42,7 @@ export class StandingsService {
      * Processes the new entries from RF2
      * @param entries - Raw Entries from RF2
      */
-    updateStandings(entries: Array<RawEntry>): void {
+    updateStandings(entries: Array<Entry>): void {
 
         entries = sortBy(entries, 'position');
 
@@ -68,16 +68,15 @@ export class StandingsService {
      * Takes a raw entry from RF2 and adds any custom fields we need
      * @param entry - Raw RF2 Entry
      */
-    _processEntry(entry: RawEntry): ProcessedEntry {
+    _processEntry(entry: Entry): ProcessedEntry {
         const previousEntry = this._getLastDriverEntry(entry.driverName);
 
         if (!previousEntry) {
             return this._applyEntryDefaults(entry);
         }
 
-        const processed = previousEntry;
+        const processed = {...previousEntry, ...entry};
 
-        processed.raw = entry;
         processed.gapToLeader = this._gapToBest(entry.bestLapTime);
 
         // driver just completed a lap
@@ -85,8 +84,9 @@ export class StandingsService {
 
             // current lap data on previous entry holds last lap data now
             const lastLap = previousEntry.currentLap;
-            lastLap.sector3 = previousEntry.raw.lastLapTime - previousEntry.raw.lastSectorTime2;
+            lastLap.sector3 = previousEntry.lastLapTime - previousEntry.lastSectorTime2;
             lastLap.sector3State = this._getLapState('sector3', lastLap.sector3, previousEntry.bestLap);
+            lastLap.total = entry.lastLapTime;
             processed.lastLap = lastLap;
 
             // gap state + and assign to entry
@@ -106,14 +106,16 @@ export class StandingsService {
                 lap: lastLap,
                 gap, state
             };
+            console.log(processed.lastLapHold);
 
             this._sessionFastestLapCheck(lastLap);
+
+            processed.currentLap = this._getEmptyLap();
         }
 
         // update laps checked, lastLapHold and currentLap (if not pitting)
         processed.lapsChecked = entry.lapsCompleted;
         processed.lastLapHold = this._updateLastLapHold(previousEntry);
-        //processed.currentLap = !entry.pitting ? null : previousEntry.currentLap;
 
         // have they just completed the 1st or 2nd sector
         if (entry.currentSectorTime1 !== -1 && entry.currentSectorTime2 !== -1) {
@@ -129,6 +131,7 @@ export class StandingsService {
             const state = this._getLapState('sector2', entry.currentSectorTime2, previousEntry.bestLap);
             processed.gapEvent = {state, gap};
             processed.currentLap.sector2State = state;
+            processed.currentLap.sector2 = entry.currentSectorTime2 - entry.currentSectorTime1;
         } else if (entry.currentSectorTime1 !== -1) {
 
             // sector 1 completed
@@ -139,9 +142,8 @@ export class StandingsService {
             const state = this._getLapState('sector1', entry.currentSectorTime1, previousEntry.bestLap);
             processed.gapEvent = {state, gap};
 
-            console.log('Setting sector1State', processed);
-
             processed.currentLap.sector1State = state;
+            processed.currentLap.sector1 = entry.currentSectorTime1;
         }
 
         // colour, flag and focuseddriver
@@ -163,26 +165,33 @@ export class StandingsService {
             return null;
         }
 
-        return this._currentStandings.find(entry => entry.raw.driverName === driverName);
+        return this._currentStandings.find(entry => entry.driverName === driverName);
     }
 
     /**
      * Applies default values for the entry
      * @param driverName - RF2 Driver Name
      */
-    _applyEntryDefaults(raw: RawEntry): ProcessedEntry {
+    _applyEntryDefaults(raw: Entry): ProcessedEntry {
         return {
-            raw,
+            ...raw,
             lapsChecked: 0,
-            currentLap: {
-                sector1: null,
-                sector1State: null,
-                sector2: null,
-                sector2State: null,
-                sector3: null,
-                sector3State: null,
-                total: null
-            }
+            currentLap: this._getEmptyLap()
+        };
+    }
+
+    /**
+     * Gets empty lap object
+     */
+    _getEmptyLap(): Lap {
+        return {
+            sector1: null,
+            sector1State: null,
+            sector2: null,
+            sector2State: null,
+            sector3: null,
+            sector3State: null,
+            total: null
         };
     }
 

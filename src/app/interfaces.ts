@@ -1,4 +1,4 @@
-export interface RawEntry {
+export interface Entry {
     readonly position: number;
     readonly driverName: string;
     readonly bestLapTime: number;
@@ -22,8 +22,7 @@ export interface RawEntry {
     readonly hasFocus: boolean;
 }
 
-export interface ProcessedEntry {
-    raw: RawEntry;
+export interface ProcessedEntry extends Entry {
     lapsChecked: number;
     gapToLeader?: string;
     bestLap?: Lap;

@@ -53,7 +53,7 @@ export class TowerComponent implements OnInit {
         let shouldStartCycle = true;
         if (this._isRace) {
 
-            const lapsCompleted = this.standings[0] ? this.standings[0].raw.lapsCompleted : 0;
+            const lapsCompleted = this.standings[0] ? this.standings[0].lapsCompleted : 0;
             if (lapsCompleted === 0 || lapsCompleted >= data.maximumLaps) {
                 this._stopCycle();
                 shouldStartCycle = false;
@@ -124,6 +124,6 @@ export class TowerComponent implements OnInit {
      * @param entry Entry to evalutate
      */
     _shouldShowTiming(entry: ProcessedEntry): boolean {
-        return !(this._isRace && entry.raw.pitting);
+        return !(this._isRace && entry.pitting);
     }
 }

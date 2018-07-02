@@ -70,12 +70,13 @@ export class WatchService {
         // live data
         this._standingsObservable().subscribe(standings => {
           this.standingsService.updateStandings(standings);
-          observer.next({
+          const data = {
             session_info: this._sessionData,
             standings: this.standingsService.currentStandings,
             focused_driver: this.standingsService.focusedDriver,
             overall_best_lap: this.standingsService.overallBestLap
-          });
+          };
+          observer.next(data);
         });
 
       }, this.DATA_REFRESH_RATE);

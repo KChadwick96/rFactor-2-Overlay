@@ -60,7 +60,7 @@ export class OnboardComponent {
     }
 
     _getGapBehind(): number {
-        const driverIndex = this.standings.findIndex(entry => entry.raw.position === this.driver.raw.position);
+        const driverIndex = this.standings.findIndex(entry => entry.position === this.driver.position);
         const behindIndex = driverIndex + 1;
 
         const driverBehind = this.standings[behindIndex];
@@ -68,7 +68,7 @@ export class OnboardComponent {
             return 0;
         }
 
-        return driverBehind.raw.timeBehindNext;
+        return driverBehind.timeBehindNext;
     }
 
     _getMap(key: string): SectorMap {

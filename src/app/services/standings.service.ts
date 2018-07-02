@@ -84,7 +84,7 @@ export class StandingsService {
 
             // current lap data on previous entry holds last lap data now
             const lastLap = previousEntry.currentLap;
-            lastLap.sector3 = previousEntry.lastLapTime - previousEntry.lastSectorTime2;
+            lastLap.sector3 = entry.lastLapTime - entry.lastSectorTime2;
             lastLap.sector3State = this._getLapState('sector3', lastLap.sector3, previousEntry.bestLap);
             lastLap.total = entry.lastLapTime;
             processed.lastLap = lastLap;
@@ -106,7 +106,6 @@ export class StandingsService {
                 lap: lastLap,
                 gap, state
             };
-            console.log(processed.lastLapHold);
 
             this._sessionFastestLapCheck(lastLap);
 
@@ -115,7 +114,7 @@ export class StandingsService {
 
         // update laps checked, lastLapHold and currentLap (if not pitting)
         processed.lapsChecked = entry.lapsCompleted;
-        processed.lastLapHold = this._updateLastLapHold(previousEntry);
+        processed.lastLapHold = this._updateLastLapHold(processed);
 
         // have they just completed the 1st or 2nd sector
         if (entry.currentSectorTime1 !== -1 && entry.currentSectorTime2 !== -1) {

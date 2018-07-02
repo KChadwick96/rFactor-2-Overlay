@@ -5,14 +5,14 @@
     position: absolute;
 
     .entry {
-        background-color: rgba(230, 230, 230, 0.9);
+        background-color: #e6e6e6;
         border-radius: 4px;
         width: 100%;
-        border: 2px solid rgb(204, 204, 204);
+        border: 2px solid #cccccc;
         position: relative;
 
         &:nth-child(odd) {
-            background: rgba(251, 251, 251, 0.9);
+            background: #fbfbfb;
         }
 
         &__position {
@@ -21,8 +21,12 @@
             border-radius: 4px;
             width: 33px;
             text-align: center;
-            background-color: rgba(240, 39, 13, 0.9);;
+            background-color: #f0270d;
             color: rgb(240, 240, 240);
+
+            &--elim {
+                background-color: #861000;
+            }
         }
 
         &__colour {
@@ -30,9 +34,8 @@
             width: 13px;
             height: 13px;
             border-radius: 50%;
-            //background-color: rgb(255, 84, 5);
             margin: 0 5px;
-            border: 1px solid rgb(124, 124, 124);
+            border: 1px solid #7c7c7c;
         }
 
         &__driver {
@@ -50,11 +53,11 @@
         &__pit {
             position: absolute;
             left: 100%;
-            top: 5%;
+            top: 0;
             padding: 1px 4px;
-            height: 90%;
-            background-color: rgba(212, 212, 212, 0.6);
-            color: rgb(49, 49, 49);
+            height: 30px;
+            background-color: inherit;
+            color: #f0270d;
         }
     }
 }

@@ -2,12 +2,11 @@
     width: 100%;
     position: absolute;
     left: 0;
-    bottom: 30px;
+    bottom: 0;
     height: 75px;
     background: linear-gradient(#661b1b ,#4c1414);
-    border: 2px solid #b8b8b8;
-    border-left: none;
-    border-right: none;
+    border-top: 2px solid #b8b8b8;
+    border-bottom: 35px solid #000;
 
     .container__entries {
         width: 92%;
@@ -20,10 +19,11 @@
         display: flex;
         width: 20%;
         height: 100%;
+        position: relative;
 
         &__position {
             flex: 0 0 18%;
-            height: 100%;
+            height: 75px;
             line-height: 73px;
             font-size: 56px;
             background-color: #000;
@@ -33,8 +33,10 @@
         }
 
         &__info {
-            flex: 1;
+            flex-grow: 1;
+            flex-shrink: 0;
             color: #FFF;
+            max-width: 300px;
             font-weight: normal;
             padding: 4px 0 4px 14px;
             font-size: 20px;
@@ -58,8 +60,21 @@
                 font-weight: bold;
                 position: absolute;
                 right: 15px;
-                bottom: 3px;
+                bottom: 0px;
                 font-size: 32px;
+            }
+        }
+
+        &__extra {
+            position: absolute;
+            color: #FFF;
+            bottom: -27px;
+            left: 5px;
+            font-size: 17px;
+
+            .stops {
+                font-weight: normal;
+                margin-right: 10px;
             }
         }
     }

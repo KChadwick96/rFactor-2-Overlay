@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 
+import { ProcessedEntry } from '../../../interfaces';
 @Component({
   selector: 'app-banner',
   templateUrl: './banner.component.html',
@@ -9,7 +10,7 @@ export class BannerComponent {
     _mode: string; // TIME, LAP
     _sessionData: any;
 
-    @Input() standings: any[];
+    @Input() standings: Array<ProcessedEntry>;
     @Input()
     set sessionData(data: any) {
         if (data == null) {

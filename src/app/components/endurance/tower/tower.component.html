@@ -11,6 +11,10 @@
                 </div>
                 <div class="team-number">{{ entry.car_number }}</div>
             </div>
+            <div class="entry__extra">
+                <span class="stops">{{ entry.pitstops }} Stops</span>
+                {{ entry.driverName | uppercase }}
+            </div>
         </div>
     </div>
 </div>

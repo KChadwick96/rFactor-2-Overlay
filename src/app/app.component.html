@@ -12,12 +12,10 @@
 </div>
 
 <!-- Testing -->
-<div *ngIf="!production" style="position: absolute; right: 40px; top: 40px; background-color: white; font-size: 16px; max-width: 600px;">
-    {{ data?.session_info | json }}
-    <br><br>
-    {{ data?.overall_best_lap | json }}
-    <br><br>
+<div style="position: absolute; right: 0; top: 0; background-color: white; font-size: 15px; max-width: 600px;">
+    <!-- <pre>{{ data?.session_info | json }}</pre> -->
+    <pre>{{ data?.overall_best_lap | json }}</pre>
     <span *ngIf="data?.focused_driver != null">
-        {{ data?.focused_driver | json }}
+        <pre>{{ data?.focused_driver | json }}</pre>
     </span>
 </div>

@@ -1,14 +1,19 @@
 import { Component, OnInit, Input } from '@angular/core';
 
+import { ProcessedEntry } from '../../../interfaces';
+
 @Component({
   selector: 'app-tower',
   templateUrl: './tower.component.html',
   styleUrls: ['./tower.component.scss']
 })
 export class TowerComponent implements OnInit {
+    mode: string;
+
+    public _isRace: boolean;
+
     private _raceSession: string;
     private _interval;
-    private _mode;
     private _schedules: any = {
         quali: [{
             mode: 'BASIC' ,
@@ -32,26 +37,27 @@ export class TowerComponent implements OnInit {
         }]
     };
 
-    @Input() standings: any[] = [];
+    @Input() standings: Array<ProcessedEntry> = [];
     @Input()
     set sessionData(data: any) {
         if (data == null) {
             return;
         }
 
-        const previousSession = this._raceSession;
         const newSession = data.session;
+
+        this._isRace = newSession.includes('RACE');
 
         // for race sessions, if its the start or end of the race
         // show the basic tower with names
         let shouldStartCycle = true;
-        if (newSession.includes('RACE')) {
+        if (this._isRace) {
 
             const lapsCompleted = this.standings[0] ? this.standings[0].lapsCompleted : 0;
             if (lapsCompleted === 0 || lapsCompleted >= data.maximumLaps) {
                 this._stopCycle();
                 shouldStartCycle = false;
-                this._mode = 'BASIC';
+                this.mode = 'BASIC';
             }
         }
 
@@ -85,7 +91,7 @@ export class TowerComponent implements OnInit {
         let currentDuration = 0;
         this._interval = setInterval(() => {
             const part = schedule[currentScheduleIndex];
-            this._mode = part.mode;
+            this.mode = part.mode;
 
             if (currentDuration >= part.length * 1000) {
                 currentDuration = 0;
@@ -105,5 +111,19 @@ export class TowerComponent implements OnInit {
         if (this._interval) {
             clearInterval(this._interval);
         }
+    }
+
+    _positionClass(position: number): string {
+        if (position > 10 && (this._raceSession === 'PRACTICE2' || this._raceSession === 'QUALIFY1')) {
+            return 'entry__position--elim';
+        }
+    }
+
+    /**
+     * Stop timing from showing if we're in a race and the entry is pitting
+     * @param entry Entry to evalutate
+     */
+    _shouldShowTiming(entry: ProcessedEntry): boolean {
+        return !(this._isRace && entry.pitting);
     }
 }

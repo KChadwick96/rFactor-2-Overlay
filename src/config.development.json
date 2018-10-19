@@ -111,6 +111,9 @@
         },
         "ruben van den hudding": {
             "flag": "https://imgur.com/fhXmGJQ.png"
+        },
+        "nick bracchi": {
+            "flag": "https://imgur.com/4yAOniI.png"
         }
     },
     "teams": {
@@ -120,16 +123,11 @@
         "sabre racing": {
             "colour": "#07b5f1"
         },
-        "krt": {
-            "colour": "#e01b25"
-        },
         "vulcan racing": {
-            "colour": "#ba0000",
-            "number": "09"
+            "colour": "#ba0000"
         },
         "acr zakspeed": {
-            "colour": "#002F7C",
-            "number": "24"
+            "colour": "#002F7C"
         },
         "zesty racing": {
             "colour": "#ff8a00"
@@ -147,8 +145,7 @@
             "colour": "#CECFCE"
         },
         "royal blue racing": {
-            "colour": "#1344b5",
-            "number": "13"
+            "colour": "#1344b5"
         },
         "race clutch": {
             "colour": "#BE352B"
@@ -157,8 +154,7 @@
             "colour": "#2ee3d3"
         },
         "visceral sim racing": {
-            "colour": "#0E0D0E",
-            "number": "02"
+            "colour": "#0E0D0E"
         },
         "covadis racing": {
             "colour": "#E27D24"
@@ -176,118 +172,19 @@
             "colour": "#141455"
         },
         "vd sport": {
-            "colour": "#252525",
-            "number": "44"
+            "colour": "#252525"
         },
-
-        "es_gte": {
-            "colour": "#038439"
+        "fap esports": {
+            "colour": "#9e8a27"
         },
-        "es_p2": {
-            "colour": "#0d50a0"
+        "vrt eracing": {
+            "colour": "#adadad"
         },
-        
-        "team rookie monsters jr": {
-            "number": "773"
+        "grus simsport": {
+            "colour": "#18325b"
         },
-        "gurken racing": {
-            "number": "188"
-        },
-        "f1 bros":{
-            "number": " 187"
-        },
-        "world of simracing jr": {
-            "number": "151"
-        },
-        "racingclub endurance team jr.": {
-            "number": "130"
-        },
-        "default aor car blue": {
-            "number": "104"
-        },
-        "default aor car red": {
-            "number": "103"
-        },
-        "ferslev esport racing team": {
-            "number": "95"
-        },
-        "team tepa": {
-            "number": "86"
-        },
-        "shattered windshield racing": {
-            "number": "80"
-        },
-        "team rookie monsters": {
-            "number": "73"
-        },
-        "rfactor2race": {
-            "number": "71"
-        },
-        "pro-race simulation": {
-            "number": "68"
-        },
-        "jbm racing esports gt": {
-            "number": "55"
-        },
-        "mj racing team": {
-            "number": "49"
-        },
-        "racingclub endurance team": {
-            "number": "48"
-        },
-        "mouseone andromeda racing": {
-            "number": "38"
-        },
-        "pickewickle racing": {
-            "number": "33"
-        },
-        "drivegameseat racing team": {
-            "number": "27"
-        },
-        "outlaws engineering": {
-            "number": "16"
-        },
-        "crebbez racing team": {
-            "number": "03"
-        },
-        "default aor car": {
-            "number": "04"
-        },
-        "infinity racing": {
-            "number": "99"
-        },
-        "team iris": {
-            "number": "07"
-        },
-        "world of simracing": {
-            "number": "131"
-        },
-        "default aor lmp car blue": {
-            "number": "102"
-        },
-        "default aor lmp car red": {
-            "number": "101"
-        },
-        "plf1": {
-            "number": "612"
-        },
-        "bottlejob racing": {
-            "number": "45"
-        },
-        "meticulous engineering motorsports endurance squad": {
-            "number": "420"
-        },
-        "jbm racing esports": {
-            "number": "21"
-        },
-        "thrive esports": {
-            "number": "15"
-        },
-        "default aor lmp car": {
-            "number": "01"
-        },
-        "acrzakspeed": {
-            "number": "05"
+        "ser-g esports": {
+            "colour": "#ffed00"
         }
     }
 }

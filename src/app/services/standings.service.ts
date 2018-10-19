@@ -6,7 +6,7 @@ import { Entry, ProcessedEntry, Lap, State } from '../interfaces';
 
 @Injectable()
 export class StandingsService {
-    private DATA_REFRESH_RATE = 2000;
+    private DATA_REFRESH_RATE = 1000;
     private HOLD_LAP_INFO_DELAY = 10000;
 
     private _teamsConfig: any;

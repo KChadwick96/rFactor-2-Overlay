@@ -1,12 +1,11 @@
 .container__fastest-lap {
-    width: 650px;
-    height: 100px;
+    width: 500px;
+    height: 60px;
     right: 100px;
     bottom: 50px;
     position: absolute;
     background-color: #ebebeb;
     color: black;
-    font-size: 27px;
     text-align: center;
     padding: 5px 0;
     border-radius: 10px;
@@ -15,13 +14,13 @@
     .top {
         top: 0;
         position: absolute;
-        height: 50px;
+        height: 30px;
         width: auto;
         left: 0;
         right: 0;
         z-index: 2;
         box-shadow: 0px 4px 6px -6px #333;
-        line-height: 50px;
+        line-height: 30px;
 
         .driver {
             left: 15px;
@@ -38,18 +37,18 @@
     .bottom {
         bottom: 0;
         position: absolute;
-        height: 50px;
+        height: 30px;
         width: auto;
         left: 0;
         right: 0;
         z-index: 1;
-        line-height: 50px;
+        line-height: 30px;
 
         .team {
             left: 15px;
             position: absolute;
             font-weight: 400;
-            font-size: 25px;
+            font-size: 21px;
         }
 
         .lap {

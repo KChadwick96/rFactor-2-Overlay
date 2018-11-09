@@ -1,0 +1,10 @@
+<div class="container__fastest-lap" *ngIf="newFastestLap != null">
+    <div class="top">
+        <span class="driver"> {{ newFastestLap.driver.driverName | driverName:'full' }} </span>
+        <span class="fastestLap">Fastest Lap</span>
+    </div>
+    <div class="bottom">
+        <span class="team"> {{ newFastestLap.driver.carClass }}</span>
+        <span class="lap"> {{ newFastestLap.total | minutesAndSeconds:true:false }} </span>
+    </div>
+</div>

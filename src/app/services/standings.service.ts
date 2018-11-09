@@ -87,6 +87,7 @@ export class StandingsService {
             lastLap.sector3 = entry.lastLapTime - entry.lastSectorTime2;
             lastLap.sector3State = this._getLapState('sector3', lastLap.sector3, previousEntry.bestLap);
             lastLap.total = entry.lastLapTime;
+            lastLap.driver = entry;
             processed.lastLap = lastLap;
 
             // gap state + and assign to entry
@@ -190,7 +191,8 @@ export class StandingsService {
             sector2State: null,
             sector3: null,
             sector3State: null,
-            total: null
+            total: null,
+            driver: null
         };
     }
 

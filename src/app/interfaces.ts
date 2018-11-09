@@ -42,6 +42,7 @@ export interface Lap {
     sector3: number;
     sector3State: State;
     total: number;
+    driver: Entry;
 }
 
 export interface GapEvent {

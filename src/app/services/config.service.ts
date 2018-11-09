@@ -25,7 +25,6 @@ export class ConfigService {
                 reject(error);
             }).subscribe(response => {
                 this._config = response;
-                console.log(this._config);
                 resolve();
             });
         });

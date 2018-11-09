@@ -1,0 +1,41 @@
+.container__fastest-lap {
+    width: 500px;
+    height: 70px;
+    right: 100px;
+    bottom: 50px;
+    position: absolute;
+    background-color: #ebebeb;
+    color: black;
+    padding: 5px 10px;
+    border-radius: 10px;
+    border: 2px solid rgb(204, 204, 204);
+    
+    .top {
+        width: 100%;
+        height: 35px;
+        display: flex;
+        align-items: center;
+        border-bottom: 1px solid #ddd;
+
+        .driver {
+            flex: 1;
+        }
+
+        .fastest-lap {
+            color: #ff00ff;
+        }
+    }
+
+    .bottom {
+        width: 100%;
+        height: 35px;
+        display: flex;
+        align-items: center;
+
+        .team {
+            font-weight: 400;
+            font-size: 21px;
+            flex: 1;
+        }
+    }
+}

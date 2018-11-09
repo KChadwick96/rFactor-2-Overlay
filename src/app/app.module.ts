@@ -1,11 +1,12 @@
 import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpModule, Http } from '@angular/http';
+import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { BannerComponent } from './components/default/banner/banner.component';
 import { OnboardComponent } from './components/default/onboard/onboard.component';
 import { TowerComponent } from './components/default/tower/tower.component';
+import { FastestLapComponent } from './components/default/fastestlap/fastestlap.component';
 import { BannerEnduranceComponent } from './components/endurance/banner/banner.component';
 import { OnboardEnduranceComponent } from './components/endurance/onboard/onboard.component';
 import { TowerEnduranceComponent } from './components/endurance/tower/tower.component';
@@ -22,6 +23,7 @@ const COMPONENTS = [
   BannerComponent,
   OnboardComponent,
   TowerComponent,
+  FastestLapComponent,
   BannerEnduranceComponent,
   OnboardEnduranceComponent,
   TowerEnduranceComponent

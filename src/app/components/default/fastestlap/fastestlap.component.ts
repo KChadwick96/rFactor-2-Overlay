@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 
 import { ProcessedEntry, Lap } from '../../../interfaces';
+
 @Component({
   selector: 'app-fastestlap',
   templateUrl: './fastestlap.component.html',
@@ -11,7 +12,7 @@ export class FastestLapComponent {
 
     _isRace: boolean;
     _sessionData: any;
-    _currentShownFastestLap: number;
+    _currentShownFastestLap: any;
 
     @Input() standings: Array<ProcessedEntry>;
     @Input() newFastestLap: Lap;
@@ -20,34 +21,34 @@ export class FastestLapComponent {
         if (data == null) {
             return;
         }
-        
+
         const newSession = data.session;
         this._isRace = newSession.includes('RACE');
 
         this._sessionData = data;
     }
-    
+
     @Input()
     set fastestLap(lap: Lap) {
-        if (!lap || !this._isRace) { // Don't show if not in RACE session
+        if (!lap || !this._isRace) {
             return;
         }
 
         const lapsCompleted = this.standings[0].lapsCompleted;
-        if(lapsCompleted < 3) {
-            // Only show on the 3rd lap or after...
+        if (lapsCompleted < 3) {
             return;
         }
 
-        if(this._currentShownFastestLap != null) {
-            // If fastest lap currently showing, cancel the SHOW_DURATION timeout and start over with new fastest lap (so it gets shown for 10 seconds).
+        if (this._currentShownFastestLap != null) {
+            // if fastest lap currently showing, cancel the SHOW_DURATION timeout
+            // and start over with new fastest lap (so it gets shown for 10 seconds).
             clearTimeout(this._currentShownFastestLap);
             this._currentShownFastestLap = null;
         }
 
         this.newFastestLap = lap;
-        
-        this._currentShownFastestLap = window.setTimeout(() => {
+
+        this._currentShownFastestLap = setTimeout(() => {
             this.newFastestLap = null; // clear the new fastest lap property, which will hide the widget
             this._currentShownFastestLap = null;
         }, this.SHOW_DURATION);

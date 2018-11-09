@@ -14,8 +14,8 @@ import { WatchService } from './services/watch.service';
 export class AppComponent implements OnInit {
 
   data: any;
-  theme: string = 'default';
-  production: boolean = true;
+  theme = 'default';
+  production = true;
 
   constructor(
     private configService: ConfigService,

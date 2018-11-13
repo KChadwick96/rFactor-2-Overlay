@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 
 import { ProcessedEntry } from '../../../interfaces';
 import { OnboardMode, SectorMap } from './interfaces';
+import tyres from '../../../assets/tyres';
 
 @Component({
   selector: 'app-onboard',
@@ -40,6 +41,25 @@ export class OnboardComponent {
     }
 
     constructor() {}
+
+    _getTyreImage() {
+        switch (this.driver.tyreCompound) {
+            case 'Super Soft':
+                return tyres.SUPER_SOFT;
+            case 'Ultra Soft':
+                return tyres.ULTRA_SOFT;
+            case 'Soft':
+                return tyres.SOFT;
+            case 'Hyper Soft':
+                return tyres.HYPER_SOFT;
+            case 'Medium':
+                return tyres.MEDIUM;
+            case 'Hard':
+                return tyres.HARD;
+            default:
+                return null;
+        }
+    }
 
     _getSectorColour(state: string): string {
         const map = this._getMap(state);

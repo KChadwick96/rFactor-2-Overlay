@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { sortBy, isEmpty } from 'lodash';
 
 import { ConfigService } from './config.service';
+import { LiveService } from './live.service';
 import { Entry, ProcessedEntry, Lap, State } from '../interfaces';
 
 @Injectable()
@@ -27,7 +28,10 @@ export class StandingsService {
         return this._focusedDriver;
     }
 
-    constructor(private config: ConfigService) {}
+    constructor(
+        private config: ConfigService,
+        private liveService: LiveService
+    ) {}
 
     /**
      * Loads config info so we don't have to refetch on each cycle
@@ -43,12 +47,12 @@ export class StandingsService {
      * @param entries - Raw Entries from RF2
      */
     updateStandings(entries: Array<Entry>): void {
-
         entries = sortBy(entries, 'position');
 
         const processed: Array<ProcessedEntry> = [];
         entries.forEach(entry => {
-            const processedEntry = this._processEntry(entry);
+            let processedEntry = this._processEntry(entry);
+            processedEntry = this._addLiveDataToEntry(processedEntry);
             processed.push(processedEntry);
         });
 
@@ -156,6 +160,21 @@ export class StandingsService {
         return processed;
     }
 
+     /**
+     * Adds live data (e.g. Tyre compound) to the processed entry
+     * @param entry - Entry to add data to
+     */
+    _addLiveDataToEntry(entry: ProcessedEntry): ProcessedEntry {
+        const vehicle = this.liveService.getVehicleByName(entry.driverName);
+
+        if (vehicle) {
+            return { ...entry, tyreCompound: vehicle.mFrontTireCompoundName };
+        }
+
+        return entry;
+    }
+
+
     /**
      * Fetches the last entry for the driver passed
      * @param driverName - RF2 Driver Name
@@ -170,7 +189,7 @@ export class StandingsService {
 
     /**
      * Applies default values for the entry
-     * @param driverName - RF2 Driver Name
+     * @param raw - Raw data to apply defaults to
      */
     _applyEntryDefaults(raw: Entry): ProcessedEntry {
         return {

@@ -1,14 +1,13 @@
 import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 
 import { environment } from '../environments/environment';
-import { ConfigService } from './services/config.service';
-import { WatchService } from './services/watch.service';
+import { ConfigService, WatchService, LiveService } from './services';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  providers: [WatchService],
+  providers: [WatchService, LiveService],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent implements OnInit {
@@ -20,6 +19,7 @@ export class AppComponent implements OnInit {
   constructor(
     private configService: ConfigService,
     private watchService: WatchService,
+    private liveService: LiveService,
     private cdRef: ChangeDetectorRef
   ) {}
 
@@ -34,5 +34,7 @@ export class AppComponent implements OnInit {
       this.data = data;
       this.cdRef.markForCheck();
     });
+
+    this.liveService.start();
   }
 }

@@ -22,7 +22,7 @@ export class LiveService {
     }
 
     getVehicleByName(driverName: string): any {
-        this._vehicles.find(vehicle => vehicle.mDriverName === driverName);
+        return this._vehicles.find(vehicle => vehicle.mDriverName === driverName);
     }
 
     _fetch(): void {

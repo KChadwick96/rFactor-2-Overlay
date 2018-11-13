@@ -171,6 +171,8 @@ export class StandingsService {
         if (vehicle) {
             return { ...entry, tyreCompound: vehicle.mFrontTireCompoundName };
         }
+
+        return entry;
     }
 
 

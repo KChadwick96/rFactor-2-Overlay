@@ -162,8 +162,8 @@ export class StandingsService {
     }
 
      /**
-     * TODO: desc
-     * @param entry - TODO: desc
+     * Adds live data (e.g. Tyre compound) to the processed entry
+     * @param entry - Entry to add data to
      */
     _addLiveDataToEntry(entry: ProcessedEntry): ProcessedEntry {
         const vehicle = this.liveService.getVehicleByName(entry.driverName);
@@ -188,7 +188,7 @@ export class StandingsService {
 
     /**
      * Applies default values for the entry
-     * @param driverName - RF2 Driver Name
+     * @param raw - Raw data to apply defaults to
      */
     _applyEntryDefaults(raw: Entry): ProcessedEntry {
         return {

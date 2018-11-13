@@ -7,7 +7,7 @@ import { ConfigService, WatchService, LiveService } from './services';
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  providers: [WatchService, LiveService],
+  providers: [WatchService],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent implements OnInit {

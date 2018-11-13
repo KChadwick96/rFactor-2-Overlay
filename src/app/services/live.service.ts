@@ -5,9 +5,11 @@ import { Observable } from 'rxjs/Observable';
 @Injectable()
 export class LiveService {
 
-    private DATA_REFRESH_RATE = 5000;
-    //private BASE_URL = 'http://176.9.64.2:8002/';
+    private DATA_REFRESH_RATE = 2500;
     private BASE_URL = 'http://176.9.64.2:8000/live/get_full_server_data_jsonp?callback=JSONP_CALLBACK';
+
+    private _vehicles: Array<any> = [];
+    private _sectorFlags: Array<number> = [11, 11, 11]; // 11 = green, 1 = yellow
 
     constructor(
         private jsonp: Jsonp
@@ -19,6 +21,10 @@ export class LiveService {
         }, this.DATA_REFRESH_RATE);
     }
 
+    getVehicleByName(driverName: string): any {
+        this._vehicles.find(vehicle => vehicle.mDriverName === driverName);
+    }
+
     _fetch(): void {
         this._dataObservable().subscribe(data => {
             if (data.server_names_list.length === 0) {
@@ -28,7 +34,8 @@ export class LiveService {
             const serverName = data.server_names_list[0];
             const serverData = data.server_data[serverName];
 
-            console.log(serverData);
+            this._vehicles = serverData.mVehicles;
+            this._sectorFlags = serverData.mScoringInfo.mSectorFlag;
         });
     }
 

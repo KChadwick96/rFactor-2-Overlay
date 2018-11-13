@@ -11,7 +11,7 @@ import { BannerEnduranceComponent } from './components/endurance/banner/banner.c
 import { OnboardEnduranceComponent } from './components/endurance/onboard/onboard.component';
 import { TowerEnduranceComponent } from './components/endurance/tower/tower.component';
 
-import { ConfigService, StandingsService } from './services';
+import { ConfigService, StandingsService, LiveService } from './services';
 import { DriverNamePipe } from './pipes/driver-name.pipe';
 import { MinutesAndSecondsPipe } from './pipes/minutes-and-seconds.pipe';
 import { SecondsConvertPipe } from './pipes/seconds-convert.pipe';
@@ -46,6 +46,7 @@ const COMPONENTS = [
   providers: [
     ConfigService,
     StandingsService,
+    LiveService,
     {
       provide: APP_INITIALIZER,
       useFactory: (config: ConfigService) => () => config.load(),

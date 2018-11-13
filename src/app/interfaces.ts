@@ -32,6 +32,7 @@ export interface ProcessedEntry extends Entry {
     lastLapHold?: LapHold;
     colour?: string;
     flag?: string;
+    tyreCompound?: string;
 }
 
 export interface Lap {

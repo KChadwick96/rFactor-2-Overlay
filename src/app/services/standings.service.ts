@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { sortBy, isEmpty } from 'lodash';
 
 import { ConfigService } from './config.service';
+import { LiveService } from './live.service';
 import { Entry, ProcessedEntry, Lap, State } from '../interfaces';
 
 @Injectable()
@@ -27,7 +28,10 @@ export class StandingsService {
         return this._focusedDriver;
     }
 
-    constructor(private config: ConfigService) {}
+    constructor(
+        private config: ConfigService,
+        private liveService: LiveService
+    ) {}
 
     /**
      * Loads config info so we don't have to refetch on each cycle
@@ -43,7 +47,6 @@ export class StandingsService {
      * @param entries - Raw Entries from RF2
      */
     updateStandings(entries: Array<Entry>): void {
-
         entries = sortBy(entries, 'position');
 
         const processed: Array<ProcessedEntry> = [];
@@ -153,8 +156,23 @@ export class StandingsService {
             this._focusedDriver = processed;
         }
 
+        this._addLiveDataToEntry(processed);
+
         return processed;
     }
+
+     /**
+     * TODO: desc
+     * @param entry - TODO: desc
+     */
+    _addLiveDataToEntry(entry: ProcessedEntry): ProcessedEntry {
+        const vehicle = this.liveService.getVehicleByName(entry.driverName);
+
+        if (vehicle) {
+            return { ...entry, tyreCompound: vehicle.mFrontTireCompoundName };
+        }
+    }
+
 
     /**
      * Fetches the last entry for the driver passed

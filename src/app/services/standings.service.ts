@@ -51,7 +51,8 @@ export class StandingsService {
 
         const processed: Array<ProcessedEntry> = [];
         entries.forEach(entry => {
-            const processedEntry = this._processEntry(entry);
+            let processedEntry = this._processEntry(entry);
+            processedEntry = this._addLiveDataToEntry(processedEntry);
             processed.push(processedEntry);
         });
 
@@ -155,8 +156,6 @@ export class StandingsService {
         if (entry.focus) {
             this._focusedDriver = processed;
         }
-
-        this._addLiveDataToEntry(processed);
 
         return processed;
     }

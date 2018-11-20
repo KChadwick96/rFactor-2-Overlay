@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 
 import { ProcessedEntry } from '../../../interfaces';
+import TYRES from '../../../assets/tyres';
 
 @Component({
   selector: 'app-tower',
@@ -8,6 +9,8 @@ import { ProcessedEntry } from '../../../interfaces';
   styleUrls: ['./tower.component.scss']
 })
 export class TowerComponent implements OnInit {
+    test = TYRES.HARD;
+
     mode: string;
 
     public _isRace: boolean;

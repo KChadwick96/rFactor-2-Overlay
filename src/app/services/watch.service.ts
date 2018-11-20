@@ -12,7 +12,7 @@ import { environment } from '../../environments/environment';
 @Injectable()
 export class WatchService {
 
-  private DATA_REFRESH_RATE = 1000;
+  private DATA_REFRESH_RATE = 5000;
   private BASE_URL = 'http://localhost:5397/rest/watch';
   private SOCKET_URL = 'http://localhost';
 
@@ -78,12 +78,12 @@ export class WatchService {
           };
           observer.next(data);
         });
-
       }, this.DATA_REFRESH_RATE);
     });
   }
 
   _standingsObservable(): Observable<any> {
+
     return this.http
       .get(`${this.BASE_URL}/standings`)
       .map(this._mapResponse)

@@ -1,5 +1,5 @@
 .container__standings {
-    width: 250px;
+    width: 275px;
     left: 100px;
     top: 105px;
     position: absolute;
@@ -10,16 +10,19 @@
         width: 100%;
         border: 2px solid #cccccc;
         position: relative;
+        display: flex;
+        align-items: center;
+        padding-right: 5px;
 
         &:nth-child(odd) {
             background: #fbfbfb;
         }
 
         &__position {
+            flex: 0 0 33px;
             padding: 2px 0;
             display: inline-block;
             border-radius: 4px;
-            width: 33px;
             text-align: center;
             background-color: #f0270d;
             color: rgb(240, 240, 240);
@@ -30,8 +33,7 @@
         }
 
         &__colour {
-            display: inline-block;
-            width: 13px;
+            flex: 0 0 13px;
             height: 13px;
             border-radius: 50%;
             margin: 0 5px;
@@ -39,15 +41,20 @@
         }
 
         &__driver {
-            display: inline-block;
+            flex: 1;
             line-height: 30px;
             text-transform: uppercase;
         }
 
         &__gap {
-            float: right;
+            flex: 1;
             line-height: 30px;
-            padding-right: 6px;
+            text-align: right;
+            padding-right: 4px;
+        }
+
+        &__tyre {
+            height: 25px;
         }
 
         &__pit {

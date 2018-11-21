@@ -8,7 +8,7 @@
             {{ entry.driverName | driverName: (mode === 'BASIC' ? 'last' : 'abbreviated') }}
         </div>
 
-
+        <!-- Gap to fastest -->
         <div class="entry__gap" *ngIf="mode === 'FASTEST_LAP_GAP' && entry.bestLapTime !== -1">
             <span *ngIf="entry.position === 1">
                 {{ entry.bestLapTime | minutesAndSeconds:true:false }}

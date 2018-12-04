@@ -7,6 +7,8 @@
         <div class="entry__driver">
             {{ entry.driverName | driverName: (mode === 'BASIC' ? 'last' : 'abbreviated') }}
         </div>
+
+        <!-- Gap to fastest -->
         <div class="entry__gap" *ngIf="mode === 'FASTEST_LAP_GAP' && entry.bestLapTime !== -1">
             <span *ngIf="entry.position === 1">
                 {{ entry.bestLapTime | minutesAndSeconds:true:false }}
@@ -44,6 +46,11 @@
                     {{ entry.timeBehindNext | secondsConvert:true }}
                 </span>
             </span>
+        </div>
+
+        <!-- Tyre -->
+        <div *ngIf="entry.tyreCompound" class="entry__tyre">
+            <img src="{{ _getTyreImage(entry) }}" />
         </div>
 
         <!-- PIT graphic -->

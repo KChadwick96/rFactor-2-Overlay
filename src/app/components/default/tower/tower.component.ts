@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 
 import { ProcessedEntry } from '../../../interfaces';
+import TYRES from '../../../assets/tyres';
 
 @Component({
   selector: 'app-tower',
@@ -71,6 +72,25 @@ export class TowerComponent implements OnInit {
 
     ngOnInit(): void {
         this._startCycle();
+    }
+
+    _getTyreImage(driver: ProcessedEntry): string {
+        switch (driver.tyreCompound) {
+            case 'Super Soft':
+                return TYRES.SUPER_SOFT;
+            case 'Ultra Soft':
+                return TYRES.ULTRA_SOFT;
+            case 'Soft':
+                return TYRES.SOFT;
+            case 'Hyper Soft':
+                return TYRES.HYPER_SOFT;
+            case 'Medium':
+                return TYRES.MEDIUM;
+            case 'Hard':
+                return TYRES.HARD;
+            default:
+                return null;
+        }
     }
 
     _startCycle(): void {

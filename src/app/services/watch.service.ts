@@ -78,12 +78,12 @@ export class WatchService {
           };
           observer.next(data);
         });
-
       }, this.DATA_REFRESH_RATE);
     });
   }
 
   _standingsObservable(): Observable<any> {
+
     return this.http
       .get(`${this.BASE_URL}/standings`)
       .map(this._mapResponse)

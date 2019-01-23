@@ -150,6 +150,11 @@ export class StandingsService {
             processed.currentLap.sector1 = entry.currentSectorTime1;
         }
 
+        // clear the drivers current lap if they enter the pits
+        if (processed.pitting) {
+            processed.currentLap = this._getEmptyLap();
+        }
+
         // colour, flag and focuseddriver
         processed.colour = this._getTeamColour(entry.carClass);
         processed.flag = this._getDriverFlag(entry.driverName);

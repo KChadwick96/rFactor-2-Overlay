@@ -130,6 +130,7 @@ export class TowerComponent implements OnInit {
     _stopCycle(): void {
         if (this._interval) {
             clearInterval(this._interval);
+            this._interval = null;
         }
     }
 

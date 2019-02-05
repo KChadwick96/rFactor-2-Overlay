@@ -3,7 +3,7 @@ import { sortBy, isEmpty } from 'lodash';
 
 import { ConfigService } from './config.service';
 import { LiveService } from './live.service';
-import { Entry, ProcessedEntry, Lap, State } from '../interfaces';
+import { Entry, ProcessedEntry, Lap, State, SectorFlag, SectorFlags } from '../interfaces';
 
 @Injectable()
 export class StandingsService {
@@ -15,9 +15,15 @@ export class StandingsService {
     private _currentStandings: Array<ProcessedEntry>;
     private _overallBestLap: Lap;
     private _focusedDriver: ProcessedEntry;
+    private _sectorFlags: SectorFlags;
+
 
     get currentStandings(): Array<ProcessedEntry> {
         return this._currentStandings;
+    }
+
+    get sectorFlags(): SectorFlags {
+        return this._sectorFlags;
     }
 
     get overallBestLap(): Lap {
@@ -56,6 +62,7 @@ export class StandingsService {
             processed.push(processedEntry);
         });
 
+        this.updateSectorFlags();
         this._currentStandings = processed;
     }
 
@@ -179,6 +186,17 @@ export class StandingsService {
         return entry;
     }
 
+    updateSectorFlags() {
+        const sectorFlags = this.liveService.getSectorFlag();
+
+        if (sectorFlags) {
+            this._sectorFlags = {
+                sector1: SectorFlag[sectorFlags[0]],
+                sector2: SectorFlag[sectorFlags[1]],
+                sector3: SectorFlag[sectorFlags[2]]
+            };
+        }
+    }
 
     /**
      * Fetches the last entry for the driver passed

@@ -7,6 +7,7 @@ import { BannerComponent } from './components/default/banner/banner.component';
 import { OnboardComponent } from './components/default/onboard/onboard.component';
 import { TowerComponent } from './components/default/tower/tower.component';
 import { FastestLapComponent } from './components/default/fastestlap/fastestlap.component';
+import { SectorFlagsComponent } from './components/default/sectorFlags/sectorFlags.component';
 import { BannerEnduranceComponent } from './components/endurance/banner/banner.component';
 import { OnboardEnduranceComponent } from './components/endurance/onboard/onboard.component';
 import { TowerEnduranceComponent } from './components/endurance/tower/tower.component';
@@ -24,6 +25,7 @@ const COMPONENTS = [
   OnboardComponent,
   TowerComponent,
   FastestLapComponent,
+  SectorFlagsComponent,
   BannerEnduranceComponent,
   OnboardEnduranceComponent,
   TowerEnduranceComponent

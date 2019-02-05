@@ -46,6 +46,12 @@ export interface Lap {
     driver: Entry;
 }
 
+export interface SectorFlags {
+    sector1: string;
+    sector2: string;
+    sector3: string;
+}
+
 export interface GapEvent {
     state: State;
     gap: string;
@@ -62,4 +68,9 @@ export enum State {
     SessionBest = 'SESSION_BEST',
     PersonalBest = 'PERSONAL_BEST',
     Down = 'DOWN'
+}
+
+export enum SectorFlag {
+   Green = 11,
+   Yellow = 1
 }

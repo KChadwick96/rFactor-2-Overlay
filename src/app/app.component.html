@@ -1,6 +1,7 @@
 
 <div *ngIf="theme === 'default'">
     <app-banner [sessionData]="data?.session_info" [standings]="data?.standings"></app-banner>
+    <app-sector-flags [sessionData]="data?.session_info" [sectorFlags]=data?.sector_flags></app-sector-flags>
     <app-tower [sessionData]="data?.session_info" [standings]="data?.standings"></app-tower>
     <app-onboard [driver]="data?.focused_driver" [raceSession]="data?.session_info?.session" [standings]="data?.standings"></app-onboard>
     <app-fastestlap [fastestLap]="data?.overall_best_lap" [sessionData]="data?.session_info" [standings]="data?.standings"></app-fastestlap>

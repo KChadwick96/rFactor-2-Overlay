@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Jsonp } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
+import { SectorFlag } from '../interfaces';
 
 @Injectable()
 export class LiveService {
@@ -23,6 +24,10 @@ export class LiveService {
 
     getVehicleByName(driverName: string): any {
         return this._vehicles.find(vehicle => vehicle.mDriverName === driverName);
+    }
+
+    getSectorFlag(): Array<SectorFlag> {
+        return this._sectorFlags;
     }
 
     _fetch(): void {

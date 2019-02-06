@@ -47,9 +47,9 @@ export interface Lap {
 }
 
 export interface SectorFlags {
-    sector1: string;
-    sector2: string;
-    sector3: string;
+    sector1: SectorFlag;
+    sector2: SectorFlag;
+    sector3: SectorFlag;
 }
 
 export interface GapEvent {

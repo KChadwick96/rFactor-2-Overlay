@@ -191,9 +191,9 @@ export class StandingsService {
 
         if (sectorFlags) {
             this._sectorFlags = {
-                sector1: SectorFlag[sectorFlags[0]],
-                sector2: SectorFlag[sectorFlags[1]],
-                sector3: SectorFlag[sectorFlags[2]]
+                sector1: sectorFlags[0],
+                sector2: sectorFlags[1],
+                sector3: sectorFlags[2]
             };
         }
     }

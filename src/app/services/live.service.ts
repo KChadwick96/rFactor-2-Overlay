@@ -10,7 +10,7 @@ export class LiveService {
     private BASE_URL = 'http://176.9.64.2:8000/live/get_full_server_data_jsonp?callback=JSONP_CALLBACK';
 
     private _vehicles: Array<any> = [];
-    private _sectorFlags: Array<number> = [11, 11, 11]; // 11 = green, 1 = yellow
+    private _sectorFlags: Array<SectorFlag> = [SectorFlag.Green, SectorFlag.Green, SectorFlag.Green];
 
     constructor(
         private jsonp: Jsonp

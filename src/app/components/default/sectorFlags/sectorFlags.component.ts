@@ -28,7 +28,7 @@ export class SectorFlagsComponent {
       { number: 3, flag: data.sector3 }
     ];
 
-    this.clearYellowSectors(data);
+    this.clearYellowSectors(data, sectors);
     this.checkForTrackGreen(data);
     this.setActiveYellowFlags(sectors);
   }
@@ -36,17 +36,13 @@ export class SectorFlagsComponent {
   /*
    * Removes any yellow flags from the array if they are no longer yellow
    */
-  private clearYellowSectors(data: SectorFlags) {
+  private clearYellowSectors(data: SectorFlags, sectors: Array<any>) {
     if (this.sectorsYellow && this.sectorsYellow.length > 0) {
-      if (data.sector1 === SectorFlag.Green && this.sectorsYellow.includes(1)) {
-        this.sectorsYellow.splice(this.sectorsYellow.indexOf(1), 1);
-      }
-      if (data.sector2 === SectorFlag.Green && this.sectorsYellow.includes(2)) {
-        this.sectorsYellow.splice(this.sectorsYellow.indexOf(2), 1);
-      }
-      if (data.sector3 === SectorFlag.Green && this.sectorsYellow.includes(3)) {
-        this.sectorsYellow.splice(this.sectorsYellow.indexOf(3), 1);
-      }
+      sectors.forEach(sector => {
+        if (data['sector' + sector.number] === SectorFlag.Green && this.sectorsYellow.includes(sector.number)) {
+          this.sectorsYellow.splice(this.sectorsYellow.indexOf(sector.number), 1);
+        }
+      });
     }
   }
 
@@ -54,12 +50,11 @@ export class SectorFlagsComponent {
    * If yellow flag is active and all sectors are now green show track clear widget
    */
   private checkForTrackGreen(data) {
-    if (
-      this.yellowFlagActive === true &&
-      data.sector1 === SectorFlag.Green &&
-      data.sector2 === SectorFlag.Green &&
-      data.sector3 === SectorFlag.Green
-    ) {
+    if (this.yellowFlagActive === true
+      && data.sector1 === SectorFlag.Green
+      && data.sector2 === SectorFlag.Green
+      && data.sector3 === SectorFlag.Green) {
+
       this._showTrackGreen = setTimeout(() => {
         this._showTrackGreen = null; // clear the showTrackGreen which hides the track clear widget
       }, this.SHOW_DURATION);
@@ -86,5 +81,19 @@ export class SectorFlagsComponent {
       this.yellowFlagActive = false;
     }
   }
+
+  /*
+  * Builds the sector list to be displayed
+  */
+  yellowSectorsList() {
+    const length = this.sectorsYellow.length;
+    if (length === 1) {
+      return this.sectorsYellow[0];
+    } else {
+      const firstSectors = this.sectorsYellow.slice(0, length - 1);
+      return `${firstSectors.join(',')} & ${this.sectorsYellow[length - 1]}`;
+    }
+  }
+
   constructor() {}
 }

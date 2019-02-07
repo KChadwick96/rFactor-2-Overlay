@@ -26,7 +26,7 @@ export class LiveService {
         return this._vehicles.find(vehicle => vehicle.mDriverName === driverName);
     }
 
-    getSectorFlag(): Array<SectorFlag> {
+    getSectorFlags(): Array<SectorFlag> {
         return this._sectorFlags;
     }
 

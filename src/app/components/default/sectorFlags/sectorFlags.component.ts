@@ -8,12 +8,12 @@ import { SectorFlag, SectorFlags } from './../../../interfaces';
   styleUrls: ['./sectorFlags.component.scss']
 })
 export class SectorFlagsComponent {
-  private SHOW_DURATION = 5000; // Duration to show the popup if yellow flags become green
+  private SHOW_DURATION = 6000; // Duration to show the popup if yellow flags become green
   _isRace: boolean;
   _sessionData: any;
 
   yellowFlagActive: boolean;
-  sectorsYellow: Array<number>;
+  sectorsYellow: Array<number> = [];
   _showTrackGreen: any;
 
   @Input()
@@ -28,7 +28,15 @@ export class SectorFlagsComponent {
       { number: 3, flag: data.sector3 }
     ];
 
-    // Remove any yellow flags from the array if they are no longer yellow
+    this.clearYellowSectors(data);
+    this.checkForTrackGreen(data);
+    this.setActiveYellowFlags(sectors);
+  }
+
+  /*
+   * Removes any yellow flags from the array if they are no longer yellow
+   */
+  private clearYellowSectors(data: SectorFlags) {
     if (this.sectorsYellow && this.sectorsYellow.length > 0) {
       if (data.sector1 === SectorFlag.Green && this.sectorsYellow.includes(1)) {
         this.sectorsYellow.splice(this.sectorsYellow.indexOf(1), 1);
@@ -40,40 +48,43 @@ export class SectorFlagsComponent {
         this.sectorsYellow.splice(this.sectorsYellow.indexOf(3), 1);
       }
     }
+  }
 
-    // If yellow flag is active and all sectors are now green
-    // show track clear widget
-    if (this.yellowFlagActive === true &&
+  /*
+   * If yellow flag is active and all sectors are now green show track clear widget
+   */
+  private checkForTrackGreen(data) {
+    if (
+      this.yellowFlagActive === true &&
       data.sector1 === SectorFlag.Green &&
       data.sector2 === SectorFlag.Green &&
-      data.sector3 === SectorFlag.Green) {
-
+      data.sector3 === SectorFlag.Green
+    ) {
       this._showTrackGreen = setTimeout(() => {
-        this._showTrackGreen = null; // clear the showTrackGreen which will hide the track clear widget
+        this._showTrackGreen = null; // clear the showTrackGreen which hides the track clear widget
       }, this.SHOW_DURATION);
     }
+  }
 
-    // iterate through each sector, if yellow flag set
-    // yellowFlagActive to true otherwise false
+  /*
+   * Checks if any sector is currently yellow and sets yellowFlag Active to true.
+   * If no yellow flags are picked up yellowFlagActive is set to false
+   */
+  private setActiveYellowFlags(sectors: Array<any>) {
     sectors.forEach(sector => {
       if (sector.flag === SectorFlag.Yellow) {
-        this.sectorsYellow.push(sector.number);
+        if (!this.sectorsYellow.includes(sector.number)) {
+          this.sectorsYellow.push(sector.number);
+          this.sectorsYellow.sort();
+        }
         this.yellowFlagActive = true;
-      } else {
-        this.yellowFlagActive = false;
+        this._showTrackGreen = null;
       }
     });
-  }
-  @Input()
-  set sessionData(data: any) {
-    if (data == null) {
-      return;
+
+    if (this.sectorsYellow && this.sectorsYellow.length < 1) {
+      this.yellowFlagActive = false;
     }
-
-    const newSession = data.session;
-    this._isRace = newSession.includes('RACE');
-
-    this._sessionData = data;
   }
   constructor() {}
 }

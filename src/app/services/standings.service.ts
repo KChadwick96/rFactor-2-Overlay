@@ -187,7 +187,7 @@ export class StandingsService {
     }
 
     updateSectorFlags() {
-        const sectorFlags = this.liveService.getSectorFlag();
+        const sectorFlags = this.liveService.getSectorFlags();
 
         if (sectorFlags) {
             this._sectorFlags = {

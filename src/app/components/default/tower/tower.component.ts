@@ -75,22 +75,16 @@ export class TowerComponent implements OnInit {
     }
 
     _getTyreImage(driver: ProcessedEntry): string {
-        switch (driver.tyreCompound) {
-            case 'Super Soft':
-                return TYRES.SUPER_SOFT;
-            case 'Ultra Soft':
-                return TYRES.ULTRA_SOFT;
-            case 'Soft':
-                return TYRES.SOFT;
-            case 'Hyper Soft':
-                return TYRES.HYPER_SOFT;
-            case 'Medium':
-                return TYRES.MEDIUM;
-            case 'Hard':
-                return TYRES.HARD;
-            default:
-                return null;
+        if (driver.tyreCompound.indexOf('Soft') > -1) {
+            return TYRES.SOFT;
         }
+        if (driver.tyreCompound.indexOf('Medium') > -1) {
+            return TYRES.MEDIUM;
+        }
+        if (driver.tyreCompound.indexOf('Hard') > -1) {
+            return TYRES.HARD;
+        }
+        return null;
     }
 
     _startCycle(): void {

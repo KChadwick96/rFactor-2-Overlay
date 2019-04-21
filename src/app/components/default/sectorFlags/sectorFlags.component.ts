@@ -1,3 +1,10 @@
+import {
+  animate,
+  state,
+  style,
+  transition,
+  trigger
+} from '@angular/animations';
 import { Component, Input, ViewEncapsulation } from '@angular/core';
 import { SectorFlag, SectorFlags } from './../../../interfaces';
 
@@ -5,7 +12,20 @@ import { SectorFlag, SectorFlags } from './../../../interfaces';
   encapsulation: ViewEncapsulation.None,
   selector: 'app-sector-flags',
   templateUrl: './sectorFlags.component.html',
-  styleUrls: ['./sectorFlags.component.scss']
+  styleUrls: ['./sectorFlags.component.scss'],
+  animations: [
+    // the fade-in/fade-out animation.
+    trigger('simpleFadeAnimation', [
+      // the "in" style determines the "resting" state of the element when it is visible.
+      state('in', style({ opacity: 1 })),
+
+      // fade in when created.
+      transition(':enter', [style({ opacity: 0 }), animate(600)]),
+
+      // fade out when destroyed.
+      transition(':leave', animate(600, style({ opacity: 0 })))
+    ])
+  ]
 })
 export class SectorFlagsComponent {
   private SHOW_DURATION = 6000; // Duration to show the popup if yellow flags become green
@@ -33,7 +53,7 @@ export class SectorFlagsComponent {
     this.setActiveYellowFlags(sectors);
   }
 
-  /*
+   /*
    * Removes any yellow flags from the array if they are no longer yellow
    */
   private clearYellowSectors(data: SectorFlags, sectors: Array<any>) {
@@ -83,8 +103,8 @@ export class SectorFlagsComponent {
   }
 
   /*
-  * Builds the sector list to be displayed
-  */
+   * Builds the sector list to be displayed
+   */
   yellowSectorsList() {
     const length = this.sectorsYellow.length;
     if (length === 1) {

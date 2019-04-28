@@ -43,14 +43,16 @@ export class OnboardComponent {
     constructor() {}
 
     _getTyreImage() {
-        if (this.driver.tyreCompound.indexOf('Soft') > -1) {
-            return TYRES.SOFT;
-        }
-        if (this.driver.tyreCompound.indexOf('Medium') > -1) {
-            return TYRES.MEDIUM;
-        }
-        if (this.driver.tyreCompound.indexOf('Hard') > -1) {
-            return TYRES.HARD;
+        if (this.driver.tyreCompound != null) {
+            if (this.driver.tyreCompound.indexOf('Soft') > -1) {
+                return TYRES.SOFT;
+            }
+            if (this.driver.tyreCompound.indexOf('Medium') > -1) {
+                return TYRES.MEDIUM;
+            }
+            if (this.driver.tyreCompound.indexOf('Hard') > -1) {
+                return TYRES.HARD;
+            }
         }
         return null;
     }

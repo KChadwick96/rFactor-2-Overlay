@@ -8,7 +8,7 @@ import TYRES from '../../../assets/tyres';
   templateUrl: './tower.component.html',
   styleUrls: ['./tower.component.scss']
 })
-export class TowerComponent implements OnInit {
+export class TowerComponent {
     mode: string;
 
     public _isRace: boolean;
@@ -49,12 +49,15 @@ export class TowerComponent implements OnInit {
 
         this._isRace = newSession.includes('RACE');
 
+        // console.log('IsRace: ' + this._isRace);
+
         // for race sessions, if its the start or end of the race
         // show the basic tower with names
         let shouldStartCycle = true;
         if (this._isRace) {
 
             const lapsCompleted = this.standings[0] ? this.standings[0].lapsCompleted : 0;
+            // console.log('Will stop: ' + (lapsCompleted === 0 || lapsCompleted >= data.maximumLaps));
             if (lapsCompleted === 0 || lapsCompleted >= data.maximumLaps) {
                 this._stopCycle();
                 shouldStartCycle = false;
@@ -63,26 +66,30 @@ export class TowerComponent implements OnInit {
         }
 
         this._raceSession = newSession;
-        if (shouldStartCycle && !this._interval) {
+        // console.log('shouldStartCycle: ' + shouldStartCycle.toString() + ' this._interval = null: ' + (this._interval == null).toString());
+        if (shouldStartCycle && this._interval == null) {
+            // console.log('starting cycle!');
             this._startCycle();
         }
     }
 
     constructor() {}
-
+/*
     ngOnInit(): void {
         this._startCycle();
     }
-
+*/
     _getTyreImage(driver: ProcessedEntry): string {
-        if (driver.tyreCompound.indexOf('Soft') > -1) {
-            return TYRES.SOFT;
-        }
-        if (driver.tyreCompound.indexOf('Medium') > -1) {
-            return TYRES.MEDIUM;
-        }
-        if (driver.tyreCompound.indexOf('Hard') > -1) {
-            return TYRES.HARD;
+        if (driver.tyreCompound != null) {
+            if (driver.tyreCompound.indexOf('Soft') > -1) {
+                return TYRES.SOFT;
+            }
+            if (driver.tyreCompound.indexOf('Medium') > -1) {
+                return TYRES.MEDIUM;
+            }
+            if (driver.tyreCompound.indexOf('Hard') > -1) {
+                return TYRES.HARD;
+            }
         }
         return null;
     }
@@ -97,6 +104,7 @@ export class TowerComponent implements OnInit {
         // select schedule based on race session
         let schedule = this._schedules.quali;
         if (this._raceSession.includes('RACE')) {
+            // console.log('race schedule');
             schedule = this._schedules.race;
         }
 

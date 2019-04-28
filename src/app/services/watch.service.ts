@@ -53,7 +53,8 @@ export class WatchService {
             session_info: sampleSessionData,
             standings: this.standingsService.currentStandings,
             focused_driver: this.standingsService.focusedDriver,
-            overall_best_lap: this.standingsService.overallBestLap
+            overall_best_lap: this.standingsService.overallBestLap,
+            sector_flags: this.standingsService.sectorFlags
           });
         }
 
@@ -74,7 +75,8 @@ export class WatchService {
             session_info: this._sessionData,
             standings: this.standingsService.currentStandings,
             focused_driver: this.standingsService.focusedDriver,
-            overall_best_lap: this.standingsService.overallBestLap
+            overall_best_lap: this.standingsService.overallBestLap,
+            sector_flags: this.standingsService.sectorFlags
           };
           observer.next(data);
         });

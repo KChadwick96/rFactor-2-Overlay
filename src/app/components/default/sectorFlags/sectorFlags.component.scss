@@ -1,0 +1,36 @@
+.container__session-flags {
+  width: 275px;
+  left: 100px;
+  top: 85px;
+  position: absolute;
+  color: black;
+  font-size: 22px;
+  text-align: center;
+  padding: 5px 0px 0px 0px;
+  border: 2px solid rgb(204, 204, 204);
+  border-top: none;
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+
+  .flag_content {
+    padding-top: 2px;
+  }
+  
+  .flag-icon {
+    transform: rotate(20deg);
+    margin-right: 20px;
+    font-size: 18px;
+  }
+  .flag-icon-left {
+    transform: rotate(-20deg) scaleX(-1);
+    font-size: 18px;
+  }  
+}
+
+.yellow{
+  background-color: #f0e329;
+}
+
+.green {
+  background-color: #15b119 !important;
+}

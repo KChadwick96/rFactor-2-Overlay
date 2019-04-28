@@ -1,12 +1,14 @@
 import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpModule, JsonpModule  } from '@angular/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpModule, JsonpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { BannerComponent } from './components/default/banner/banner.component';
 import { OnboardComponent } from './components/default/onboard/onboard.component';
 import { TowerComponent } from './components/default/tower/tower.component';
 import { FastestLapComponent } from './components/default/fastestlap/fastestlap.component';
+import { SectorFlagsComponent } from './components/default/sectorFlags/sectorFlags.component';
 import { BannerEnduranceComponent } from './components/endurance/banner/banner.component';
 import { OnboardEnduranceComponent } from './components/endurance/onboard/onboard.component';
 import { TowerEnduranceComponent } from './components/endurance/tower/tower.component';
@@ -17,6 +19,7 @@ import { MinutesAndSecondsPipe } from './pipes/minutes-and-seconds.pipe';
 import { SecondsConvertPipe } from './pipes/seconds-convert.pipe';
 import { SessionNamePipe } from './pipes/session-name.pipe';
 import { SessionTimerPipe } from './pipes/session-timer.pipe';
+import { NotificationService } from './services/notification.service';
 
 const COMPONENTS = [
   AppComponent,
@@ -24,6 +27,7 @@ const COMPONENTS = [
   OnboardComponent,
   TowerComponent,
   FastestLapComponent,
+  SectorFlagsComponent,
   BannerEnduranceComponent,
   OnboardEnduranceComponent,
   TowerEnduranceComponent
@@ -38,15 +42,12 @@ const COMPONENTS = [
     SessionNamePipe,
     SessionTimerPipe
   ],
-  imports: [
-    BrowserModule,
-    HttpModule,
-    JsonpModule
-  ],
+  imports: [BrowserModule, BrowserAnimationsModule, HttpModule, JsonpModule],
   providers: [
     ConfigService,
     StandingsService,
     LiveService,
+    NotificationService,
     {
       provide: APP_INITIALIZER,
       useFactory: (config: ConfigService) => () => config.load(),
@@ -56,4 +57,4 @@ const COMPONENTS = [
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

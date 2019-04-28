@@ -15,10 +15,10 @@ import { NotificationService } from './../../../services/notification.service';
       state('in', style({ opacity: 1 })),
 
       // fade in when created.
-      transition(':enter', [style({ opacity: 0 }), animate(600)]),
+      transition(':enter', [style({ opacity: 0 }), animate(300)]),
 
       // fade out when destroyed.
-      transition(':leave', animate(600, style({ opacity: 0 })))
+      transition(':leave', animate(50, style({ opacity: 0 })))
     ])
   ]
 })

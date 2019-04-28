@@ -1,4 +1,4 @@
-<div class="container__standings">
+ <div [ngClass]="{container__standings_flags: notification === 'Active'}"class="container__standings">
     <div class="entry" *ngFor="let entry of standings | slice:0:20">
         <div class="entry__position" [ngClass]="_positionClass(entry.position)">
             {{ entry.position }}

@@ -1,15 +1,18 @@
-import { Component, OnInit, Input } from '@angular/core';
-
-import { ProcessedEntry } from '../../../interfaces';
+import { Component, Input, OnDestroy } from '@angular/core';
 import TYRES from '../../../assets/tyres';
+import { NotificationService } from './../../../services/notification.service';
+import { ProcessedEntry } from '../../../interfaces';
+
 
 @Component({
   selector: 'app-tower',
   templateUrl: './tower.component.html',
   styleUrls: ['./tower.component.scss']
 })
-export class TowerComponent {
+export class TowerComponent implements OnDestroy {
     mode: string;
+    subscription: any;
+    notification: any;
 
     public _isRace: boolean;
 
@@ -39,6 +42,7 @@ export class TowerComponent {
     };
 
     @Input() standings: Array<ProcessedEntry> = [];
+
     @Input()
     set sessionData(data: any) {
         if (data == null) {
@@ -73,12 +77,18 @@ export class TowerComponent {
         }
     }
 
-    constructor() {}
-/*
-    ngOnInit(): void {
-        this._startCycle();
-    }
-*/
+    constructor(private notificationService: NotificationService) {
+        this.subscription = this.notificationService
+          .getNotification()
+          .subscribe(notification => {
+            // notification used to move tower based on yellow flag component
+            if (notification) {
+                this.notification = notification.notification;
+            }
+          });
+      }
+
+
     _getTyreImage(driver: ProcessedEntry): string {
         if (driver.tyreCompound != null) {
             if (driver.tyreCompound.indexOf('Soft') > -1) {
@@ -148,5 +158,10 @@ export class TowerComponent {
      */
     _shouldShowTiming(entry: ProcessedEntry): boolean {
         return !(this._isRace && entry.pitting);
+    }
+
+    ngOnDestroy() {
+        // unsubscribe to ensure no memory leaks
+        this.subscription.unsubscribe();
     }
 }

@@ -19,6 +19,7 @@ import { MinutesAndSecondsPipe } from './pipes/minutes-and-seconds.pipe';
 import { SecondsConvertPipe } from './pipes/seconds-convert.pipe';
 import { SessionNamePipe } from './pipes/session-name.pipe';
 import { SessionTimerPipe } from './pipes/session-timer.pipe';
+import { NotificationService } from './services/notification.service';
 
 const COMPONENTS = [
   AppComponent,
@@ -46,6 +47,7 @@ const COMPONENTS = [
     ConfigService,
     StandingsService,
     LiveService,
+    NotificationService,
     {
       provide: APP_INITIALIZER,
       useFactory: (config: ConfigService) => () => config.load(),

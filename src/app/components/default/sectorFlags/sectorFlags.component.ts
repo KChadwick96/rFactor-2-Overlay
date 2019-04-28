@@ -1,12 +1,7 @@
-import {
-  animate,
-  state,
-  style,
-  transition,
-  trigger
-} from '@angular/animations';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, Input, ViewEncapsulation } from '@angular/core';
 import { SectorFlag, SectorFlags } from './../../../interfaces';
+import { NotificationService } from './../../../services/notification.service';
 
 @Component({
   encapsulation: ViewEncapsulation.None,
@@ -28,6 +23,8 @@ import { SectorFlag, SectorFlags } from './../../../interfaces';
   ]
 })
 export class SectorFlagsComponent {
+  constructor(private notificationService: NotificationService) {}
+
   private SHOW_DURATION = 6000; // Duration to show the popup if yellow flags become green
   _isRace: boolean;
   _sessionData: any;
@@ -77,6 +74,7 @@ export class SectorFlagsComponent {
 
       this._showTrackGreen = setTimeout(() => {
         this._showTrackGreen = null; // clear the showTrackGreen which hides the track clear widget
+        this.notificationService.sendNotification('Inactive');
       }, this.SHOW_DURATION);
     }
   }
@@ -93,6 +91,7 @@ export class SectorFlagsComponent {
           this.sectorsYellow.sort();
         }
         this.yellowFlagActive = true;
+        this.notificationService.sendNotification('Active');
         this._showTrackGreen = null;
       }
     });
@@ -114,6 +113,4 @@ export class SectorFlagsComponent {
       return `${firstSectors.join(',')} & ${this.sectorsYellow[length - 1]}`;
     }
   }
-
-  constructor() {}
 }

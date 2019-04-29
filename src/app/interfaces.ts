@@ -20,6 +20,7 @@ export interface Entry {
     readonly carStatus: string;
     readonly lapsCompleted: number;
     readonly hasFocus: boolean;
+    readonly inControl: string;
 }
 
 export interface ProcessedEntry extends Entry {
@@ -33,6 +34,7 @@ export interface ProcessedEntry extends Entry {
     colour?: string;
     flag?: string;
     tyreCompound?: string;
+    hasEscaped?: boolean;
 }
 
 export interface Lap {

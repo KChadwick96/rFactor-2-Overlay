@@ -53,15 +53,12 @@ export class TowerComponent implements OnDestroy {
 
         this._isRace = newSession.includes('RACE');
 
-        // console.log('IsRace: ' + this._isRace);
-
         // for race sessions, if its the start or end of the race
         // show the basic tower with names
         let shouldStartCycle = true;
         if (this._isRace) {
 
             const lapsCompleted = this.standings[0] ? this.standings[0].lapsCompleted : 0;
-            // console.log('Will stop: ' + (lapsCompleted === 0 || lapsCompleted >= data.maximumLaps));
             if (lapsCompleted === 0 || lapsCompleted >= data.maximumLaps) {
                 this._stopCycle();
                 shouldStartCycle = false;
@@ -70,9 +67,7 @@ export class TowerComponent implements OnDestroy {
         }
 
         this._raceSession = newSession;
-        // console.log('shouldStartCycle: ' + shouldStartCycle.toString() + ' this._interval = null: ' + (this._interval == null).toString());
         if (shouldStartCycle && this._interval == null) {
-            // console.log('starting cycle!');
             this._startCycle();
         }
     }
@@ -158,6 +153,15 @@ export class TowerComponent implements OnDestroy {
      */
     _shouldShowTiming(entry: ProcessedEntry): boolean {
         return !(this._isRace && entry.pitting);
+    }
+
+    _showPitStatus(entry: ProcessedEntry): string {
+        if (entry.hasEscaped && this._isRace) {
+            return 'DNF';
+        } else if (entry.pitting) {
+            return 'PIT';
+        }
+        return null;
     }
 
     ngOnDestroy() {

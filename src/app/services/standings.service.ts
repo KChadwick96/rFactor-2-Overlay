@@ -169,6 +169,9 @@ export class StandingsService {
             this._focusedDriver = processed;
         }
 
+        // If Driver is AI Controlled and pitting, means driver has escaped to monitor
+        processed.hasEscaped = entry.pitting && entry.inControl === 'AI';
+
         return processed;
     }
 

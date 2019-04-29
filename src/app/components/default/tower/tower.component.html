@@ -56,9 +56,9 @@
             <img src="{{ _getTyreImage(entry) }}" />
         </div>
 
-        <!-- PIT graphic -->
-        <div class="entry__pit" *ngIf="entry.pitting">
-            PIT
+        <!-- PIT/DNF graphic -->
+        <div class="entry__pit" *ngIf="_showPitStatus(entry) != null">
+            {{ _showPitStatus(entry) }}
         </div>
     </div>
 </div>

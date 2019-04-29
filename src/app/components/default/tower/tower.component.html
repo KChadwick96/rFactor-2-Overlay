@@ -9,11 +9,14 @@
         </div>
 
         <!-- Gap to fastest -->
-        <div class="entry__gap" *ngIf="mode === 'FASTEST_LAP_GAP' && entry.bestLapTime !== -1">
-            <span *ngIf="entry.position === 1">
+        <div class="entry__gap" *ngIf="mode === 'FASTEST_LAP_GAP'">
+            <span *ngIf="entry.bestLapTime === -1">
+                NO TIME
+            </span>
+            <span *ngIf="entry.position === 1 && entry.bestLapTime !== -1">
                 {{ entry.bestLapTime | minutesAndSeconds:true:false }}
             </span>
-            <span *ngIf="entry.position > 1">
+            <span *ngIf="entry.position > 1 && entry.bestLapTime !== -1">
                 {{ entry.gapToLeader }}
             </span>
         </div>

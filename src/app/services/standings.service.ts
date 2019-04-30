@@ -124,7 +124,6 @@ export class StandingsService {
             };
 
             this._sessionFastestLapCheck(lastLap);
-            this._sessionFastestSectorCheck();
 
             processed.currentLap = this._getEmptyLap();
         }
@@ -250,8 +249,16 @@ export class StandingsService {
      * @param personalBest - Personal Best to compare against
      */
     _getLapState(sectorKey: string, current: number, personalBest: Lap): State {
+
+        // check if sector 1, 2, 3 or total in order to determine whether or not
+        // to check against overallBestLap(total) or overBestSectors(1,2 or 3)
+
         if (!this._overallBestLap || current < this._overallBestLap[sectorKey]) {
+            // need to update overallBestSectors here with current
+            this._setFastestSector(sectorKey, current);
+
             return State.SessionBest;
+
         } else if (!personalBest || current < personalBest[sectorKey]) {
             return State.PersonalBest;
         } else {
@@ -282,14 +289,14 @@ export class StandingsService {
     }
 
     /**
-     * If sector is fastest overall, then update best sector array
-     * */
-    _sessionFastestSectorCheck() {
-        this._overallBestSectors = {
-            sector1: 20.356,
-            sector2: 27.482,
-            sector3: 29.172
-        };
+     * Update sector with new best time
+     * @param sectorKey - Sector to evaluate
+     * @param sectorTime - Sector time in seconds
+     */
+    _setFastestSector(sectorKey: string, sectorTime: number, ) {
+        if (sectorKey && sectorTime) {
+            this._overallBestSectors[sectorKey] = sectorTime;
+        }
     }
 
     /**

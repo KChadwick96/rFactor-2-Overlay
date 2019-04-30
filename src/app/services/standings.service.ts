@@ -3,7 +3,7 @@ import { sortBy, isEmpty } from 'lodash';
 
 import { ConfigService } from './config.service';
 import { LiveService } from './live.service';
-import { Entry, ProcessedEntry, Lap, State, SectorFlag, SectorFlags } from '../interfaces';
+import { Entry, ProcessedEntry, Lap, State, SectorFlag, SectorFlags, Sectors } from '../interfaces';
 
 @Injectable()
 export class StandingsService {
@@ -16,7 +16,7 @@ export class StandingsService {
     private _overallBestLap: Lap;
     private _focusedDriver: ProcessedEntry;
     private _sectorFlags: SectorFlags;
-
+    private _overallBestSectors: Sectors;
 
     get currentStandings(): Array<ProcessedEntry> {
         return this._currentStandings;
@@ -28,6 +28,10 @@ export class StandingsService {
 
     get overallBestLap(): Lap {
         return this._overallBestLap;
+    }
+
+    get overallBestSectors(): Sectors {
+        return this._overallBestSectors;
     }
 
     get focusedDriver(): ProcessedEntry {
@@ -120,6 +124,7 @@ export class StandingsService {
             };
 
             this._sessionFastestLapCheck(lastLap);
+            this._sessionFastestSectorCheck();
 
             processed.currentLap = this._getEmptyLap();
         }
@@ -274,6 +279,17 @@ export class StandingsService {
         if (isEmpty(this._overallBestLap) || this._overallBestLap.total > lap.total) {
             this._overallBestLap = lap;
         }
+    }
+
+    /**
+     * If sector is fastest overall, then update best sector array
+     * */
+    _sessionFastestSectorCheck() {
+        this._overallBestSectors = {
+            sector1: 20.356,
+            sector2: 27.482,
+            sector3: 29.172
+        };
     }
 
     /**

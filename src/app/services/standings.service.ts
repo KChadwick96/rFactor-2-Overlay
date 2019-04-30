@@ -293,7 +293,7 @@ export class StandingsService {
      * @param sectorKey - Sector to evaluate
      * @param sectorTime - Sector time in seconds
      */
-    _setFastestSector(sectorKey: string, sectorTime: number, ) {
+    _setFastestSector(sectorKey: string, sectorTime: number) {
         if (sectorKey && sectorTime) {
             this._overallBestSectors[sectorKey] = sectorTime;
         }

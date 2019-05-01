@@ -16,7 +16,7 @@ export class StandingsService {
     private _overallBestLap: Lap;
     private _focusedDriver: ProcessedEntry;
     private _sectorFlags: SectorFlags;
-    private _overallBestSectors: Sectors;
+    private _overallBestSectors: Array<Sectors>;
 
     get currentStandings(): Array<ProcessedEntry> {
         return this._currentStandings;
@@ -30,7 +30,7 @@ export class StandingsService {
         return this._overallBestLap;
     }
 
-    get overallBestSectors(): Sectors {
+    get overallBestSectors(): Array<Sectors> {
         return this._overallBestSectors;
     }
 
@@ -77,6 +77,8 @@ export class StandingsService {
         this._currentStandings = [];
         this._focusedDriver = null;
         this._overallBestLap = null;
+        this._overallBestSectors = [];
+
     }
 
     /**
@@ -249,14 +251,14 @@ export class StandingsService {
      * @param personalBest - Personal Best to compare against
      */
     _getLapState(sectorKey: string, current: number, personalBest: Lap): State {
+        if (sectorKey.includes('sector')) {
+            if (!this._overallBestSectors[sectorKey] || current < this._overallBestSectors[sectorKey]) {
+                this._setFastestSector(sectorKey, current);
+                return State.SessionBest;
+            }
+        }
 
-        // check if sector 1, 2, 3 or total in order to determine whether or not
-        // to check against overallBestLap(total) or overBestSectors(1,2 or 3)
-
-        if (!this._overallBestLap || current < this._overallBestLap[sectorKey]) {
-            // need to update overallBestSectors here with current
-            this._setFastestSector(sectorKey, current);
-
+        if (sectorKey.includes('total') && (!this._overallBestLap || current < this._overallBestLap[sectorKey])) {
             return State.SessionBest;
 
         } else if (!personalBest || current < personalBest[sectorKey]) {

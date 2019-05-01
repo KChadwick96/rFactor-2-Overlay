@@ -16,7 +16,7 @@ export class StandingsService {
     private _overallBestLap: Lap;
     private _focusedDriver: ProcessedEntry;
     private _sectorFlags: SectorFlags;
-    private _overallBestSectors: Array<Sectors>;
+    private _overallBestSectors: Sectors;
 
     get currentStandings(): Array<ProcessedEntry> {
         return this._currentStandings;
@@ -30,7 +30,7 @@ export class StandingsService {
         return this._overallBestLap;
     }
 
-    get overallBestSectors(): Array<Sectors> {
+    get overallBestSectors(): Sectors {
         return this._overallBestSectors;
     }
 
@@ -77,7 +77,7 @@ export class StandingsService {
         this._currentStandings = [];
         this._focusedDriver = null;
         this._overallBestLap = null;
-        this._overallBestSectors = [];
+        this._overallBestSectors = {sector1: null, sector2: null, sector3: null};
 
     }
 
@@ -145,6 +145,7 @@ export class StandingsService {
             const gap = (gapValue > 0 ? '+' : '') + gapValue.toFixed(3);
 
             const sector2RealTime = entry.currentSectorTime2 - entry.currentSectorTime1;
+
             // gap state + and assign to entry
             const state = this._getSectorState('sector2', sector2RealTime, previousEntry.bestLap);
             processed.gapEvent = {state, gap};

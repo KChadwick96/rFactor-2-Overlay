@@ -3,7 +3,7 @@ import { sortBy, isEmpty } from 'lodash';
 
 import { ConfigService } from './config.service';
 import { LiveService } from './live.service';
-import { Entry, ProcessedEntry, Lap, State, SectorFlag, SectorFlags } from '../interfaces';
+import { Entry, ProcessedEntry, Lap, State, SectorFlag, SectorFlags, Sectors } from '../interfaces';
 
 @Injectable()
 export class StandingsService {
@@ -16,7 +16,7 @@ export class StandingsService {
     private _overallBestLap: Lap;
     private _focusedDriver: ProcessedEntry;
     private _sectorFlags: SectorFlags;
-
+    private _overallBestSectors: Sectors;
 
     get currentStandings(): Array<ProcessedEntry> {
         return this._currentStandings;
@@ -28,6 +28,10 @@ export class StandingsService {
 
     get overallBestLap(): Lap {
         return this._overallBestLap;
+    }
+
+    get overallBestSectors(): Sectors {
+        return this._overallBestSectors;
     }
 
     get focusedDriver(): ProcessedEntry {
@@ -73,6 +77,8 @@ export class StandingsService {
         this._currentStandings = [];
         this._focusedDriver = null;
         this._overallBestLap = null;
+        this._overallBestSectors = {sector1: null, sector2: null, sector3: null};
+
     }
 
     /**
@@ -96,7 +102,7 @@ export class StandingsService {
             // current lap data on previous entry holds last lap data now
             const lastLap = previousEntry.currentLap;
             lastLap.sector3 = entry.lastLapTime - entry.lastSectorTime2;
-            lastLap.sector3State = this._getLapState('sector3', lastLap.sector3, previousEntry.bestLap);
+            lastLap.sector3State = this._getSectorState('sector3', lastLap.sector3, previousEntry.bestLap);
             lastLap.total = entry.lastLapTime;
             lastLap.driver = entry;
             processed.lastLap = lastLap;
@@ -138,8 +144,10 @@ export class StandingsService {
             }
             const gap = (gapValue > 0 ? '+' : '') + gapValue.toFixed(3);
 
+            const sector2RealTime = entry.currentSectorTime2 - entry.currentSectorTime1;
+
             // gap state + and assign to entry
-            const state = this._getLapState('sector2', entry.currentSectorTime2, previousEntry.bestLap);
+            const state = this._getSectorState('sector2', sector2RealTime, previousEntry.bestLap);
             processed.gapEvent = {state, gap};
             processed.currentLap.sector2State = state;
             processed.currentLap.sector2 = entry.currentSectorTime2 - entry.currentSectorTime1;
@@ -150,7 +158,7 @@ export class StandingsService {
             const gap = (gapValue > 0 ? '+' : '') + gapValue.toFixed(3);
 
             // gap state + and assign to entry
-            const state = this._getLapState('sector1', entry.currentSectorTime1, previousEntry.bestLap);
+            const state = this._getSectorState('sector1', entry.currentSectorTime1, previousEntry.bestLap);
             processed.gapEvent = {state, gap};
 
             processed.currentLap.sector1State = state;
@@ -239,20 +247,41 @@ export class StandingsService {
     }
 
     /**
-     * Based on sector and time passed, evaluates whether PB, SB or DOWN
-     * @param sectorKey - Sector to evaluate
-     * @param current - Sector time in seconds
+     * Based on lap time passed, evaluates whether PB, SB or DOWN
+     * @param totalKey - Sector to evaluate
+     * @param time - Sector time in seconds
      * @param personalBest - Personal Best to compare against
      */
-    _getLapState(sectorKey: string, current: number, personalBest: Lap): State {
-        if (!this._overallBestLap || current < this._overallBestLap[sectorKey]) {
+    _getLapState(totalKey: string, time: number, personalBest: Lap): State {
+        if (totalKey.includes('total') && (!this._overallBestLap || time < this._overallBestLap[totalKey])) {
             return State.SessionBest;
-        } else if (!personalBest || current < personalBest[sectorKey]) {
+
+        } else if (!personalBest || time < personalBest[totalKey]) {
             return State.PersonalBest;
         } else {
             return State.Down;
         }
     }
+
+    /**
+     * Based on sector and time passed, evaluates whether PB, SB or DOWN
+     * @param sectorKey - Sector to evaluate
+     * @param current - Sector time in seconds
+     * @param personalBest - Personal Best to compare against
+     */
+    _getSectorState(sectorKey: string, current: number, personalBest: Lap): State {
+        if (sectorKey.includes('sector')) {
+            if (!this._overallBestSectors[sectorKey] || current <= this._overallBestSectors[sectorKey]) {
+                this._setFastestSector(sectorKey, current);
+                return State.SessionBest;
+            } else if (!personalBest || current < personalBest[sectorKey]) {
+                return State.PersonalBest;
+            } else {
+                return State.Down;
+            }
+        }
+    }
+
 
     /**
      * Takes a lapTime and calculates the gap to best e.g. +1.234
@@ -273,6 +302,17 @@ export class StandingsService {
     _sessionFastestLapCheck(lap: Lap) {
         if (isEmpty(this._overallBestLap) || this._overallBestLap.total > lap.total) {
             this._overallBestLap = lap;
+        }
+    }
+
+    /**
+     * Update sector with new best time
+     * @param sectorKey - Sector to evaluate
+     * @param sectorTime - Sector time in seconds
+     */
+    _setFastestSector(sectorKey: string, sectorTime: number) {
+        if (sectorKey && sectorTime) {
+            this._overallBestSectors[sectorKey] = sectorTime;
         }
     }
 

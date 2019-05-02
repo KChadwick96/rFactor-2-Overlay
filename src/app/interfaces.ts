@@ -52,6 +52,12 @@ export interface SectorFlags {
     sector3: SectorFlag;
 }
 
+export interface Sectors {
+    sector1: number;
+    sector2: number;
+    sector3: number;
+}
+
 export interface GapEvent {
     state: State;
     gap: string;

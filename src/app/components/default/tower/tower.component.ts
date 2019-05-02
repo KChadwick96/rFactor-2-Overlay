@@ -13,9 +13,9 @@ export class TowerComponent implements OnDestroy {
     mode: string;
     subscription: any;
     notification: any;
+    _session: string;
 
     public _isRace: boolean;
-
     private _raceSession: string;
     private _interval;
     private _schedules: any = {
@@ -50,6 +50,8 @@ export class TowerComponent implements OnDestroy {
         }
 
         const newSession = data.session;
+
+        this._session = data.session;
 
         this._isRace = newSession.includes('RACE');
 
@@ -141,10 +143,16 @@ export class TowerComponent implements OnDestroy {
         }
     }
 
-    _positionClass(position: number): string {
-        if (position > 10 && (this._raceSession === 'PRACTICE2' || this._raceSession === 'QUALIFY1')) {
+    _positionClass(entry: ProcessedEntry): string {
+        if (entry.position > 10 && (this._raceSession === 'PRACTICE2' || this._raceSession === 'QUALIFY1') && !entry.inGarage) {
             return 'entry__position--elim';
+        } else if (this._showDNFStatus(entry)) {
+            return 'entry__position--DNF';
         }
+    }
+
+    _dnfStatusClass(entry: ProcessedEntry): string {
+        return this._showDNFStatus(entry) ? 'entry--DNF' : '';
     }
 
     /**
@@ -152,16 +160,20 @@ export class TowerComponent implements OnDestroy {
      * @param entry Entry to evalutate
      */
     _shouldShowTiming(entry: ProcessedEntry): boolean {
-        return !(this._isRace && entry.pitting);
+        return !(this._isRace && entry.pitting && this._showDNFStatus(entry));
     }
 
     _showPitStatus(entry: ProcessedEntry): string {
-        if (entry.hasEscaped && this._isRace) {
+        if (this._showDNFStatus(entry)) {
             return 'DNF';
         } else if (entry.pitting) {
             return 'PIT';
         }
         return null;
+    }
+
+    _showDNFStatus(entry: ProcessedEntry): boolean {
+        return entry.inGarage && this._isRace && this.standings[0] != null && this.standings[0].lapsCompleted > 0;
     }
 
     ngOnDestroy() {

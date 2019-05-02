@@ -18,6 +18,10 @@
             background: #fbfbfb;
         }
 
+        &--DNF {
+            opacity: 0.5;
+        }
+
         &__position {
             flex: 0 0 33px;
             padding: 2px 0;
@@ -29,6 +33,10 @@
 
             &--elim {
                 background-color: #861000;
+            }
+
+            &--DNF {
+                visibility: hidden;
             }
         }
 

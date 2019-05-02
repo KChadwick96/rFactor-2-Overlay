@@ -169,9 +169,6 @@ export class StandingsService {
             this._focusedDriver = processed;
         }
 
-        // If Driver is AI Controlled and pitting, means driver has escaped to monitor
-        processed.hasEscaped = entry.pitting && entry.inControl === 'AI';
-
         return processed;
     }
 
@@ -183,7 +180,7 @@ export class StandingsService {
         const vehicle = this.liveService.getVehicleByName(entry.driverName);
 
         if (vehicle) {
-            return { ...entry, tyreCompound: vehicle.mFrontTireCompoundName };
+            return { ...entry, tyreCompound: vehicle.mFrontTireCompoundName, inGarage: vehicle.mInGarageStall === 1 };
         }
 
         return entry;

@@ -1,6 +1,6 @@
  <div [ngClass]="{container__standings_flags: notification === 'Active'}"class="container__standings">
-    <div class="entry" *ngFor="let entry of standings | slice:0:20">
-        <div class="entry__position" [ngClass]="_positionClass(entry.position)">
+    <div class="entry" [ngClass]="_dnfStatusClass(entry)" *ngFor="let entry of (_session == 'QUALIFY1' ? (standings | slice:0:10) : (standings | slice:0:20))">
+        <div class="entry__position" [ngClass]="_positionClass(entry)">
             {{ entry.position }}
         </div>
         <div class="entry__colour" [ngStyle]="{'background-color': entry.colour}"></div>
@@ -51,14 +51,18 @@
             </span>
         </div>
 
+        <div *ngIf="_showDNFStatus(entry)" class="entry__gap">
+            DNF
+        </div>
+
         <!-- Tyre -->
-        <div *ngIf="entry.tyreCompound" class="entry__tyre">
+        <div *ngIf="entry.tyreCompound && !_showDNFStatus(entry)" class="entry__tyre">
             <img src="{{ _getTyreImage(entry) }}" />
         </div>
 
-        <!-- PIT/DNF graphic -->
-        <div class="entry__pit" *ngIf="_showPitStatus(entry) != null">
-            {{ _showPitStatus(entry) }}
+        <!-- PIT graphic -->
+        <div class="entry__pit" *ngIf="entry.pitting && !_showDNFStatus(entry)">
+            PIT
         </div>
     </div>
 </div>

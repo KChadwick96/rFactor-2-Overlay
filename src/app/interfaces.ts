@@ -34,7 +34,7 @@ export interface ProcessedEntry extends Entry {
     colour?: string;
     flag?: string;
     tyreCompound?: string;
-    hasEscaped?: boolean;
+    inGarage?: boolean;
 }
 
 export interface Lap {

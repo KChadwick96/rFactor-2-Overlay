@@ -27,6 +27,9 @@ export interface ProcessedEntry extends Entry {
     lapsChecked: number;
     gapToLeader?: string;
     bestLap?: Lap;
+    bestSector1?: number;
+    bestSector2?: number;
+    bestSector3?: number;
     currentLap?: Lap;
     lastLap?: Lap;
     gapEvent?: GapEvent;

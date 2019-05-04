@@ -144,7 +144,7 @@ export class TowerComponent implements OnDestroy {
     }
 
     _positionClass(entry: ProcessedEntry): string {
-        if (entry.position > 10 && (this._raceSession === 'PRACTICE2' || this._raceSession === 'QUALIFY1') && !entry.inGarage) {
+        if (entry.position > 10 && (this._raceSession === 'PRACTICE2' || this._raceSession === 'QUALIFY1') && !this._showDNFStatus(entry)) {
             return 'entry__position--elim';
         } else if (this._showDNFStatus(entry)) {
             return 'entry__position--DNF';

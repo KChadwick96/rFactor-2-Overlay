@@ -203,7 +203,7 @@ export class StandingsService {
         const vehicle = this.liveService.getVehicleByName(entry.driverName);
 
         if (vehicle) {
-            return { ...entry, tyreCompound: vehicle.mFrontTireCompoundName };
+            return { ...entry, tyreCompound: vehicle.mFrontTireCompoundName, inGarage: vehicle.mInGarageStall === 1 };
         }
 
         return entry;

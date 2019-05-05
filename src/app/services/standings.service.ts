@@ -211,7 +211,7 @@ export class StandingsService {
         return entry;
     }
 
-    updateSectorFlags() {
+    updateSectorFlags(): void {
         const sectorFlags = this.liveService.getSectorFlags();
 
         if (sectorFlags) {
@@ -341,10 +341,12 @@ export class StandingsService {
      */
     _setFastestSector(sectorKey: string, sectorTime: number, driverName: string) {
         if (sectorKey && sectorTime) {
-            this._overallBestSectors[sectorKey] = sectorTime;
+            if (this._overallBestSectors[sectorKey] !== sectorTime) {
+                this._overallBestSectors[sectorKey] = sectorTime;
 
-            // use notification service to send sector, time and driver who set it
-            this.notificationService.sendNewFastestSector(sectorKey, sectorTime, driverName);
+                 // use notification service to send sector, time and driver who set it
+                this.notificationService.sendNewFastestSector(sectorKey, sectorTime, driverName);
+            }
         }
     }
 

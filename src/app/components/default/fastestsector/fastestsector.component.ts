@@ -1,11 +1,25 @@
 import { Component, Input } from '@angular/core';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 import { ProcessedEntry } from '../../../interfaces';
 import { NotificationService } from './../../../services/notification.service';
 
 @Component({
   selector: 'app-fastestsector',
   templateUrl: './fastestsector.component.html',
-  styleUrls: ['./fastestsector.component.scss']
+  styleUrls: ['./fastestsector.component.scss'],
+  animations: [
+    // the fade-in/fade-out animation.
+    trigger('simpleFadeAnimation', [
+      // the "in" style determines the "resting" state of the element when it is visible.
+      state('in', style({ opacity: 0.9 })),
+
+      // fade in when created.
+      transition(':enter', [style({ opacity: 0 }), animate(300)]),
+
+      // fade out when destroyed.
+      transition(':leave', animate(300, style({ opacity: 0 })))
+    ])
+  ]
 })
 export class FastestSectorComponent {
     private SHOW_DURATION = 10000;  // Duration to show the popup if a fastest lap is set
@@ -34,12 +48,13 @@ export class FastestSectorComponent {
 
         // set new fastest sector details
         if (newSector) {
-            this.newFastestSector = {
-                sector: newSector.sector,
-                time: newSector.time,
-                driver: newSector.driver
-            };
-        }
+          const sectorNumber = newSector.sector.match(/\d+/g).map(Number);
+          this.newFastestSector = {
+              sector: sectorNumber,
+              time: newSector.time,
+              driver: newSector.driver
+          };
+      }
 
         if (this._currentShownFastestSector != null) {
             // if fastest sector currently showing, cancel the SHOW_DURATION timeout

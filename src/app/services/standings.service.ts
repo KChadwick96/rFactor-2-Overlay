@@ -1,3 +1,4 @@
+import { NotificationService } from './notification.service';
 import { Injectable } from '@angular/core';
 import { sortBy, isEmpty } from 'lodash';
 
@@ -40,7 +41,8 @@ export class StandingsService {
 
     constructor(
         private config: ConfigService,
-        private liveService: LiveService
+        private liveService: LiveService,
+        private notificationService: NotificationService
     ) {}
 
     /**
@@ -341,7 +343,8 @@ export class StandingsService {
         if (sectorKey && sectorTime) {
             this._overallBestSectors[sectorKey] = sectorTime;
 
-            // use notification service to send sector and driver who set it from here
+            // use notification service to send sector, time and driver who set it
+            this.notificationService.sendNewFastestSector(sectorKey, sectorTime, driverName);
         }
     }
 

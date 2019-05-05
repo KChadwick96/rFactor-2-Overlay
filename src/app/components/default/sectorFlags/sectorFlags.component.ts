@@ -18,7 +18,7 @@ import { NotificationService } from './../../../services/notification.service';
       transition(':enter', [style({ opacity: 0 }), animate(300)]),
 
       // fade out when destroyed.
-      transition(':leave', animate(50, style({ opacity: 0 })))
+      transition(':leave', animate(300, style({ opacity: 0 })))
     ])
   ]
 })

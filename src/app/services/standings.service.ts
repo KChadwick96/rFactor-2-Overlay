@@ -298,7 +298,7 @@ export class StandingsService {
     _getSectorState(sectorKey: string, current: number, personalBestSector: number, driverName: string): State {
         if (sectorKey.includes('sector')) {
             if (!this._overallBestSectors[sectorKey] || current <= this._overallBestSectors[sectorKey]) {
-                this._setFastestSector(sectorKey, current);
+                this._setFastestSector(sectorKey, current, driverName);
                 return State.SessionBest;
             } else if (!personalBestSector || current <= personalBestSector) {
                 return State.PersonalBest;

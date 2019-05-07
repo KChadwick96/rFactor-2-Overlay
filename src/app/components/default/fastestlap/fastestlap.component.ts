@@ -1,11 +1,25 @@
 import { Component, Input } from '@angular/core';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 
 import { ProcessedEntry, Lap } from '../../../interfaces';
 
 @Component({
   selector: 'app-fastestlap',
   templateUrl: './fastestlap.component.html',
-  styleUrls: ['./fastestlap.component.scss']
+  styleUrls: ['./fastestlap.component.scss'],
+  animations: [
+    // the fade-in/fade-out animation.
+    trigger('simpleFadeAnimation', [
+      // the "in" style determines the "resting" state of the element when it is visible.
+      state('in', style({ opacity: 0.9 })),
+
+      // fade in when created.
+      transition(':enter', [style({ opacity: 0 }), animate(300)]),
+
+      // fade out when destroyed.
+      transition(':leave', animate(300, style({ opacity: 0 })))
+    ])
+  ]
 })
 export class FastestLapComponent {
     private SHOW_DURATION = 10000;  // Duration to show the popup if a fastest lap is set

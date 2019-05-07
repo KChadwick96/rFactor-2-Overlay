@@ -7,13 +7,22 @@ import { Observable, Subject } from 'rxjs';
 
 export class NotificationService {
   private subject = new Subject<any>();
+  private fastestSectorSubject = new Subject<any>();
 
   sendNotification(notification: string) {
-    this.subject.next({ notification });
-}
+      this.subject.next({ notification });
+  }
 
   getNotification(): Observable<any> {
-    return this.subject.asObservable();
-}
+      return this.subject.asObservable();
+  }
+
+  sendNewFastestSector(sectorKey: string, sectorTime: number, driverName: string) {
+    this.fastestSectorSubject.next({sector: sectorKey, time: sectorTime, driver: driverName});
+  }
+
+  getNewFastestSector(): Observable<any> {
+    return this.fastestSectorSubject.asObservable();
+  }
 
 }

@@ -1,0 +1,11 @@
+<div class="container__fastest-sector" *ngIf="newFastestSector != null" [@simpleFadeAnimation]="'in'">
+    <div class="top">
+        <span class="fastest-sector">SECTOR {{ newFastestSector.sector}}</span>
+    </div>
+    <div class="middle">
+        <span class="driver">{{ newFastestSector.driver | driverName:'last' }}</span>
+    </div>
+    <div class="bottom">
+        <span>{{ newFastestSector.time | minutesAndSeconds:true:false }}</span>
+    </div>
+</div>

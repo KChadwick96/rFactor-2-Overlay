@@ -2,6 +2,7 @@
     width: 270px;
     left: 100px;
     top: 105px;
+    transition: top 0.5s linear;
     position: absolute;
 
     .entry {
@@ -85,4 +86,5 @@
 
 .container__standings_flags {
     top: 130px !important;
+    transition: top 0.5s linear;
 }

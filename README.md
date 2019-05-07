@@ -9,7 +9,7 @@
 Built using Angular 7. This app uses an rFactor 2 REST API to fetch session info and provide a stream overlay. It currently uses an unreleased REST API client so breaking changes are likely once fully released.
 
 <p align="center">
-	<img  alt="Overlay" src="https://images-ext-2.discordapp.net/external/6xUGU5Xyidl5qCBN7CSufRrXxKV1c69TRiV-nQoVn1I/https/i.gyazo.com/thumb/1200/9fe2d842622c77399e3eaf136a6fcc67-jpg.jpg" width="900" >
+	<img  alt="Overlay" src="https://i.imgur.com/HrNJljr.jpg" width="900" >
 </p>
 
 ## Stream Setup
@@ -30,7 +30,7 @@ This has only been tested with OBS. To use other streaming software, you'll need
 
 ### rFactor 2
 
-Currently, rFactor does not expose the REST API needed for the overlay to work. To install this, move the contents of the **server-install** directory to the root of your rFactor 2 install e.g. `c:/Program Files/Steam/.../steamapps/common/rFactor 2`
+Currently, rFactor does not expose the REST API needed for the overlay to work.
 
 TODO: place overlay files into webdev folder
 TODO: Config setup

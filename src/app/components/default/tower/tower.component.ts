@@ -160,7 +160,7 @@ export class TowerComponent implements OnDestroy {
      * @param entry Entry to evalutate
      */
     _shouldShowTiming(entry: ProcessedEntry): boolean {
-        return !(this._isRace && entry.pitting && this._showDNFStatus(entry));
+        return !(this._isRace && (entry.pitting || this._showDNFStatus(entry)));
     }
 
     _showPitStatus(entry: ProcessedEntry): string {

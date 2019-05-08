@@ -28,8 +28,6 @@ export class FastestSectorComponent {
     _sessionData: any;
     _currentShownFastestSector: any;
     subscription: any;
-
-    @Input() standings: Array<ProcessedEntry>;
     newFastestSector: any;
 
     @Input()

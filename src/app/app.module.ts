@@ -14,6 +14,7 @@ import { SectorFlagsComponent } from './components/default/sectorFlags/sectorFla
 import { BannerEnduranceComponent } from './components/endurance/banner/banner.component';
 import { OnboardEnduranceComponent } from './components/endurance/onboard/onboard.component';
 import { TowerEnduranceComponent } from './components/endurance/tower/tower.component';
+import { WinnerComponent } from './components/default/winner/winner.component';
 
 import { ConfigService, StandingsService, LiveService } from './services';
 import { DriverNamePipe } from './pipes/driver-name.pipe';
@@ -33,7 +34,8 @@ const COMPONENTS = [
   SectorFlagsComponent,
   BannerEnduranceComponent,
   OnboardEnduranceComponent,
-  TowerEnduranceComponent
+  TowerEnduranceComponent,
+  WinnerComponent
 ];
 
 @NgModule({

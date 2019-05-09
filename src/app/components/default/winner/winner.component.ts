@@ -1,6 +1,5 @@
-import { ProcessedEntry } from './../../../interfaces';
 import { Component, Input } from '@angular/core';
-import { ThrowStmt } from '@angular/compiler';
+import { ProcessedEntry } from './../../../interfaces';
 
 @Component({
   selector: 'app-winner',

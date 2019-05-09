@@ -15,7 +15,7 @@
                 {{ entry.position > 1 ? entry.gapToLeader : (entry.bestLapTime | minutesAndSeconds:true:false) }}
             </ng-template>
             <ng-template #notStanding>
-                {{ (entry.pitting && entry.currentLap) ? 'NO TIME' : 'OUT LAP' }}
+                {{ (entry.pitting || entry.currentLap) ? 'NO TIME' : 'OUT LAP' }}
             </ng-template>
         </div>
 

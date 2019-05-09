@@ -18,25 +18,30 @@ export class StandingsService {
     private _focusedDriver: ProcessedEntry;
     private _sectorFlags: SectorFlags;
     private _overallBestSectors: Sectors;
+    private _lapDistance: number;
 
     get currentStandings(): Array<ProcessedEntry> {
         return this._currentStandings;
-    }
-
-    get sectorFlags(): SectorFlags {
-        return this._sectorFlags;
     }
 
     get overallBestLap(): Lap {
         return this._overallBestLap;
     }
 
+    get focusedDriver(): ProcessedEntry {
+        return this._focusedDriver;
+    }
+
+    get sectorFlags(): SectorFlags {
+        return this._sectorFlags;
+    }
+
     get overallBestSectors(): Sectors {
         return this._overallBestSectors;
     }
 
-    get focusedDriver(): ProcessedEntry {
-        return this._focusedDriver;
+    get lapDistance(): number {
+        return this._lapDistance;
     }
 
     constructor(
@@ -68,8 +73,10 @@ export class StandingsService {
             processed.push(processedEntry);
         });
 
-        this.updateSectorFlags();
         this._currentStandings = processed;
+        // additional propeties from live service
+        this.updateSectorFlags();
+        this.updateLapDistance();
     }
 
     /**
@@ -211,6 +218,9 @@ export class StandingsService {
         return entry;
     }
 
+    /*
+    * Fetches sector flags from live service
+    */
     updateSectorFlags(): void {
         const sectorFlags = this.liveService.getSectorFlags();
 
@@ -220,6 +230,20 @@ export class StandingsService {
                 sector2: sectorFlags[1],
                 sector3: sectorFlags[2]
             };
+        }
+    }
+
+    /*
+    * Fetches lap distance from live service
+    */
+    updateLapDistance(): void {
+        if (this._lapDistance) {
+            return;
+        }
+        const lapDistance = this.liveService.getLapDistance();
+
+        if (lapDistance) {
+            this._lapDistance = lapDistance;
         }
     }
 

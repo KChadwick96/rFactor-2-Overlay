@@ -11,6 +11,7 @@ export class LiveService {
 
     private _vehicles: Array<any> = [];
     private _sectorFlags: Array<SectorFlag> = [SectorFlag.Green, SectorFlag.Green, SectorFlag.Green];
+    private _lapDistance: number;
 
     constructor(
         private jsonp: Jsonp
@@ -30,6 +31,10 @@ export class LiveService {
         return this._sectorFlags;
     }
 
+    getLapDistance(): number {
+        return this._lapDistance;
+    }
+
     _fetch(): void {
         this._dataObservable().subscribe(data => {
             if (data.server_names_list.length === 0) {
@@ -40,6 +45,7 @@ export class LiveService {
             const serverData = data.server_data[serverName];
 
             this._vehicles = serverData.mVehicles;
+            this._lapDistance = serverData.mScoringInfo.mLapDist;
             this._sectorFlags = serverData.mScoringInfo.mSectorFlag;
         });
     }

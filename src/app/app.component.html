@@ -6,7 +6,7 @@
     <app-onboard [driver]="data?.focused_driver" [raceSession]="data?.session_info?.session" [standings]="data?.standings"></app-onboard>
     <app-fastestlap [fastestLap]="data?.overall_best_lap" [sessionData]="data?.session_info" [standings]="data?.standings"></app-fastestlap>
     <app-fastestsector [sessionData]="data?.session_info"></app-fastestsector>
-    <app-winner [sessionData]="data?.session_info" [standings]="data?.standings"></app-winner>
+    <app-winner [sessionData]="data?.session_info" [standings]="data?.standings" [lapDistance]="data?.lap_distance"></app-winner>
 </div>
 
 <div *ngIf="theme === 'endurance'">

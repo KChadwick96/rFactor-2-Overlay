@@ -51,8 +51,14 @@
             </span>
         </div>
 
+        <!-- DNF graphic -->
         <div *ngIf="_showDNFStatus(entry)" class="entry__gap">
             DNF
+        </div>
+
+        <!-- PIT graphic -->
+        <div  *ngIf="_showPitStatus(entry)" class="entry__pit">
+            PIT
         </div>
 
         <!-- Tyre -->
@@ -60,9 +66,6 @@
             <img src="{{ _getTyreImage(entry) }}" />
         </div>
 
-        <!-- PIT graphic -->
-        <div class="entry__pit" *ngIf="entry.pitting && !_showDNFStatus(entry)">
-            PIT
-        </div>
+
     </div>
 </div>

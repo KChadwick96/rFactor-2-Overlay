@@ -144,8 +144,12 @@ export class TowerComponent implements OnDestroy {
     }
 
     _positionClass(entry: ProcessedEntry): string {
-        if (entry.position > 10 && (this._raceSession === 'PRACTICE2' || this._raceSession === 'QUALIFY1') && !this._showDNFStatus(entry)) {
-            return 'entry__position--elim';
+        if (!this._showDNFStatus(entry)) {
+            if ((this._raceSession === 'PRACTICE2' || this._raceSession === 'QUALIFY1' && entry.position > 10)) {
+                    return 'entry__position--elim';
+                } else if (this._raceSession !== 'RACE' && entry.pitting) {
+                    return 'entry__position--pits';
+                }
         } else if (this._showDNFStatus(entry)) {
             return 'entry__position--DNF';
         }
@@ -163,13 +167,8 @@ export class TowerComponent implements OnDestroy {
         return !(this._isRace && (entry.pitting || this._showDNFStatus(entry)));
     }
 
-    _showPitStatus(entry: ProcessedEntry): string {
-        if (this._showDNFStatus(entry)) {
-            return 'DNF';
-        } else if (entry.pitting) {
-            return 'PIT';
-        }
-        return null;
+    _showPitStatus(entry: ProcessedEntry): boolean {
+        return (entry.pitting && this.mode !== 'BASIC' && !this._showDNFStatus(entry));
     }
 
     _showDNFStatus(entry: ProcessedEntry): boolean {

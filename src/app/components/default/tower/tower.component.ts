@@ -145,7 +145,7 @@ export class TowerComponent implements OnDestroy {
 
     _positionClass(entry: ProcessedEntry): string {
         if (!this._showDNFStatus(entry)) {
-            if ((this._raceSession === 'PRACTICE2' || this._raceSession === 'QUALIFY1' && entry.position > 10)) {
+            if (this._raceSession === 'PRACTICE2' || (this._raceSession === 'QUALIFY1' && entry.position > 10)) {
                     return 'entry__position--elim';
                 } else if (this._raceSession !== 'RACE' && entry.pitting) {
                     return 'entry__position--pits';
@@ -168,7 +168,7 @@ export class TowerComponent implements OnDestroy {
     }
 
     _showPitStatus(entry: ProcessedEntry): boolean {
-        return (entry.pitting && this.mode !== 'BASIC' && !this._showDNFStatus(entry));
+        return (entry.pitting && this._isRace && this.mode !== 'BASIC' && !this._showDNFStatus(entry));
     }
 
     _showDNFStatus(entry: ProcessedEntry): boolean {

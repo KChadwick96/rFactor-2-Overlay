@@ -26,7 +26,7 @@
             </span>
             <span *ngIf="entry.position > 1">
                 <span *ngIf="entry.lapsBehindLeader > 0">
-                    +{{entry.lapsBehindLeader }} Laps
+                    +{{entry.lapsBehindLeader }} {{entry.lapsBehindLeader != 1 ? 'Laps' : 'Lap'}}
                 </span>
                 <span *ngIf="entry.lapsBehindLeader == 0">
                     {{ entry.timeBehindLeader | secondsConvert:true }}
@@ -41,7 +41,7 @@
             </span>
             <span *ngIf="entry.position > 1">
                 <span *ngIf="entry.lapsBehindNext > 0">
-                    +{{entry.lapsBehindNext }} Laps
+                    +{{entry.lapsBehindNext }} {{entry.lapsBehindNext != 1 ? 'Laps' : 'Lap'}}
                 </span>
                 <span *ngIf="entry.lapsBehindNext == 0">
                     {{ entry.timeBehindNext | secondsConvert:true }}

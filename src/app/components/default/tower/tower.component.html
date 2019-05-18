@@ -10,15 +10,13 @@
 
         <!-- Gap to fastest -->
         <div class="entry__gap" *ngIf="mode === 'FASTEST_LAP_GAP'">
-            <span *ngIf="entry.bestLapTime === -1">
-                NO TIME
-            </span>
-            <span *ngIf="entry.position === 1 && entry.bestLapTime !== -1">
-                {{ entry.bestLapTime | minutesAndSeconds:true:false }}
-            </span>
-            <span *ngIf="entry.position > 1 && entry.bestLapTime !== -1">
-                {{ entry.gapToLeader }}
-            </span>
+            <span *ngIf="entry.bestLapTime !== -1; then bestLap else notStanding"></span>
+            <ng-template #bestLap>
+                {{ entry.position > 1 ? entry.gapToLeader : (entry.bestLapTime | minutesAndSeconds:true:false) }}
+            </ng-template>
+            <ng-template #notStanding>
+                {{ (entry.pitting || entry.lapsCompleted !== 0) ? 'NO TIME' : 'OUT LAP' }}
+            </ng-template>
         </div>
 
         <!-- Gap to leader -->
@@ -28,7 +26,7 @@
             </span>
             <span *ngIf="entry.position > 1">
                 <span *ngIf="entry.lapsBehindLeader > 0">
-                    +{{entry.lapsBehindLeader }} Laps
+                    +{{entry.lapsBehindLeader }} {{entry.lapsBehindLeader != 1 ? 'Laps' : 'Lap'}}
                 </span>
                 <span *ngIf="entry.lapsBehindLeader == 0">
                     {{ entry.timeBehindLeader | secondsConvert:true }}
@@ -43,7 +41,7 @@
             </span>
             <span *ngIf="entry.position > 1">
                 <span *ngIf="entry.lapsBehindNext > 0">
-                    +{{entry.lapsBehindNext }} Laps
+                    +{{entry.lapsBehindNext }} {{entry.lapsBehindNext != 1 ? 'Laps' : 'Lap'}}
                 </span>
                 <span *ngIf="entry.lapsBehindNext == 0">
                     {{ entry.timeBehindNext | secondsConvert:true }}

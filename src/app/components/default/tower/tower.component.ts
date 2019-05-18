@@ -17,6 +17,7 @@ export class TowerComponent implements OnDestroy {
 
     public _isRace: boolean;
     private _raceSession: string;
+    private _maxLaps: number;
     private _interval;
     private _schedules: any = {
         quali: [{
@@ -52,6 +53,7 @@ export class TowerComponent implements OnDestroy {
         const newSession = data.session;
 
         this._session = data.session;
+        this._maxLaps = data.maximumLaps;
 
         this._isRace = newSession.includes('RACE');
 
@@ -168,11 +170,16 @@ export class TowerComponent implements OnDestroy {
     }
 
     _showPitStatus(entry: ProcessedEntry): boolean {
-        return (entry.pitting && this.mode !== 'BASIC' && !this._showDNFStatus(entry));
+        return (entry.pitting && this.mode !== 'BASIC' && !this._showDNFStatus(entry) && !this._driverFinished(entry));
     }
 
     _showDNFStatus(entry: ProcessedEntry): boolean {
-        return entry.inGarage && this._isRace && this.standings[0] != null && this.standings[0].lapsCompleted > 0;
+        return entry.inGarage && this._isRace && this.standings[0] != null && this.standings[0].lapsCompleted > 0
+            && !this._driverFinished(entry);
+    }
+
+    _driverFinished(entry: ProcessedEntry): boolean {
+        return (entry.lapsCompleted + entry.lapsBehindLeader) >= this._maxLaps;
     }
 
     ngOnDestroy() {

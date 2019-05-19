@@ -150,7 +150,7 @@ export class StandingsService {
         // update lastLapHold and currentLap (if not pitting)
         processed.lastLapHold = this._updateLastLapHold(processed);
 
-        // have they just completed the 1st or 2nd sector but not the 3rd one
+        // have they just completed the 1st or 2nd sector
         if (entry.currentSectorTime1 !== -1 && entry.currentSectorTime2 !== -1) {
 
             // sector 2 completed
@@ -182,7 +182,7 @@ export class StandingsService {
             const state = this._getSectorState('sector1', entry.currentSectorTime1, previousEntry.bestSector1, entry.driverName);
             // is this their pb sector 1?
             if (state === State.SessionBest || state === State.PersonalBest) {
-                processed.bestSector2 = entry.currentSectorTime1;
+                processed.bestSector1 = entry.currentSectorTime1;
             }
             processed.gapEvent = {state, gap};
 

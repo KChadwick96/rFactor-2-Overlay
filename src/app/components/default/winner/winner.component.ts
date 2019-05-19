@@ -34,21 +34,21 @@ export class WinnerComponent {
     this.totalDistance = this._sessionData.maximumLaps * distance;
   }
 
-_isRaceFinished(): boolean {
-  if (!this.standings || !this._sessionData) {
-      return;
-  }
+  _isRaceFinished(): boolean {
+    if (!this.standings || !this._sessionData) {
+        return;
+    }
 
-  const lapsCompleted = this.standings[0].lapsCompleted;
-  const maximumLaps = this._sessionData.maximumLaps;
+    const lapsCompleted = this.standings[0].lapsCompleted;
+    const maximumLaps = this._sessionData.maximumLaps;
 
-  if (lapsCompleted === maximumLaps) {
-    this._setWinnerDetails();
-    return true;
-  } else {
-    this.winnerDetails = {};
+    if (lapsCompleted === maximumLaps && !this.winnerDetails) {
+      this._setWinnerDetails();
+      return true;
+    } else {
+      this.winnerDetails = null;
+    }
   }
-}
 
   _setWinnerDetails(): void {
     this.winnerDetails = {

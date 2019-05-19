@@ -149,7 +149,7 @@ export class TowerComponent implements OnDestroy {
         if (!this._showDNFStatus(entry)) {
             if (this._raceSession === 'PRACTICE2' || (this._raceSession === 'QUALIFY1' && entry.position > 10)) {
                     return 'entry__position--elim';
-                } else if (this._raceSession !== 'RACE' && entry.pitting) {
+                } else if (!this._isRace && entry.pitting) {
                     return 'entry__position--pits';
                 }
         } else if (this._showDNFStatus(entry)) {

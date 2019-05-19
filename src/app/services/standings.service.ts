@@ -79,6 +79,7 @@ export class StandingsService {
         this._currentStandings = [];
         this._focusedDriver = null;
         this._overallBestLap = null;
+        this._sectorFlags = null;
         this._overallBestSectors = this._getEmptyFastestSectors();
 
     }

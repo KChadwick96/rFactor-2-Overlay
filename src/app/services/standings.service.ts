@@ -78,7 +78,6 @@ export class StandingsService {
         this._focusedDriver = null;
         this._overallBestLap = null;
         this._overallBestSectors = {sector1: null, sector2: null, sector3: null};
-
     }
 
     /**
@@ -96,17 +95,30 @@ export class StandingsService {
 
         processed.gapToLeader = this._gapToBest(entry.bestLapTime);
 
-        // driver just completed a lap
-        if (entry.lapsCompleted - previousEntry.lapsChecked === 1 && entry.lastLapTime > -1) {
+        // if the value of total laps is not updated, update it using lapsCompleted
+        if(!processed.totalLaps && entry.lapsCompleted > 0) {
+            processed.totalLaps = entry.lapsCompleted;
+        } 
+
+        // driver could have just completed a lap
+        if (entry.lapsCompleted - previousEntry.totalLaps > 0 && entry.lastLapTime > -1) {
 
             // current lap data on previous entry holds last lap data now
             const lastLap = previousEntry.currentLap;
             lastLap.sector3 = entry.lastLapTime - entry.lastSectorTime2;
+
+            // sector 3 is valid, that means a lap is completed then update totalLaps and runLaps
+            if(lastLap.sector3 > 0) {
+                processed.totalLaps = previousEntry.totalLaps + 1;
+            }
+
             lastLap.sector3State = this._getSectorState('sector3', lastLap.sector3, previousEntry.bestSector3);
-            // is this their pb sector 3?
+            
+            // is this their personal best sector 3?
             if (lastLap.sector3State === State.SessionBest || lastLap.sector3State === State.PersonalBest) {
                 processed.bestSector3 = lastLap.sector3;
             }
+
             lastLap.total = entry.lastLapTime;
             lastLap.driver = entry;
             processed.lastLap = lastLap;
@@ -117,7 +129,7 @@ export class StandingsService {
             const gap = this._gapToBest(entry.lastLapTime);
             processed.gapEvent = {state, gap};
 
-            // is this their pb?
+            // is this their personal best lap?
             if (!previousEntry.bestLap || previousEntry.bestLap.total > lastLap.total) {
                 processed.bestLap = lastLap;
             }
@@ -133,12 +145,11 @@ export class StandingsService {
 
             processed.currentLap = this._getEmptyLap();
         }
-
-        // update laps checked, lastLapHold and currentLap (if not pitting)
-        processed.lapsChecked = entry.lapsCompleted;
+        
+        // update lastLapHold and currentLap (if not pitting)
         processed.lastLapHold = this._updateLastLapHold(processed);
 
-        // have they just completed the 1st or 2nd sector
+        // have they just completed the 1st or 2nd sector but not the 3rd one
         if (entry.currentSectorTime1 !== -1 && entry.currentSectorTime2 !== -1) {
 
             // sector 2 completed
@@ -160,8 +171,6 @@ export class StandingsService {
             processed.currentLap.sector2State = state;
             processed.currentLap.sector2 = sector2RealTime;
 
-
-
         } else if (entry.currentSectorTime1 !== -1) {
 
             // sector 1 completed
@@ -180,9 +189,18 @@ export class StandingsService {
             processed.currentLap.sector1 = entry.currentSectorTime1;
         }
 
-        // clear the drivers current lap if they enter the pits
+        if(processed.totalLaps - previousEntry.totalLaps === 1) {
+            // update the run laps as well
+            processed.runLaps = previousEntry.runLaps + 1;
+        }
+
+        /* 
+         * Clear the drivers current lap if they enter the pits
+         * and clear the count of laps for a run.
+         */
         if (processed.pitting) {
             processed.currentLap = this._getEmptyLap();
+            processed.runLaps = 0;
         }
 
         // colour, flag and focuseddriver
@@ -198,6 +216,7 @@ export class StandingsService {
      /**
      * Adds live data (e.g. Tyre compound) to the processed entry
      * @param entry - Entry to add data to
+     * @returns entry - the updated entry
      */
     _addLiveDataToEntry(entry: ProcessedEntry): ProcessedEntry {
         const vehicle = this.liveService.getVehicleByName(entry.driverName);
@@ -209,6 +228,9 @@ export class StandingsService {
         return entry;
     }
 
+    /** 
+     * Updates the overlay by adding the sector flag for the interested sector
+    */
     updateSectorFlags() {
         const sectorFlags = this.liveService.getSectorFlags();
 
@@ -224,6 +246,7 @@ export class StandingsService {
     /**
      * Fetches the last entry for the driver passed
      * @param driverName - RF2 Driver Name
+     * @returns the occurrences of processed entries containing the driver name
      */
     _getLastDriverEntry(driverName: string): ProcessedEntry {
         if (this._currentStandings == null) {
@@ -236,17 +259,20 @@ export class StandingsService {
     /**
      * Applies default values for the entry
      * @param raw - Raw data to apply defaults to
+     * @returns the default processed entry object
      */
     _applyEntryDefaults(raw: Entry): ProcessedEntry {
         return {
             ...raw,
-            lapsChecked: 0,
+            totalLaps: 0,
+            runLaps: 0,
             currentLap: this._getEmptyLap()
         };
     }
 
     /**
      * Gets empty lap object
+     * @returns the default lap object
      */
     _getEmptyLap(): Lap {
         return {
@@ -266,6 +292,7 @@ export class StandingsService {
      * @param totalKey - Sector to evaluate
      * @param time - Sector time in seconds
      * @param personalBest - Personal Best to compare against
+     * @returns the lap state object
      */
     _getLapState(totalKey: string, time: number, personalBest: Lap): State {
         if (totalKey.includes('total') && (!this._overallBestLap || time < this._overallBestLap[totalKey])) {
@@ -282,6 +309,7 @@ export class StandingsService {
      * @param sectorKey - Sector to evaluate
      * @param current - Sector time in seconds
      * @param personalBestSector - Personal Best to compare against
+     * @returns the sector state object
      */
     _getSectorState(sectorKey: string, current: number, personalBestSector: number): State {
         if (sectorKey.includes('sector')) {
@@ -300,6 +328,7 @@ export class StandingsService {
     /**
      * Takes a lapTime and calculates the gap to best e.g. +1.234
      * @param lapTime - Lap time in seconds to compare against best
+     * @returns a formatted string containing the gap to the best time
      */
     _gapToBest(lapTime: number): string {
         let gapValue = 0;
@@ -333,6 +362,7 @@ export class StandingsService {
     /**
      * Are we still showing last lap info
      * @param entry - Entry to check last lap hold
+     * @returns last lap hold
      */
     _updateLastLapHold(entry: ProcessedEntry): any {
         const hold = entry.lastLapHold;
@@ -348,6 +378,7 @@ export class StandingsService {
     /**
      * Take drivername and fetch flag from config
      * @param driverName - RF2 Driver Name
+     * @returns the driver's flag object
      */
     _getDriverFlag(driverName: string): string {
         driverName = driverName.toLowerCase();
@@ -363,6 +394,7 @@ export class StandingsService {
     /**
      * Take carclass and fetch colour from config
      * @param carClass - RF2 Car Class
+     * @returns team's colour object
      */
     _getTeamColour(carClass: string): string {
         carClass = carClass.toLowerCase();

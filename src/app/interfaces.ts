@@ -18,13 +18,14 @@ export interface Entry {
     readonly carClass: string;
     readonly slotID: number;
     readonly carStatus: string;
-    readonly lapsCompleted: number;
+    readonly lapsCompleted: number; // not reliable to get laps completed in a session
     readonly hasFocus: boolean;
     readonly inControl: string;
 }
 
 export interface ProcessedEntry extends Entry {
-    lapsChecked: number;
+    totalLaps: number; // it keeps track of the total laps of a session
+    runLaps?: number; // it keeps track of the number of laps of a run
     gapToLeader?: string;
     bestLap?: Lap;
     bestSector1?: number;

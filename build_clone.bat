@@ -1,1 +1,0 @@
-robocopy "E:\Francesco\dev\rFactor-2-Overlay\dist" "E:\Francesco\Games\rFactor 2\webdev" /E

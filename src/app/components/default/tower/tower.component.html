@@ -34,7 +34,7 @@
             </span>
             <span *ngIf="entry.position > 1">
                 <span *ngIf="entry.lapsBehindLeader > 0">
-                    +{{entry.lapsBehindLeader }} Laps
+                    +{{entry.lapsBehindLeader }} {{entry.lapsBehindLeader != 1 ? 'Laps' : 'Lap'}}
                 </span>
                 <span *ngIf="entry.lapsBehindLeader == 0">
                     {{ entry.timeBehindLeader | secondsConvert:true }}
@@ -49,7 +49,7 @@
             </span>
             <span *ngIf="entry.position > 1">
                 <span *ngIf="entry.lapsBehindNext > 0">
-                    +{{entry.lapsBehindNext }} Laps
+                    +{{entry.lapsBehindNext }} {{entry.lapsBehindNext != 1 ? 'Laps' : 'Lap'}}
                 </span>
                 <span *ngIf="entry.lapsBehindNext == 0">
                     {{ entry.timeBehindNext | secondsConvert:true }}
@@ -57,18 +57,19 @@
             </span>
         </div>
 
+        <!-- DNF graphic -->
         <div *ngIf="_showDNFStatus(entry)" class="entry__gap">
             DNF
+        </div>
+
+        <!-- PIT graphic -->
+        <div  *ngIf="_showPitStatus(entry)" class="entry__pit">
+            PIT
         </div>
 
         <!-- Tyre -->
         <div *ngIf="entry.tyreCompound && !_showDNFStatus(entry)" class="entry__tyre">
             <img src="{{ _getTyreImage(entry) }}" />
-        </div>
-
-        <!-- PIT graphic -->
-        <div *ngIf="entry.pitting && !_showDNFStatus(entry)" class="entry__pit" >
-            PIT
         </div>
     </div>
 </div>

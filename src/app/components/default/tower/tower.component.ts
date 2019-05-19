@@ -17,6 +17,7 @@ export class TowerComponent implements OnDestroy {
 
     public _isRace: boolean;
     private _raceSession: string;
+    private _maxLaps: number;
     private _interval;
     private _schedules: any = {
         quali: [{
@@ -52,6 +53,7 @@ export class TowerComponent implements OnDestroy {
         const newSession = data.session;
 
         this._session = data.session;
+        this._maxLaps = data.maximumLaps;
 
         this._isRace = newSession.includes('RACE');
 
@@ -144,8 +146,12 @@ export class TowerComponent implements OnDestroy {
     }
 
     _positionClass(entry: ProcessedEntry): string {
-        if (entry.position > 10 && (this._raceSession === 'PRACTICE2' || this._raceSession === 'QUALIFY1') && !this._showDNFStatus(entry)) {
-            return 'entry__position--elim';
+        if (!this._showDNFStatus(entry)) {
+            if (this._raceSession === 'PRACTICE2' || (this._raceSession === 'QUALIFY1' && entry.position > 10)) {
+                    return 'entry__position--elim';
+                } else if (this._raceSession !== 'RACE' && entry.pitting) {
+                    return 'entry__position--pits';
+                }
         } else if (this._showDNFStatus(entry)) {
             return 'entry__position--DNF';
         }
@@ -160,20 +166,20 @@ export class TowerComponent implements OnDestroy {
      * @param entry Entry to evalutate
      */
     _shouldShowTiming(entry: ProcessedEntry): boolean {
-        return !(this._isRace && entry.pitting && this._showDNFStatus(entry));
+        return !(this._isRace && (entry.pitting || this._showDNFStatus(entry)));
     }
 
-    _showPitStatus(entry: ProcessedEntry): string {
-        if (this._showDNFStatus(entry)) {
-            return 'DNF';
-        } else if (entry.pitting) {
-            return 'PIT';
-        }
-        return null;
+    _showPitStatus(entry: ProcessedEntry): boolean {
+        return (entry.pitting && this._isRace && this.mode !== 'BASIC' && !this._showDNFStatus(entry) && !this._driverFinished(entry));
     }
 
     _showDNFStatus(entry: ProcessedEntry): boolean {
-        return entry.inGarage && this._isRace && this.standings[0] != null && this.standings[0].lapsCompleted > 0;
+        return entry.inGarage && this._isRace && this.standings[0] != null && this.standings[0].lapsCompleted > 0
+            && !this._driverFinished(entry);
+    }
+
+    _driverFinished(entry: ProcessedEntry): boolean {
+        return (entry.lapsCompleted + entry.lapsBehindLeader) >= this._maxLaps;
     }
 
     ngOnDestroy() {

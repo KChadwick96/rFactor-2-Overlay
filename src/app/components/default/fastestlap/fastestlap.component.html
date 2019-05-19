@@ -1,4 +1,4 @@
-<div class="container__fastest-lap" *ngIf="newFastestLap != null">
+<div class="container__fastest-lap" *ngIf="newFastestLap != null" [@simpleFadeAnimation]="'in'">
     <div class="top">
         <span class="driver">{{ newFastestLap.driver.driverName | driverName:'full' }}</span>
         <span class="fastest-lap">Fastest Lap</span>

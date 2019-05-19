@@ -2,6 +2,7 @@
     width: 270px;
     left: 100px;
     top: 105px;
+    transition: top 0.5s linear;
     position: absolute;
 
     .entry {
@@ -38,6 +39,10 @@
             &--DNF {
                 visibility: hidden;
             }
+
+            &--pits {
+                background-color: #f0270da3;
+            }
         }
 
         &__colour {
@@ -60,6 +65,11 @@
             text-align: right;
             padding-right: 8px;
         }
+        
+        &__pit {
+            @extend .entry__gap;
+            color: #f0270d;
+        }
 
         &__tyre {
             flex: 0 0 25px;
@@ -70,19 +80,10 @@
                 width: 100%;
             }
         }
-
-        &__pit {
-            position: absolute;
-            left: 100%;
-            top: 0;
-            padding: 1px 4px;
-            height: 30px;
-            background-color: inherit;
-            color: #f0270d;
-        }
     }
 }
 
 .container__standings_flags {
     top: 130px !important;
+    transition: top 0.5s linear;
 }

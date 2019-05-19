@@ -1,3 +1,4 @@
+import { NotificationService } from './notification.service';
 import { Injectable } from '@angular/core';
 import { sortBy, isEmpty } from 'lodash';
 
@@ -40,7 +41,8 @@ export class StandingsService {
 
     constructor(
         private config: ConfigService,
-        private liveService: LiveService
+        private liveService: LiveService,
+        private notificationService: NotificationService
     ) {}
 
     /**
@@ -77,7 +79,8 @@ export class StandingsService {
         this._currentStandings = [];
         this._focusedDriver = null;
         this._overallBestLap = null;
-        this._overallBestSectors = {sector1: null, sector2: null, sector3: null};
+        this._overallBestSectors = this._getEmptyFastestSectors();
+
     }
 
     /**
@@ -96,9 +99,9 @@ export class StandingsService {
         processed.gapToLeader = this._gapToBest(entry.bestLapTime);
 
         // if the value of total laps is not updated, update it using lapsCompleted
-        if(!processed.totalLaps && entry.lapsCompleted > 0) {
+        if (!processed.totalLaps && entry.lapsCompleted > 0) {
             processed.totalLaps = entry.lapsCompleted;
-        } 
+        }
 
         // driver could have just completed a lap
         if (entry.lapsCompleted - previousEntry.totalLaps > 0 && entry.lastLapTime > -1) {
@@ -106,14 +109,11 @@ export class StandingsService {
             // current lap data on previous entry holds last lap data now
             const lastLap = previousEntry.currentLap;
             lastLap.sector3 = entry.lastLapTime - entry.lastSectorTime2;
-
             // sector 3 is valid, that means a lap is completed then update totalLaps and runLaps
-            if(lastLap.sector3 > 0) {
+            if (lastLap.sector3 > 0) {
                 processed.totalLaps = previousEntry.totalLaps + 1;
             }
-
-            lastLap.sector3State = this._getSectorState('sector3', lastLap.sector3, previousEntry.bestSector3);
-            
+            lastLap.sector3State = this._getSectorState('sector3', lastLap.sector3, previousEntry.bestSector3, entry.driverName);
             // is this their personal best sector 3?
             if (lastLap.sector3State === State.SessionBest || lastLap.sector3State === State.PersonalBest) {
                 processed.bestSector3 = lastLap.sector3;
@@ -145,7 +145,7 @@ export class StandingsService {
 
             processed.currentLap = this._getEmptyLap();
         }
-        
+
         // update lastLapHold and currentLap (if not pitting)
         processed.lastLapHold = this._updateLastLapHold(processed);
 
@@ -162,7 +162,7 @@ export class StandingsService {
             const sector2RealTime = entry.currentSectorTime2 - entry.currentSectorTime1;
 
             // gap state + and assign to entry
-            const state = this._getSectorState('sector2', sector2RealTime, previousEntry.bestSector2);
+            const state = this._getSectorState('sector2', sector2RealTime, previousEntry.bestSector2, entry.driverName);
             // is this their pb sector 2?
             if (state === State.SessionBest || state === State.PersonalBest) {
                 processed.bestSector2 = sector2RealTime;
@@ -178,7 +178,7 @@ export class StandingsService {
             const gap = (gapValue > 0 ? '+' : '') + gapValue.toFixed(3);
 
             // gap state + and assign to entry
-            const state = this._getSectorState('sector1', entry.currentSectorTime1, previousEntry.bestSector1);
+            const state = this._getSectorState('sector1', entry.currentSectorTime1, previousEntry.bestSector1, entry.driverName);
             // is this their pb sector 1?
             if (state === State.SessionBest || state === State.PersonalBest) {
                 processed.bestSector2 = entry.currentSectorTime1;
@@ -189,12 +189,12 @@ export class StandingsService {
             processed.currentLap.sector1 = entry.currentSectorTime1;
         }
 
-        if(processed.totalLaps - previousEntry.totalLaps === 1) {
+        if (processed.totalLaps - previousEntry.totalLaps === 1) {
             // update the run laps as well
             processed.runLaps = previousEntry.runLaps + 1;
         }
 
-        /* 
+        /*
          * Clear the drivers current lap if they enter the pits
          * and clear the count of laps for a run.
          */
@@ -228,10 +228,10 @@ export class StandingsService {
         return entry;
     }
 
-    /** 
+    /**
      * Updates the overlay by adding the sector flag for the interested sector
     */
-    updateSectorFlags() {
+    updateSectorFlags(): void {
         const sectorFlags = this.liveService.getSectorFlags();
 
         if (sectorFlags) {
@@ -288,6 +288,17 @@ export class StandingsService {
     }
 
     /**
+     * Gets empty sectors object
+     */
+    _getEmptyFastestSectors(): Sectors {
+        return {
+            sector1: null,
+            sector2: null,
+            sector3: null,
+        };
+    }
+
+    /**
      * Based on lap time passed, evaluates whether PB, SB or DOWN
      * @param totalKey - Sector to evaluate
      * @param time - Sector time in seconds
@@ -309,12 +320,12 @@ export class StandingsService {
      * @param sectorKey - Sector to evaluate
      * @param current - Sector time in seconds
      * @param personalBestSector - Personal Best to compare against
-     * @returns the sector state object
+     * @param driverName - Driver who set sector time
      */
-    _getSectorState(sectorKey: string, current: number, personalBestSector: number): State {
+    _getSectorState(sectorKey: string, current: number, personalBestSector: number, driverName: string): State {
         if (sectorKey.includes('sector')) {
             if (!this._overallBestSectors[sectorKey] || current <= this._overallBestSectors[sectorKey]) {
-                this._setFastestSector(sectorKey, current);
+                this._setFastestSector(sectorKey, current, driverName);
                 return State.SessionBest;
             } else if (!personalBestSector || current <= personalBestSector) {
                 return State.PersonalBest;
@@ -352,10 +363,16 @@ export class StandingsService {
      * Update sector with new best time
      * @param sectorKey - Sector to evaluate
      * @param sectorTime - Sector time in seconds
+     * @param driverName - Driver who set sector time
      */
-    _setFastestSector(sectorKey: string, sectorTime: number) {
+    _setFastestSector(sectorKey: string, sectorTime: number, driverName: string) {
         if (sectorKey && sectorTime) {
-            this._overallBestSectors[sectorKey] = sectorTime;
+            if (this._overallBestSectors[sectorKey] !== sectorTime) {
+                this._overallBestSectors[sectorKey] = sectorTime;
+
+                 // use notification service to send sector, time and driver who set it
+                this.notificationService.sendNewFastestSector(sectorKey, sectorTime, driverName);
+            }
         }
     }
 

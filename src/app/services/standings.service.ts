@@ -175,7 +175,7 @@ export class StandingsService {
             const state = this._getSectorState('sector1', entry.currentSectorTime1, previousEntry.bestSector1, entry.driverName);
             // is this their pb sector 1?
             if (state === State.SessionBest || state === State.PersonalBest) {
-                processed.bestSector2 = entry.currentSectorTime1;
+                processed.bestSector1 = entry.currentSectorTime1;
             }
             processed.gapEvent = {state, gap};
 

@@ -113,6 +113,9 @@ export class StandingsService {
             // sector 3 is valid, that means a lap is completed then update totalLaps and runLaps
             if (lastLap.sector3 > 0) {
                 processed.totalLaps = previousEntry.totalLaps + 1;
+                if(processed.driverName === "Frank Blates") {
+                    console.log("updated total laps: " + processed.totalLaps + " for " + processed.driverName);
+                }
             }
             lastLap.sector3State = this._getSectorState('sector3', lastLap.sector3, previousEntry.bestSector3, entry.driverName);
             // is this their personal best sector 3?
@@ -193,15 +196,21 @@ export class StandingsService {
         if (processed.totalLaps - previousEntry.totalLaps === 1) {
             // update the run laps as well
             processed.runLaps = previousEntry.runLaps + 1;
+            if(processed.driverName === "Frank Blates") {
+                console.log("runLaps updated to " + processed.runLaps + " for driver " + processed.driverName);
+            }
         }
 
-        /*
-         * Clear the drivers current lap if they enter the pits
-         * and clear the count of laps for a run.
+        /* 
+         * Clear the driver's current lap if they pit
+         * and clear the laps count for a run.
          */
         if (processed.pitting) {
             processed.currentLap = this._getEmptyLap();
             processed.runLaps = 0;
+            if(processed.driverName === "Frank Blates") {
+                console.log("runLaps cleared up for driver: " + processed.driverName);
+            }
         }
 
         // colour, flag and focuseddriver

@@ -89,6 +89,7 @@ export class StandingsService {
      * @param entry - Raw RF2 Entry
      */
     _processEntry(entry: Entry): ProcessedEntry {
+
         const previousEntry = this._getLastDriverEntry(entry.driverName);
 
         if (!previousEntry) {
@@ -99,55 +100,68 @@ export class StandingsService {
 
         processed.gapToLeader = this._gapToBest(entry.bestLapTime);
 
-        // if the value of total laps is not updated, update it using lapsCompleted
+        // if the value of total laps is not updated, then update it using lapsCompleted
         if (!processed.totalLaps && entry.lapsCompleted > 0) {
             processed.totalLaps = entry.lapsCompleted;
         }
 
         // driver could have just completed a lap
-        if (entry.lapsCompleted - previousEntry.totalLaps > 0 && entry.lastLapTime > -1) {
+        if (entry.lapsCompleted - previousEntry.totalLaps > 0) {
 
-            // current lap data on previous entry holds last lap data now
-            const lastLap = previousEntry.currentLap;
-            lastLap.sector3 = entry.lastLapTime - entry.lastSectorTime2;
-            // sector 3 is valid, that means a lap is completed then update totalLaps and runLaps
-            if (lastLap.sector3 > 0) {
+            /* This is a workaround allowing the laps of a run to be updated correctly. 
+             * Indeed, only the first lap of the session has last lap time with value 0,
+             * otherwise the value is -1 then the lap is not considered valid.
+             */
+            if(entry.lastLapTime === -1) {
+                processed.lastLapTime = 0;
+            }
+            
+            // sector 3 valid, then a lap has been just completed and totalLaps can be updated
+            if (processed.lastLapTime - entry.lastSectorTime2 > 0) {
                 processed.totalLaps = previousEntry.totalLaps + 1;
-                if(processed.driverName === "Frank Blates") {
-                    console.log("updated total laps: " + processed.totalLaps + " for " + processed.driverName);
+                // and restore the last lap time to 
+                processed.lastLapTime = entry.lastLapTime;
+            }
+            
+            // update the lap for processed only if the last lap is defined 
+            if(entry.lastLapTime > -1) {
+
+                // current lap data on previous entry holds last lap data now
+                const lastLap = previousEntry.currentLap;
+                lastLap.sector3 = entry.lastLapTime - entry.lastSectorTime2;
+
+                lastLap.sector3State = this._getSectorState('sector3', lastLap.sector3, previousEntry.bestSector3, entry.driverName);
+                // is this their personal best sector 3?
+                if (lastLap.sector3State === State.SessionBest || lastLap.sector3State === State.PersonalBest) {
+                    processed.bestSector3 = lastLap.sector3;
                 }
+
+                lastLap.total = entry.lastLapTime;
+                lastLap.driver = entry;
+                processed.lastLap = lastLap;
+    
+                // gap state + and assign to entry
+                const personalBest = isEmpty(previousEntry.bestLap) ? null : previousEntry.bestLap;
+                const state = this._getLapState('total', lastLap.total, personalBest);
+                const gap = this._gapToBest(entry.lastLapTime);
+                processed.gapEvent = {state, gap};
+    
+                // is this their personal best lap?
+                if (!previousEntry.bestLap || previousEntry.bestLap.total > lastLap.total) {
+                    processed.bestLap = lastLap;
+                }
+    
+                // keep the last lap info on screen
+                processed.lastLapHold = {
+                    counter: 0,
+                    lap: lastLap,
+                    gap, state
+                };
+    
+                this._sessionFastestLapCheck(lastLap);
+    
+                processed.currentLap = this._getEmptyLap();
             }
-            lastLap.sector3State = this._getSectorState('sector3', lastLap.sector3, previousEntry.bestSector3, entry.driverName);
-            // is this their personal best sector 3?
-            if (lastLap.sector3State === State.SessionBest || lastLap.sector3State === State.PersonalBest) {
-                processed.bestSector3 = lastLap.sector3;
-            }
-
-            lastLap.total = entry.lastLapTime;
-            lastLap.driver = entry;
-            processed.lastLap = lastLap;
-
-            // gap state + and assign to entry
-            const personalBest = isEmpty(previousEntry.bestLap) ? null : previousEntry.bestLap;
-            const state = this._getLapState('total', lastLap.total, personalBest);
-            const gap = this._gapToBest(entry.lastLapTime);
-            processed.gapEvent = {state, gap};
-
-            // is this their personal best lap?
-            if (!previousEntry.bestLap || previousEntry.bestLap.total > lastLap.total) {
-                processed.bestLap = lastLap;
-            }
-
-            // keep the last lap info on screen
-            processed.lastLapHold = {
-                counter: 0,
-                lap: lastLap,
-                gap, state
-            };
-
-            this._sessionFastestLapCheck(lastLap);
-
-            processed.currentLap = this._getEmptyLap();
         }
 
         // update lastLapHold and currentLap (if not pitting)
@@ -194,23 +208,17 @@ export class StandingsService {
         }
 
         if (processed.totalLaps - previousEntry.totalLaps === 1) {
-            // update the run laps as well
+            // increase the number of laps for the current run
             processed.runLaps = previousEntry.runLaps + 1;
-            if(processed.driverName === "Frank Blates") {
-                console.log("runLaps updated to " + processed.runLaps + " for driver " + processed.driverName);
-            }
         }
 
         /* 
          * Clear the driver's current lap if they pit
-         * and clear the laps count for a run.
+         * and reset the laps count for a run.
          */
         if (processed.pitting) {
             processed.currentLap = this._getEmptyLap();
             processed.runLaps = 0;
-            if(processed.driverName === "Frank Blates") {
-                console.log("runLaps cleared up for driver: " + processed.driverName);
-            }
         }
 
         // colour, flag and focuseddriver

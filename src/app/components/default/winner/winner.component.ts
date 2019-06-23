@@ -42,7 +42,7 @@ export class WinnerComponent {
     const lapsCompleted = this.standings[0].lapsCompleted;
     const maximumLaps = this._sessionData.maximumLaps;
 
-    if (lapsCompleted === maximumLaps && !this.winnerDetails) {
+    if (lapsCompleted >= maximumLaps && !this.winnerDetails) {
       this._setWinnerDetails();
       return true;
     } else {

@@ -82,6 +82,6 @@ export enum State {
 }
 
 export enum SectorFlag {
-   Green = 11,
+   Green = 13,
    Yellow = 1
 }

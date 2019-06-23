@@ -1,7 +1,7 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, Input, ViewEncapsulation } from '@angular/core';
 import { SectorFlag, SectorFlags } from './../../../interfaces';
-import { NotificationService } from './../../../services/notification.service';
+import { NotificationService } from 'src/app/services';
 
 @Component({
   encapsulation: ViewEncapsulation.None,

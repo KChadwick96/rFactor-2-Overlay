@@ -1,11 +1,14 @@
-<div class="container__fastest-sector" *ngIf="_isRaceFinished()" [@simpleFadeAnimation]="'in'">
-    <div class="top">
-        <span class="fastest-sector"></span>
+<div class="container__winner" *ngIf="_isRaceFinished() && showWinner" [@simpleFadeAnimation]="'in'">
+    <div class="info">
+        <span class="fastest-sector">Time {{ winnerDetails.time | durationFormat: 's':'hhmmss'}} </span>
     </div>
-    <div class="middle">
-        <span class="driver"></span>
+    <div class="info">
+        <span class="driver">Driver {{ winnerDetails.driver }}</span>
     </div>
-    <div class="bottom">
-        <span></span>
+    <div class="info">
+        <span>Team {{ winnerDetails.team}}</span>
+    </div>
+    <div class="info">
+        <span>Distance {{ winnerDetails.distance |  number: '1.2-3'}} Km</span>
     </div>
 </div>

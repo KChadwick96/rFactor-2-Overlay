@@ -1,0 +1,22 @@
+.container__winner {
+    width: 400px;
+    height: 128px;
+    right: 50%;
+    top: 50px;
+    position: absolute;
+    background-color: #ebebeb;
+    color: black;
+    border-radius: 10px;
+    border: 2px solid rgb(204, 204, 204);
+    font-weight: bold;
+    letter-spacing: 1px;
+    opacity: 0.85;
+
+    .info {
+        width: 100%;
+        height: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}

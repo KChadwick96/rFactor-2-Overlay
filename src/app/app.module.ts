@@ -16,13 +16,14 @@ import { OnboardEnduranceComponent } from './components/endurance/onboard/onboar
 import { TowerEnduranceComponent } from './components/endurance/tower/tower.component';
 import { WinnerComponent } from './components/default/winner/winner.component';
 
-import { ConfigService, StandingsService, LiveService, NotificationService } from './services';
+import { ConfigService, StandingsService, LiveService } from './services';
 import { DriverNamePipe } from './pipes/driver-name.pipe';
 import { MinutesAndSecondsPipe } from './pipes/minutes-and-seconds.pipe';
 import { SecondsConvertPipe } from './pipes/seconds-convert.pipe';
 import { SessionNamePipe } from './pipes/session-name.pipe';
 import { SessionTimerPipe } from './pipes/session-timer.pipe';
 import { DurationFormatPipe } from './pipes/duration-format.pipe';
+import { NotificationService } from './services/notification.service';
 
 
 const COMPONENTS = [

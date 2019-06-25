@@ -1,8 +1,7 @@
 import { Component, Input, OnDestroy } from '@angular/core';
 import TYRES from '../../../assets/tyres';
 import { ProcessedEntry } from '../../../interfaces';
-import { NotificationService } from 'src/app/services';
-
+import { NotificationService } from './../../../services/notification.service';
 
 @Component({
   selector: 'app-tower',

@@ -1,7 +1,6 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, Input } from '@angular/core';
-import { NotificationService } from 'src/app/services';
-
+import { NotificationService } from './../../../services/notification.service';
 
 @Component({
   selector: 'app-fastestsector',

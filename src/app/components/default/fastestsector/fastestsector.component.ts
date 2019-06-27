@@ -11,7 +11,7 @@ import { NotificationService } from './../../../services/notification.service';
     // the fade-in/fade-out animation.
     trigger('simpleFadeAnimation', [
       // the "in" style determines the "resting" state of the element when it is visible.
-      state('in', style({ opacity: 0.9 })),
+      state('in', style({ opacity: 0.90 })),
 
       // fade in when created.
       transition(':enter', [style({ opacity: 0 }), animate(300)]),

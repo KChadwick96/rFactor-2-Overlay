@@ -28,12 +28,17 @@ This has only been tested with OBS. To use other streaming software, you'll need
    - **Height**: 1080
    - **FPS**: 30
 
+### Build Overlay
+
+- To build, simply run `npm run build` (This will create a dist folder with all the compiled files)
+- Create a folder called `webdev` inside your rFactor 2 install
+- Move the compiled files to the `webdev` folder
+
 ### rFactor 2
 
 Currently, rFactor does not expose the REST API needed for the overlay to work.
 
-TODO: place overlay files into webdev folder
-TODO: Config setup
+Copy the **net.rfactor2.webdev.jar** plugin in this repo in to your `Bin/Bundles` within your rFactor 2 install. This will expose session data to the overlay and creates a webserver that serves the `webdev` folder mentioned above.
 
 ## Development Setup
 
@@ -48,11 +53,6 @@ Then run the following commands
 ```sh
 npm install
 ```
-
-### Build
-
-To build, simply run `npm run build`
-This will create a dist folder with all the compiled files. These can be moved to the webdev folder in your rFactor install (see **Stream Setup** > **rFactor 2** above)
 
 ## License
 
